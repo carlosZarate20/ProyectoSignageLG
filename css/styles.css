@@ -1,0 +1,831 @@
+/* Reset CSS*/
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+/* Fonts */
+
+@font-face {
+    font-family: "b-bold";
+    src: url('../fonts/Bryant/Bryant-Bold.otf');
+}
+@font-face {
+    font-family: "b-bold-condensed";
+    src: url('../fonts/Bryant/Bryant-BoldCondensed.otf');
+}
+@font-face {
+    font-family: "b-regular";
+    src: url('../fonts/Bryant/Bryant-Regular.otf');
+}
+@font-face {
+    font-family: "b-medium";
+    src: url('../fonts/Bryant/Bryant-Medium.otf');
+}
+@font-face {
+    font-family: "b-light";
+    src: url('../fonts/Bryant/Bryant-Light.otf');
+}
+@font-face {
+    font-family: "b-light-condensed";
+    src: url('../fonts/Bryant/Bryant-LightCondensed.otf');
+}
+/* Styling */
+
+/* Header */
+.header {
+    height: 80px;
+    width: 1920px;
+    background-color: #393939;
+    top: 0px;
+    left: 0px;
+}
+.headerImage {
+    height: 53px;
+    width: 583px;
+    margin-left: 40px;
+    margin-top: 14px;
+}
+
+/* Page */
+.content {
+    height: 1080px;
+    width: 1920px;
+    background-color: black;
+}
+
+/* Main Showcase */
+.showcase {
+    left: 40px;
+    top: 120px;
+    height: 526px;
+    width: 1384px;
+    position: absolute;
+    background-color: #680619;
+}
+.showcaseImg, .showcaseText {
+    float: left;
+}
+
+/* Showcase Text */
+.showcaseText {
+    margin-left: 34px;
+    margin-top: 60px;
+}
+.heading {
+    color: #fff;
+    position: absolute;
+}
+.heading1 {
+    font: 52px museo-sans-500;
+    top: 60px;
+}
+.heading2 {
+    font: 30px museo-sans-500;
+    top: 120px;
+}
+.heading3 {
+    font: 23px museo-sans-500;
+    top: 280px;
+}
+.showcaseContent {
+    color: #c98390;
+    font: 23px museo-sans-300;
+    top: 325px;
+    position: absolute;
+}
+.bannerImg {
+    left:0px;
+    top: 0px;
+    height: 1080px;
+    width: 1920px;
+    position: absolute;
+}
+.bannerImgText, .bannerImgOverlayText, .bannerImgOverlayContent {
+    position: absolute;
+}
+.bannerImgText {
+    top: 0px;
+    height: 1080px;
+    width: 1920px;
+    opacity: 0.7;
+    background-color: #000000;
+}
+.bannerImgOverlayText {
+    top: 25px;
+    font: 38px museo-sans-500;
+    color: #fff;
+    left: 35px;
+}
+.bannerImgOverlayContent {
+    top: 77px;
+    font: 23px museo-sans-300;
+    color: #fff;
+    left: 35px;
+}
+/* Text Section Of News */
+.textSection {
+    position: absolute;
+    left: 740px;
+    top: 662px;
+    background-color: #e6e6e6;
+    height: 378px;
+    width: 684px;
+}
+.textSection .heading {
+    margin-left: 35px;
+    text-align: left;
+}
+.textSection .heading1 {
+    top: 28px;
+    font: 38px museo-sans-500;
+    color: #000;
+}
+.textSection .heading2 {
+    top: 70px;
+    font: 38px museo-sans-500;
+    color: #2e2e2e;
+}
+.textSection .heading3 {
+    top: 167px;
+    font: 23px museo-sans-500;
+    color: #2e2e2e;
+}
+.textSection .heading4 {
+    top: 212px;
+    font: 23px museo-sans-300;
+    color: #2e2e2e;
+    position: absolute;
+}
+
+.block-side {
+    border: 1px solid transparent;
+    height: 258px;
+    width: 460px;  
+
+
+}
+.block-side2 {
+    border: 1px solid transparent;
+    height: 258px;
+    width: 460px;  
+    margin-top: -17px;
+ 
+
+}
+
+.Prueba {
+    order: 1px solid transparent;
+    -webkit-mask-image:linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 10%,rgba(0,0,0,1) 95%,rgba(0,0,0,0));  
+}
+
+.NowNewsImage {
+    left:10px;
+    top: 840px;
+    font: 22px museo-sans-300;
+    height: 100px;
+    width: 100px;
+    color: #FFFFFF;
+    position: absolute;
+    margin-top: -20px;
+    float: left;
+    margin-left: 25px;
+}
+
+.borderCurrentDay {
+    margin-top: -114px;
+    margin-left: -5px;
+    width: 110px;
+    height: 115px;
+
+}
+/* Side Block */
+.sideRight {
+    left: 1420px;
+    top: 19px;
+    bottom : 19px;
+    height: 1032px;
+    width: 462px;
+    position: absolute;
+}
+.sideLeft {
+    left: 15px;
+    top: 19px;
+    bottom : 19px ;
+    height: 1032px;
+    width: 462px;
+    position: absolute;
+}
+
+
+/* Commomn Block */
+.asideBlock {
+
+    height: 115px;
+    width: 416px;
+    position: relative;
+    margin-left: 40px;
+}
+.asideBlock2 {
+    top: 68px;
+    height: 115px;
+    width: 416px;
+    position: relative;
+    margin-left: 5px;
+}
+.asideBlock3 {
+    top: 55px;
+    height: 115px;
+    width: 416px;
+    position: relative;
+    margin-left: 45px;
+}
+.asideBlock4 {
+    top: 75px;
+    height: 115px;
+    width: 416px;
+    position: relative;
+    margin-left: 45px;
+}
+.asideBlockMini {
+    height: 40px;
+    margin-left: 40px;
+}
+/* Pattern 1 - 2 Line */
+.asideBlockPattern1C1 {
+    top: 31px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: right;
+}
+.asideBlockPattern1C2 {
+    top: 70px;
+    font: 20px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+
+/* Pattern 2 - 3 Line */
+.asideBlockPattern2C1 {
+    top: 21px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.asideBlockPattern2C2 {
+    top: 47px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.asideBlockPattern2C3 {
+    top: 80px;
+    float: left;
+    font: 19px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+
+
+#tablaClima {   
+    margin-left: 35px;
+}
+
+#tablaClima > tr {    
+    font-family: "b-regular" ;
+    font-size :20px; 
+    color: #FFFFFF; 
+    text-align: center;    
+}
+ 
+ #tablaClima > tr > td {
+    padding-right : 30px;  
+ }
+
+ #tablaClima > tr:nth-child(1) > td:nth-child(1){
+
+    font-family : "b-bold";
+ }
+ #tablaClima > tr:nth-child(2) > td:nth-child(1){
+  font-family : "b-bold";  
+ }
+ #tablaClima > tr:nth-child(3) > td:nth-child(1){
+  font-family : "b-bold";  
+ }
+
+
+
+
+.minmaxtempTitleBorder {
+    top: -6px;
+    left: -33px;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+
+.minmaxtempTitle td {
+    font-family : "b-regular";
+    font-size: 20px;
+    padding: 4px;
+    padding-left: 30px;
+}
+
+.minTempArray {
+    top: 47px;
+    float: left;
+    font: 19px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.maxTempArray {
+    top: 80px;
+    float: left;
+    font: 19px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+/* Pattern 2 - 3 Line */
+.NowPlayingImage {
+    left:10px;
+    top: 21px;
+    font: 22px museo-sans-300;
+    height: 200px;
+    width: 200px;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+
+.NowPlaying1 {
+     
+    
+    font-family: 'b-regular';
+    font-size: 15px;
+    color: #FFFFFF;   
+    
+}
+.NowPlaying2 {
+    
+    font-family : 'b-medium';
+    font-size: 18px;
+    color: #FFFFFF;
+
+    
+}
+.NowPlaying3{
+    
+    font-family: 'b-bold';
+    font-size: 30px;
+    color: #FFFFFF;
+    
+}
+.NowPlaying4 {
+     font-family: 'b-regular';
+    font-size: 18px;
+    color: #FFFFFF;
+}
+.NowPlayingButtons{   
+    margin-top: 2px;         
+    font-size: 36px;
+    color: #FFFFFF;    
+}
+
+/* Pattern 2 - 3 Line */
+.ChecklistTitle {
+    top: 21px;
+    font: 17px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.ChecklistItem1 {
+    top: 47px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.ChecklistItem2 {
+    top: 80px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+/* Pattern 2 - 3 Line */
+.ChecklistItem3 {
+    top: 113px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.ChecklistItem4 {
+    top: 146px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.ChecklistItem5 {
+    top: 179px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+
+
+/* Pattern 2 - 3 Line */
+.DayPlanBold {
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    float: left;
+}
+.DayPlanLight {
+    font: 22px museo-sans-700;
+    color: #FFFFFF;
+    float: left;
+}
+.DayPlanItem1 {
+    top: 47px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.DayPlanItem2 {
+    top: 80px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.DayPlanItem3 {
+    top: 113px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.DayPlanItem4 {
+    top: 146px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.DayPlanItem5 {
+    top: 179px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+
+.weatherTodayLogo {        
+    font-family: 'b-bold-condensed';
+    font-size: 90px;
+    color: #FFFFFF;
+    position: relative;
+    display: inline;
+    margin-left: 15px;    
+}
+.TempMaxMin {
+    display: inline-block;
+    margin-left: 24px;
+}
+
+.weatherTodayType {
+    top: 70px;
+    font: 20px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.loginDeGmail{
+    font: 20px museo-sans-300;
+    color: #FFFFFF;
+
+}
+.loginDeGmail2{
+    font: 17px museo-sans-300;
+    color: #FFFFFF;
+
+}
+.weatherToday1 {
+    margin-left: 70px;
+    top: 0px;
+    float: left;
+    font: 50px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.weatherMax {
+    font-family: "b-regular";
+    font-size: 30px;
+    color: #FFFFFF;
+}
+.weatherMin {           
+    font-family: "b-regular";
+    font-size: 30px;
+    color: #FFFFFF;
+}
+
+
+.pictureWeather{
+    margin-top: -54px;
+    margin-left: 25px;
+    height: 62px;
+    width: 86px;
+}
+.Hora{
+    margin-top: -55px;    
+}
+
+
+.weatherMinTable {
+    margin-left:-10px;    
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: relative;
+}
+.weatherMaxTable {
+    margin-left: -10px;
+    margin-top: 40px;
+    
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: relative;
+}
+.weatherToday2 {
+    top: 47px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.weatherToday3 {
+    top: 80px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+
+
+.mictext1 {
+     margin-left: 140px;
+       margin-top: 40px;
+    top: 21px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+    display: none;
+}
+.mictext2 {
+    margin-left: 140px;
+        margin-top: 40px;
+    top: 47px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    display: none;
+}
+.mictext3 {
+     margin-left: 140px;
+         margin-top: 40px;
+    top: 80px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    display: none;
+}
+
+.Panel2Content1 {
+    top: 5px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.Panel2Content2 {
+    top: 31px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.Panel2Content3 {
+    top: 57px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.Panel2Content4 {
+    top: 83px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;    
+}
+.clock {
+    
+    font-family: "b-bold-condensed";
+    font-size : 115px;
+    color: #FFFFFF;    
+    text-align: right; 
+    padding-top: 35px;  
+
+}
+
+.clockdate {   
+    font-family: "b-light";
+    font-size : 39px;
+    color: #FFFFFF; 
+    margin-top: -32px;   
+    margin-left: 1px;
+    text-align: right;
+}
+
+.Panel2Title {
+    top: 45px;
+    float: left;
+    font: 42px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    margin-top: 147px;
+}
+.Panel2subtitle {
+    top: 87px;
+    float: left;
+    font: 20 museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;    
+    margin-top: 123px;
+    margin-left: 125px;
+
+}
+
+.logonotification {
+    top: 21px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.logonotification0 {
+    top: 76px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.logonotification1 {
+    top: 21px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.logonotification2 {
+    top: 76px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.logonotification3 {
+    top: 126px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.logonotification4 {
+    top: 176px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.notification {
+  margin-left: 40px;
+    top: 21px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+    margin-top: 121px;
+}
+.notification0 {
+  margin-left: 40px;
+    top: 76px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;    
+    margin-top: 122px;
+
+}
+.notification1 {
+  margin-left: 40px;
+    top: 21px;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    float: left;
+}
+.notification2 {
+      margin-left: 40px;
+    top: 76px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.notification3 {
+      margin-left: 40px;
+    top: 126px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+.notification4 {
+      margin-left: 40px;
+    top: 176px;
+    float: left;
+    font: 22px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+}
+
+
+.microphoneLogo {
+    margin-left: 100px;
+    top: 80px;
+    float: left;
+    font: 50px museo-sans-300;
+    color: #FFFFFF;
+    position: absolute;
+    display: none;
+}
+/* Side Blocks Seperator Line */
+.seperator {
+    width: 516px;
+    height: 1px;
+    background-color: #cccccc;
+    position: absolute;
+    left: 1364px;
+}
+
+/* Side Blocks Seperator Line */
+.seperator2 {
+    width: 416px;
+    height: 1px;
+     top: 80px;
+    background-color: #cccccc;
+    position: absolute;
+    left: 64px;
+}
+
+.line1 {
+    top: 234px;
+}
+.line2 {
+    top: 349px;
+}
+.line3 {
+    top: 464px;
+}
+.line4 {
+    top: 579px;
+}
+.line5 {
+    top: 694px;
+}
+.line6 {
+    top: 809px;
+}
+.line7 {
+    top: 924px;
+}
+.line8 {
+    top: 1039px;
+
+}
+
+  

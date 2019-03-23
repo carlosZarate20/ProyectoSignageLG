@@ -1,0 +1,115 @@
+{
+    "headerImage": "res/images/tpl_06_logo_harvard.png",
+ 
+    "showcaseImg": "res/images/tpl_06_img_main_01.png",
+    "heading1": "MAIN-HEADER1",
+    "heading2": "SUB-HEADER1",
+    "heading3": "DATE1",
+    "showcaseContent": "CONTENT1",
+
+    "bannerImg": "res/images/wallpaper.png",
+    "NowPlayingImage": "res/images/Music.png",
+    "NowNewsImage": "res/images/noticia.jpg",
+    
+    
+    
+    "weather_clear"  : "res/images/weather_clear.png",
+    "weather_clearnight"  : "res/images/weather_clearnight.png",  
+    "weather_cloudy": "res/images/weather_cloudy.png",
+    "weather_fog": "res/images/weather_fog.png",
+    "weather_partlycloudy": "res/images/weather_partlycloudy.png",
+    "weather_partlycloudynight": "res/images/weather_partlycloudynight.png",
+    "weather_rain": "res/images/weather_rain.png",
+    "weather_sleet": "res/images/weather_sleet.png",
+    "weather_snow": "res/images/weather_snow.png",
+    "weather_sunny": "res/images/weather_sunny.png",
+    "weather_wind": "res/images/weather_wind.png",
+
+
+    "borderClima": "res/images/border.png",
+    "bannerImgOverlayText": "OVERLAY SUB-TITLE",
+    "bannerImgOverlayContent": "OVERLAY CONTENT",
+    "textSectionH1": "MAIN-HEADER2-1",
+    "textSectionH2": "MAIN-HEADER2-2",
+    "textSectionH3": "DATE2",
+    "textSectionH4": "CONTENT2",
+
+    "asideBlock1Content1": "11:02 AM",
+    "asideBlock1Content2": "",
+    "asideBlock1Content3": "Viernes, 21 de Setiembre",
+
+    "notificationtext": "Juan Gomez te etiquetó en una foto que apareces - Hace 18 minutos",
+
+    "notification0text": "Michael Perez ha publicado despues de mucho tiempo - Hace 20 minutos",
+    "notification1text": "Amelia Earhart te etiquetó en una foto que apareces - Hace 32 minutos",
+    "notification2text": "Chris Hadfield comentó en tu estado - Hace 2 horas",
+    "notification3text": "Edwin retuitió tu publicación - Ayer a las 9 PM",
+    "notification4text": "Juan retwitteó la publicación de @RPPNOTICIAS - Ayer a las 11 PM",
+
+
+
+
+
+    "asideBlock3Content2": "",
+    "asideBlock3Content3": "",
+
+    "asideBlock4Content1": "Hilton",
+	"asideBlock4Content2": "Hotel & Resorts Room Services",
+
+    "asideBlock4Content3": "Almuerzo Buffet Criollo",
+    "asideBlock5Content1": "Transporte Solicitar Taxi",
+    "asideBlock5Content2": "Spa Reservar sesión de masajes",
+    "asideBlock5Content3": "VOD The Martin ya disponible",
+
+    "asideBlock6Content1": "Mirror mirror",
+    "asideBlock6Content2": "para acceder",
+    "asideBlock6Content3": "al comando de voz",
+
+    "asideBlock7Content1": "",
+    "asideBlock7Content2": "",
+    "asideBlock7Content3": "",
+
+    "asideBlock8Content1": "↑",
+    "asideBlock8Content2": "↓ ",
+    "asideBlock8Content3": "icon",
+
+    "asideBlock11Content1": "??°C",
+    "asideBlock11Content2": "↑ ??°C",
+    "asideBlock11Content3": "↓ ??°C",
+
+    "asideBlock12Content1": "Vi. . . Sa. . . Do. . Lu. . Ma. . .Mi. . Ju. . . Vi",
+    "asideBlock12Content2": "16 . . 15 . . 15 . . 16 . . 17 . . 17 . . 16",
+    "asideBlock12Content3": "14 . . 13 . . 14 . . 14 . . 13 . . 14 . . 13",
+
+    "asideBlock13Content1": "",
+    "asideBlock13Content2": "En 15 minutos",
+    "asideBlock13Content3": "En dos horas",
+
+    "asideBlock14Content1": "Hoy 5 PM",
+    "asideBlock14Content2": "Hoy 9 PM",
+    "asideBlock14Content3": "Mañana 10 AM",
+
+    "asideBlock13Content2X": "Lonche con mamá",
+    "asideBlock13Content3X": "Junta con jefatura",
+
+    "asideBlock14Content1X": "Cita peluquería",
+    "asideBlock14Content2X": "Boda Luis & Miguel",
+    "asideBlock14Content3X": "Desayuno Oficina",
+
+
+    "asideBlock15Content1": "Pendientes",
+    "asideBlock15Content2": "☒ Coordinar reunión empleados - Hoy",
+    "asideBlock15Content3": "☑ Sacar cita al dentista",
+
+    "asideBlock16Content1": "☒ Comprar flores para matri - Hoy",
+    "asideBlock16Content2": "☒ Presentación informe - Urgente",
+    "asideBlock16Content3": "☑ Recoger terno costurería",
+
+    "asideBlock17Content1": "Estás escuchando",
+    "asideBlock17Content2": "Paul McCartney",
+    "asideBlock17Content3": "Calico Skies",
+
+    "asideBlock18Content1": "Flaming Pie",
+    "asideBlock18Content2": "",
+    "asideBlock18Content3": ""
+}
