@@ -63,11 +63,47 @@
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);
                  //SETEO EL VALOR DEL BOOLEANO DE CLIMA EN ESTE CASO SE ENCUENTRA EN AL POSICION 1 DEL ARREGLO
+                 var bolsabooleano = arreglo[0];
+                 if (bolsabooleano == true) {
+                     document.getElementById('Bolsa').style.display = 'block';
+                 } else {
+                     document.getElementById('Bolsa').style.display = 'none';
+                 }
+
                  var climabooleano = arreglo[1];
                  if (climabooleano == true) {
                      document.getElementById('Clima').style.display = 'block';
                  } else {
                      document.getElementById('Clima').style.display = 'none';
+                 }
+
+                 var horabooelan = arreglo[2];
+                 if (horabooelan == true) {
+                     document.getElementById('Hora').style.display = 'block';
+                 } else {
+                     document.getElementById('Hora').style.display = 'none';
+                 }
+
+                 var noticiabooelan = arreglo[3];
+                 if (noticiabooelan == true) {
+                     document.getElementById('noticias').style.display = 'block';
+                 } else {
+                     document.getElementById('noticias').style.display = 'none';
+                 }
+
+                 /*var agendabooelan = arreglo[4];
+                 if (agendabooelan == true) {
+                     document.getElementById('Block1').style.display = 'block';
+                 } else {
+                     document.getElementById('Block1').style.display = 'none';
+                 }*/
+
+
+                 var correobooelan = arreglo[5];
+                 if (correobooelan == true) {
+                     document.getElementById('Correo').style.display = 'block';
+                 } else {
+                     document.getElementById('Correo').style.display = 'none';
                  }
              });
          }
