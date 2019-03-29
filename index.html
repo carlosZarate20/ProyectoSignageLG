@@ -8,6 +8,7 @@
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
     <link href="css/agenda.css" rel="stylesheet" type="text/css" />
     <link href="css/bolsa.css" rel="stylesheet" type="text/css" />
+    <link href="css/correo.css" rel="stylesheet" type="text/css" />
     <!-- DataBinder -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="fonts/fontawesome-5.1.3/css/all.min.css">
@@ -56,20 +57,6 @@
                <img class="borderCurrentDay" data-bind-templateSix="borderClima"/> 
                </div>
            </div>
-           <!--<div class ="block-side">
-               <div id="Clima" style="margin: 0px;">
-               <img class="pictureWeather" data-bind-templateSix="asideBlock11Content1"style="display: inline-block;"/> 
-               <div class="weatherTodayLogo" id ="logoClima"></div>                
-               
-               <div class="TempMaxMin">
-                  <div class="weatherMax" data-bind-templateSix="asideBlock11Content2"></div>
-                  <div class="weatherMin" data-bind-templateSix="asideBlock11Content3"></div>  
-               </div>      
-               
-               <TABLE class="minmaxTable" id ="tablaClima"></TABLE>                
-               <img class="borderCurrentDay" data-bind-templateSix="borderClima"/> 
-               </div>
-           </div>-->
            <div class ="block-side" id="Order5">
              <div class ="Planes" id="Block1">
                 <label class="stylePlanes">Tus planes para hoy </label>
@@ -146,65 +133,50 @@
            </div>
            <div class ="block-side2" id="Order6">
             <div id="Correo">
-            <label style = "color: white; font-family: 'b-regular'; font-size: 15px; margin-left: 25px;">Correo</label>    
-                    <div id="carouselExampleControls" style="margin-left: 25px;" class="carousel slide" data-ride="carousel"> <div class="carousel-inner">
-            
-    <div class="carousel-item active"> 
-
-      <label id ="ci11" style ="color: white;display:table;font-size: 20px;margin-left: 2px;margin-top:-6px;font-family: &quot;b-medium&quot;;height: 20px; word-wrap:break-word;">asunto</label>
-
-      <label id ="ci12" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 20px;">from</label>
-
-      <label  id ="ci13" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 20px;">date</label>
-
-      <label  id ="ci14" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 100px;">desc</label>
-    </div>
+              <label class="labelCorreo">Correo</label>    
+                <div id="carouselExampleControls" style="margin-left: 25px;" class="carousel slide" data-ride="carousel"> 
+                <div class="carousel-inner">
+                  <div class="carousel-item active"> 
+                    <label id ="ci11" class="carrouselAsunto">asunto</label>
+                    <label id ="ci12" class="carrouselFrom">from</label>
+                    <label id ="ci13" class="carrouselDate">date</label>
+                    <label id ="ci14" class="carrouselDesc">desc</label>
+                  </div>
 
 
-<div class="carousel-item">
+                  <div class="carousel-item">
+                    <label id ="ci21" class="carrouselAsunto">asunto</label>
+                    <label id ="ci22" class="carrouselFrom">from</label>
+                    <label id ="ci23" class="carrouselDate">date</label>
+                    <label id ="ci24" class="carrouselDesc">desc</label>
 
-   <label  id ="ci21" style ="color: white;display:table;font-size: 20px;margin-left: 2px;margin-top:-6px;font-family: &quot;b-medium&quot;;height: 20px; word-wrap:break-word;">asunto</label>
+                  </div>
 
-   <label  id ="ci22" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 20px;">from</label>
+                  <div class="carousel-item">
+                    <label id ="ci31" class="carrouselAsunto">asunto</label>
+                    <label id ="ci32" class="carrouselFrom">from</label>
+                    <label id ="ci33" class="carrouselDate">date</label>
+                    <label id ="ci34" class="carrouselDesc">desc</label>
+                  </div>
 
- <label  id ="ci23" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 20px;">date</label>
+                  <div class="carousel-item">
+                   <label id ="ci41" class="carrouselAsunto">asunto</label>
+                   <label id ="ci42" class="carrouselFrom">from</label>
+                   <label id ="ci43" class="carrouselDate">date</label>
+                   <label id ="ci44" class="carrouselDesc">desc</label>
+                  </div>
+                  
+              </div>
+          </div> 
+          <a class="hidden carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> 
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+          <span class="sr-only">Previous</span> </a> 
+          <a class="hidden carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"> 
+          <span class="carousel-control-next-icon" aria-hidden="true"></span> 
+          <span class="sr-only">Next</span> </a> 
+        </div>
 
- <label id ="ci24" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 100px;">desc</label>
-
-  </div>
-
-
-<div class="carousel-item">
-
-   <label  id ="ci31" style ="color: white;display:table;font-size: 20px;margin-left: 2px;margin-top:-6px;font-family: &quot;b-medium&quot;;height: 20px; word-wrap:break-word;">asunto</label>
-
-   <label  id ="ci32" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 20px;">from</label>
-
- <label  id ="ci33" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 20px;">date</label>
- 
-
- <label id ="ci34" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 100px;">desc</label>
-    </div>
-
-    <div class="carousel-item">
-
-   <label  id ="ci41" style ="color: white;display:table;font-size: 20px;margin-left: 2px;margin-top:-6px;font-family: &quot;b-medium&quot;;height: 20px; word-wrap:break-word;">asunto</label>
-
-   <label  id ="ci42" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 20px;">from</label>
-
- <label  id ="ci43" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 20px;">date</label>
-
- <label id ="ci44" style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 2px;margin-top:-7px; height: 100px;">desc</label>
-   
-  </div>
-</div>
-          </div> <a class="hidden carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> 
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a> <a class="hidden carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div>
- 
- 
-           
-             
-           </div>
+      </div>
            <div class ="block-side2" id="Order8">
              <label style = "color: white; font-family: 'b-medium'; font-size: 25px;
                 margin-left: 29px; display: inline-block;">Hotel               

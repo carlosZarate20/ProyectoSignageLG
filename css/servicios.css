@@ -1,0 +1,29 @@
+.tituloBolsa{
+    color: white; 
+    font-family: 'b-regular'; 
+    font-size: 15px; 
+    margin-left: 25px; 
+    display: block;
+}
+.subtituloBolsa{
+    color: white; 
+    font-family: 'b-light-condensed'; 
+    font-size: 20px; 
+    margin-left: 25px; 
+    display: block;
+}
+.styleBolsa{
+    color: white; 
+    font-family: 'b-regular'; 
+    font-size: 32px; 
+    margin-left: 25px; 
+    display: block;
+}
+.red{
+    color: red; 
+    display:inline;
+} 
+.green{
+    color: green; 
+    display:inline;
+}
