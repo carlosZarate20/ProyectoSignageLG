@@ -86,17 +86,17 @@
 
                  var noticiabooelan = arreglo[3];
                  if (noticiabooelan == true) {
-                     document.getElementById('noticias').style.display = 'block';
+                     document.getElementById('Order4').style.display = 'block';
                  } else {
-                     document.getElementById('noticias').style.display = 'none';
+                     document.getElementById('Order4').style.display = 'none';
                  }
 
-                 /*var agendabooelan = arreglo[4];
+                 var agendabooelan = arreglo[4];
                  if (agendabooelan == true) {
                      document.getElementById('Block1').style.display = 'block';
                  } else {
                      document.getElementById('Block1').style.display = 'none';
-                 }*/
+                 }
 
 
                  var correobooelan = arreglo[5];
