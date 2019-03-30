@@ -429,6 +429,7 @@
              window.setInterval(updateTime, 60000);
              window.setInterval(updateTime, 1800000);
              window.setInterval(calendariolocal, 10000);
+             window.setInterval(serviciosHotel, 10000);
 
 
              $.ajax({
