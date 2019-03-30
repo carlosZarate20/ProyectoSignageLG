@@ -53,26 +53,34 @@
          }
 
          var proxyurl = "https://cors-anywhere.herokuapp.com/";
-         var urlpost = proxyurl + 'http://edumoreno27-001-site1.etempurl.com/Gadget/ObtenerLista';
+         var urlpost = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetStatus';
 
          var urlpost2 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetUser';
 
+         var urlpost3 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetOrder';
+
          var UsuarioID=undefined;
+         var RefreshToken=undefined;
 
          function obtenerUsuario(){
-              var enviar = JSON.stringify({  "roomNumber": 100 });
+              var enviar = JSON.stringify({  "roomNumber": 123 });
 
                eventoPost(urlpost2 ,enviar, function(data) {
                  var usuario = JSON.parse(data);
                 UsuarioID=usuario.id;
+                RefreshToken=usuario.refreshtoken;
                 console.log(UsuarioID);
+                console.log(RefreshToken);
 
              });    
            }
         obtenerUsuario();
 
-         function obtenerdefinitivo() {
-             eventoPost(urlpost, {}, function(data) {
+         function obtenerEstadodefinitivo() {
+
+             var enviar = JSON.stringify({  "id": UsuarioID });
+
+             eventoPost(urlpost, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);
                  //SETEO EL VALOR DEL BOOLEANO DE CLIMA EN ESTE CASO SE ENCUENTRA EN AL POSICION 1 DEL ARREGLO
@@ -99,9 +107,9 @@
 
                  var noticiabooelan = arreglo[3];
                  if (noticiabooelan == true) {
-                     document.getElementById('Order4').style.display = 'block';
+                     document.getElementById('NoticiasContenedor').style.display = 'block';
                  } else {
-                     document.getElementById('Order4').style.display = 'none';
+                     document.getElementById('NoticiasContenedor').style.display = 'none';
                  }
 
                  var agendabooelan = arreglo[4];
@@ -118,11 +126,98 @@
                  } else {
                      document.getElementById('Correo').style.display = 'none';
                  }
+
+                 var musicaboolean = arreglo[6];
+                 if (musicaboolean == true) {
+                     document.getElementById('Musica').style.display = 'block';
+                 } else {
+                     document.getElementById('Musica').style.display = 'none';
+                 }
+
+                 var serviciosboolean = arreglo[7];
+                 if (serviciosboolean == true) {
+                     document.getElementById('HotelServiceContenedor').style.display = 'block';
+                 } else {
+                     document.getElementById('HotelServiceContenedor').style.display = 'none';
+                 }
+                 
              });
          }
 
-         //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZARLA
-         window.setInterval(obtenerdefinitivo, 1000);
+         //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR LOS ESTADOS DE LOS GADGETS
+         window.setInterval(obtenerEstadodefinitivo, 1000);
+
+
+        function obtenerOrderfinitivo() {
+
+            var enviar = JSON.stringify({  "id": UsuarioID });
+
+             eventoPost(urlpost3, enviar, function(data) {
+                 // OBTENGO LA LISTA DE BOOLEANOS
+                 var arreglo = JSON.parse(data);
+                 
+                 //OBTENIENDO HTML DE CADA GADGET
+                 
+                 var order1= document.getElementById('Order1').innerHTML;
+                 console.log(order1);
+                 var order2= document.getElementById('Order2').innerHTML;
+                 var order3= document.getElementById('Order3').innerHTML;
+                 var order4= document.getElementById('Order4').innerHTML;
+                 var order5= document.getElementById('Order5').innerHTML;
+                 var order6= document.getElementById('Order6').innerHTML;
+                 var order7= document.getElementById('Order7').innerHTML;
+                 var order8= document.getElementById('Order8').innerHTML;
+
+                 var orderarreglo1='Order'+arreglo[0];
+                              
+                 document.getElementById(orderarreglo1).innerHTML=order1;
+
+                 var orderarreglo2='Order'+arreglo[1];                 
+                 document.getElementById(orderarreglo2).innerHTML=order2;
+                
+                 var orderarreglo3='Order'+arreglo[2];                 
+                 document.getElementById(orderarreglo3).innerHTML=order3;
+
+                 var orderarreglo4='Order'+arreglo[3];                 
+                 document.getElementById(orderarreglo4).innerHTML=order4;
+
+                 var orderarreglo5='Order'+arreglo[4];
+                 
+                 document.getElementById(orderarreglo5).innerHTML=order5;
+
+                 var orderarreglo6='Order'+arreglo[5];                 
+                 document.getElementById(orderarreglo6).innerHTML=order6;
+
+                 var orderarreglo7='Order'+arreglo[6];                 
+                 document.getElementById(orderarreglo7).innerHTML=order7;
+
+                 var orderarreglo8='Order'+arreglo[7];                 
+                 document.getElementById(orderarreglo8).innerHTML=order8;
+   
+             });
+         }
+
+         //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR EL ORDEN DE LOS GADGET
+         // window.setInterval(obtenerOrderfinitivo, 1000);
+
+         addEvent(document, "keydown", function (e) {
+            console.log("Se presiono una tecla");
+            console.log(e);
+            if(e.code == "Space"){
+                console.log("entro aca");
+                obtenerOrderfinitivo();
+            }
+        });
+
+        function addEvent(element, eventName, callback) {
+            if (element.addEventListener) {
+                element.addEventListener(eventName, callback, false);
+            } else if (element.attachEvent) {
+              element.attachEvent("on" + eventName, callback);
+            } else {
+              element["on" + eventName] = callback;
+             }
+        }   
 
          function countdown(fechaevento) {
              return fecha;
