@@ -52,21 +52,6 @@
              return xhr;
          }
 
-         /*function obtenerEstadosGadgets(url, data, success) {
-             var params = typeof data == 'string' ? data : Object.keys(data).map(
-                 function(k) { return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
-             ).join('&');
-
-             var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-             xhr.open('POST', url);
-             xhr.onreadystatechange = function() {
-                 if (xhr.readyState > 3 && xhr.status == 200) { success(xhr.responseText); }
-             };
-             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-             xhr.send(params);
-             return xhr;
-         }*/
          var proxyurl = "https://cors-anywhere.herokuapp.com/";
          var urlpost = proxyurl + 'http://edumoreno27-001-site1.etempurl.com/Gadget/ObtenerLista';
 
@@ -87,7 +72,7 @@
         obtenerUsuario();
 
          function obtenerdefinitivo() {
-             obtenerEstadosGadgets(urlpost, {}, function(data) {
+             eventoPost(urlpost, {}, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);
                  //SETEO EL VALOR DEL BOOLEANO DE CLIMA EN ESTE CASO SE ENCUENTRA EN AL POSICION 1 DEL ARREGLO
@@ -226,7 +211,43 @@
 
              //}, 2000); 
          }
+         function serviciosHotel(){
+            $.ajax({
+                method: "GET",
+                url: "https://tp-ires-api.azurewebsites.net/v1/services",
+                crossDomain: true,
+                dataType: 'json',
+            }). done (function(data) {
+                var servicio = data.result.list;
+                for(var i = 0; i < servicio.length; i++){
+                    var service1 = servicio[0];
+                    var service2 = servicio[1];
+                    var service3 = servicio[2];
+                    var service4 = servicio[3];
 
+                    var nameService1 = service1.name;
+                    var nameService2 = service2.name;
+                    var nameService3 = service3.name;
+                    var nameService4 = service4.name;
+
+                    var serType1 = service1.serviceType.name;
+                    var serType2 = service2.serviceType.name;
+                    var serType3 = service3.serviceType.name;
+                    var serType4 = service4.serviceType.name;
+
+                    var htmlView = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">'+ serType1+'</label>'
+                                + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService1 + '</label> </br>'
+                                +'<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">'+ serType2+'</label>'
+                                + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService2 + '</label> </br>'
+                                +'<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">'+ serType3+'</label>'
+                                + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService3 + '</label> </br>'
+                                +'<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">'+ serType4+'</label>'
+                                + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService4 + '</label>';
+
+                    $('#HotelService').html(htmlView);
+                }
+            });
+         }
 
 
          function noti() {
@@ -378,6 +399,7 @@
              updateTime();
              noti();
              calendariolocal();
+             serviciosHotel();
              var meses = [
                  "enero", "febrero", "marzo",
                  "abril", "mayo", "junio", "julio",
