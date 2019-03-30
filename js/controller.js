@@ -40,7 +40,19 @@
          }
 
          //FUNCION POST  
-         function obtenerEstadosGadgets(url, data, success) {
+         function eventoPost(url, data, success) {
+             var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+             xhr.open('POST', url);
+             xhr.onreadystatechange = function() {
+                 if (xhr.readyState > 3 && xhr.status == 200) { success(xhr.responseText); }
+             };
+             
+             xhr.setRequestHeader("Content-Type", "application/json");
+             xhr.send(data);
+             return xhr;
+         }
+
+         /*function obtenerEstadosGadgets(url, data, success) {
              var params = typeof data == 'string' ? data : Object.keys(data).map(
                  function(k) { return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
              ).join('&');
@@ -54,9 +66,25 @@
              xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
              xhr.send(params);
              return xhr;
-         }
+         }*/
          var proxyurl = "https://cors-anywhere.herokuapp.com/";
          var urlpost = proxyurl + 'http://edumoreno27-001-site1.etempurl.com/Gadget/ObtenerLista';
+
+         var urlpost2 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetUser';
+
+         var UsuarioID=undefined;
+
+         function obtenerUsuario(){
+              var enviar = JSON.stringify({  "roomNumber": 100 });
+
+               eventoPost(urlpost2 ,enviar, function(data) {
+                 var usuario = JSON.parse(data);
+                UsuarioID=usuario.id;
+                console.log(UsuarioID);
+
+             });    
+           }
+        obtenerUsuario();
 
          function obtenerdefinitivo() {
              obtenerEstadosGadgets(urlpost, {}, function(data) {
@@ -112,60 +140,16 @@
          window.setInterval(obtenerdefinitivo, 1000);
 
          function countdown(fechaevento) {
-             /*var fecha = new Date();
-   fecha = fechaevento;
-    var hoy=new Date()
-    var dias=0
-    var horas=0
-    var minutos=0
-    var segundos=0
-    
-    var date1 = new Date(fechaevento);
-  
-        var diferencia=( date1.getTime() - hoy.getTime())/1000
-        dias=Math.floor(diferencia/86400)
-        diferencia=diferencia-(86400*dias)
-        horas=Math.floor(diferencia/3600)
-        diferencia=diferencia-(3600*horas)
-        minutos=Math.floor(diferencia/60)
-        diferencia=diferencia-(60*minutos)
-        segundos=Math.floor(diferencia)
-
-      
-      console.log(hoy + "-" +fechaevento);
-      var fecha = ""
-
-
-      if(segundos> 0)
-        fecha = 'En '+ segundos + ' segundos ';
-          if(minutos> 0)
-        fecha = 'En '+ minutos + ' minutos ';
-          if(horas> 0)
-          {
-            if( date1.getHours()>12)
-            fecha = 'Hoy a las '+ date1.getHours() + ' PM ';
-          else
-             fecha = 'Hoy a las '+ date1.getHours() + ' AM ';
-          }
-        if(dias> 0)
-        fecha = 'En '+ dias + ' Dias ';*/
-
              return fecha;
-
-
          }
 
          function calendariolocal() {
 
-             //var listen = setInterval(function() {
-             //fetch('http://api-mirror.azurewebsites.net/api/Values')
              fetch('https://smartmirrorlg.azurewebsites.net/api/Values')
                  .then(function(response) {
                      return response.json();
                  })
                  .then(function(data) {
-                     console.log(data.events);
-                     console.log(data.labels);
                      var correo = "";
                      var correo4 = "";
                      for (var i = 0; i < 5; i++) {
@@ -254,12 +238,9 @@
 
                  })
                  .done(function(data) {
-                     console.log("Data Saved:2" + data.status);
-
 
                      var full = "";
                      var noticias = data.items;
-
 
                      for (var i = 0; i < noticias.length; i++) {
                          var efect = "";
@@ -276,13 +257,6 @@
                              // effect prueba
                          }
 
-
-
-
-
-
-
-
                          if (i == 0) {
                              //full = full + '<div class="carousel-item active"> <img src="'+ foto +'" style="height: 250px; width:220px; float:left;" /> <label style ="color: white;display:table;font-size: 20px;margin-left: 234px;margin-top:-6px;font-family: &quot;b-medium&quot;height: 87px; word-wrap:break-word;"> ' + title +' </label> <label style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 234px;margin-top:-7px; height: 100px;">'+ desc+' </label> </div>';
                              full = full + '<div class="carousel-item active"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right;word-break: break-all;display: inline;margin-left: 203px;margin-top: -153px;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;word-break: break-word;float:left">' + desc + '</div></div>';
@@ -294,8 +268,6 @@
 
 
                      }
-                     console.log(foto);
-                     console.log(full);
                      $("#333").html('<div id="carouselExampleControls" style="margin-left: 25px;" class="carousel slide" data-ride="carousel"> <div class="carousel-inner">' + full + '</div> <a class="hidden carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span"> <span class="sr-only">Previous</span> </a> <a class="hidden carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div>')
                      $('.carousel').carousel({ interval: 4000 });
                  });
@@ -349,12 +321,10 @@
 
                  })
                  .done(function(data) {
-                     //  console.log( "currency: "+data.results[0].symbol)
 
                      var results1 = data.results;
                      var full = ""
                      for (var i = 0; i < results1.length; i++) {
-                         //                  console.log( "currency: "+data.results[i].symbol)
 
                          var open1 = data.results[i].open
 
@@ -368,7 +338,6 @@
                          } else if (result < 0) {
                              result = '<p style="color: red; display:inline;">↓</p>' + Math.abs(result)
                          }
-                         //  console.log(result)
 
                          full = full + " " + data.results[i].symbol + result + " "
 
@@ -376,12 +345,6 @@
                      }
                      $(textdesign).html('<marquee direction="left" scrolldelay="100" behavior="scroll">' + full + '</marquee>');
                      $(textdesign).html('<marquee direction="left" scrolldelay="100" behavior="scroll">' + full + '</marquee>');
-                     //   info.set(textdesign, full);
-                     //  console.log(full)
-
-                     //var value = data["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
-
-                     //info.set(textdesign, from + " " + value);
 
                  });
 
@@ -411,7 +374,6 @@
 
          function bindData(jsonData) {
              info = new BindClass('templateSix');
-             console.log("ssds");
 
              updateTime();
              noti();
@@ -455,9 +417,6 @@
 
                  })
                  .done(function(data) {
-                     console.log("Data Saved: ");
-
-
 
                      info.set('asideBlock11Content2', "↑" + changeicon2(data.daily.data[0].icon, Math.round(data.daily.data[0].temperatureMax)));
                      info.set('asideBlock11Content3', "↓" + changeicon2(data.daily.data[0].icon, Math.round(data.daily.data[0].temperatureMin)));
@@ -590,8 +549,6 @@
 
                          return (d[l2 * a + l1]);
                      }
-                     ///indica la cantidad de cambios de caracterees para que sean iguales  == 5
-                     console.log(levenshtein("Lonche con mamá", "El Lonche con mi mamá"));
 
                      $("#logoClima").html(html2);
 
