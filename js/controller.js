@@ -39,6 +39,8 @@
 
          }
 
+
+
          //FUNCION POST  
          function eventoPost(url, data, success) {
              var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
@@ -63,7 +65,7 @@
          var RefreshToken=undefined;
 
          function obtenerUsuario(){
-              var enviar = JSON.stringify({  "roomNumber": 123 });
+              var enviar = JSON.stringify({  "roomNumber": 124 });
 
                eventoPost(urlpost2 ,enviar, function(data) {
                  var usuario = JSON.parse(data);
@@ -71,7 +73,28 @@
                 RefreshToken=usuario.refreshtoken;
                 console.log(UsuarioID);
                 console.log(RefreshToken);
+                getGoogleData(RefreshToken, function(data) {
+                    console.log("Agenda: ", data);
+                    var agendaData = data;
+                    for(var i = 0; i< data.length; i++){
+                        var agenda1 = agendaData[0];
 
+                        var serviocAgenda1 = agenda1.summary;
+
+                        var htmlAgenda = '<label>' +serviocAgenda1+'</label>'
+                        $('#f0').html(htmlAgenda);
+                    }
+                }, function(data1) {
+                    console.log("Correo: ", data1);
+                    var correo = data1;
+                    for(var i = 0; i < 5; i++){
+                        /*var fecha = data.correo[i].date;
+                        var descripcion = data.events[i].desc;*/
+                        var messageCorreo = correo.message;
+                        var htmlCorreo = '<label>' + messageCorreo + '</label>';
+                        $('#ci11').html(htmlCorreo);
+                    }
+                });
              });    
            }
         obtenerUsuario();
@@ -146,7 +169,7 @@
 
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR LOS ESTADOS DE LOS GADGETS
          window.setInterval(obtenerEstadodefinitivo, 1000);
-
+         
 
         function obtenerOrderfinitivo() {
 
@@ -157,57 +180,95 @@
                  var arreglo = JSON.parse(data);
                  
                  //OBTENIENDO HTML DE CADA GADGET
-                 
-                 var order1= document.getElementById('Order1').innerHTML;
-                 console.log(order1);
-                 var order2= document.getElementById('Order2').innerHTML;
-                 var order3= document.getElementById('Order3').innerHTML;
-                 var order4= document.getElementById('Order4').innerHTML;
-                 var order5= document.getElementById('Order5').innerHTML;
-                 var order6= document.getElementById('Order6').innerHTML;
-                 var order7= document.getElementById('Order7').innerHTML;
-                 var order8= document.getElementById('Order8').innerHTML;
+                 var bolsahtml=undefined;
+                 var climahtml=undefined;
+                 var horahtml=undefined;
+                 var noticiashtml=undefined;
+                 var agendahtml=undefined;
+                 var correohtml=undefined;
+                 var musicahtml=undefined;
+                 var servicioshtml=undefined;
+                 for (var a=1;a< 9;a++){
+                    var element='#Order'+a;                   
+
+                    if($(element).children()[0].id == 'Bolsa'){
+                        
+                        bolsahtml=$(element).html();
+                        
+                    } else if($(element).children()[0].id == 'Clima'){
+                        
+                        climahtml=$(element).html();
+                        console.log(climahtml);
+                        
+                    } else if($(element).children()[0].id == 'Hora'){
+                        
+                        horahtml=$(element).html();
+                        
+                    } else if($(element).children()[0].id == 'NoticiasContenedor'){
+                        
+                        noticiashtml=$(element).html();
+                        
+                    } else if($(element).children()[0].id == 'Block1'){
+                        
+                        agendahtml=$(element).html();
+                        
+                    } else if($(element).children()[0].id == 'Correo'){
+                        
+                        correohtml=$(element).html();
+                        
+                    } else if($(element).children()[0].id == 'Musica'){
+                        
+                        musicahtml=$(element).html();
+                    } else if($(element).children()[0].id == 'HotelServiceContenedor'){
+                        
+                        servicioshtml=$(element).html();
+                        
+                    }      
+
+
+                    
+                 }
 
                  var orderarreglo1='Order'+arreglo[0];
                               
-                 document.getElementById(orderarreglo1).innerHTML=order1;
+                 document.getElementById(orderarreglo1).innerHTML=bolsahtml;
 
-                 var orderarreglo2='Order'+arreglo[1];                 
-                 document.getElementById(orderarreglo2).innerHTML=order2;
+                 var orderarreglo2='#Order'+arreglo[1];              
+                 $(orderarreglo2).html(climahtml);
+                 // document.getElementById(orderarreglo2).innerHTML=climahtml;
                 
                  var orderarreglo3='Order'+arreglo[2];                 
-                 document.getElementById(orderarreglo3).innerHTML=order3;
+                 document.getElementById(orderarreglo3).innerHTML=horahtml;
 
                  var orderarreglo4='Order'+arreglo[3];                 
-                 document.getElementById(orderarreglo4).innerHTML=order4;
+                 document.getElementById(orderarreglo4).innerHTML=noticiashtml;
 
                  var orderarreglo5='Order'+arreglo[4];
                  
-                 document.getElementById(orderarreglo5).innerHTML=order5;
+                 document.getElementById(orderarreglo5).innerHTML=agendahtml;
 
                  var orderarreglo6='Order'+arreglo[5];                 
-                 document.getElementById(orderarreglo6).innerHTML=order6;
+                 document.getElementById(orderarreglo6).innerHTML=correohtml;
 
                  var orderarreglo7='Order'+arreglo[6];                 
-                 document.getElementById(orderarreglo7).innerHTML=order7;
+                 document.getElementById(orderarreglo7).innerHTML=musicahtml;
 
                  var orderarreglo8='Order'+arreglo[7];                 
-                 document.getElementById(orderarreglo8).innerHTML=order8;
+                 document.getElementById(orderarreglo8).innerHTML=servicioshtml;
    
              });
          }
-
+         // obtenerOrderfinitivo();
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR EL ORDEN DE LOS GADGET
          // window.setInterval(obtenerOrderfinitivo, 1000);
-
-         addEvent(document, "keydown", function (e) {
+        addEvent(document, "keydown", function (e) {
             console.log("Se presiono una tecla");
             console.log(e);
             if(e.code == "Space"){
                 console.log("entro aca");
                 obtenerOrderfinitivo();
-            }
-        });
+                }
+            });
 
         function addEvent(element, eventName, callback) {
             if (element.addEventListener) {
@@ -217,7 +278,89 @@
             } else {
               element["on" + eventName] = callback;
              }
-        }   
+        }
+
+
+var clientId = "541429281292-8v02kma7fl8fhmiih66kdqnlh8b6opmn.apps.googleusercontent.com";
+var clientSecret = "XbyAoBAIlUlqBbS1Lal0GrAF";
+
+function getGoogleData(refreshToken, calendarCallback, mailCallback) {
+    var mails = [];
+    $.ajax({
+        type: "POST",
+        url: "https://www.googleapis.com/oauth2/v4/token",
+        headers: { 'Content-Type': "application/x-www-form-urlencoded" },
+        data: {
+            'refresh_token': RefreshToken,
+            'client_id': clientId,
+            'client_secret': clientSecret,
+            'grant_type': "refresh_token"
+        },
+        success: function (result) {
+            $.ajax({
+                type: "GET",
+                url: "https://www.googleapis.com/calendar/v3/calendars/primary/events",
+                headers: { 'Authorization': result.token_type + " " + result.access_token },
+                success: function (calendarResult) {
+                    console.log(calendarResult);
+                    calendarCallback(calendarResult.items);
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "https://www.googleapis.com/gmail/v1/users/me/messages?q=is:inbox",
+                headers: { 'Authorization': result.token_type + " " + result.access_token },
+                success: function (mailsResult) {
+                    var messages = mailsResult.messages;
+                    var max = messages.length > 5 ? 5 : messages.length;
+                    for (var i = 0; i < max; i++) {
+                        $.ajax({
+                            type: "GET",
+                            url: "https://www.googleapis.com/gmail/v1/users/me/messages/" + messages[i].id,
+                            headers: { 'Authorization': result.token_type + " " + result.access_token },
+                            success: function (mailResult) {
+                                mailCallback(serializeMail(mailResult, i));
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
+    
+}
+function serializeMail(result, id) {
+    return {
+        id: id,
+        sender: findValue(result.payload.headers, "From"),
+        subject: findValue(result.payload.headers, "Subject"),
+        sendAt: findValue(result.payload.headers, "Date"),
+        message: result.snippet
+    };
+}
+function findValue(arrayObject, name) {
+    var result = arrayObject.find(x => x.name === name);
+    return result !== undefined ? removeExtraString(result.value) : "not found";
+}
+function removeExtraString(value) {
+    return value.replace("<", "").replace(">", " ").replace(".", " ").replace("@", " ");
+}
+function parseDate(stringDate) { //as string like "Wed, 21 Jun 2017 18:39:35 -0700"
+    var _date = new Date(stringDate);
+    if (_date.getDate() === new Date().getDate()) {
+        return extractTime(_date);
+    } else {
+        return toShortDate(_date);
+    }
+}
+
+function extractTime(date) {
+    var time = date.toLocaleString('es-PE', { hour: 'numeric', minute: 'numeric', hour12: true });
+    return time.replace("p. m.", "PM").replace("a. m.", "AM");
+}
+function toShortDate(date) {
+    return date.toLocaleString('es-PE', { day: 'numeric', month: 'long' });
+}
 
          function countdown(fechaevento) {
              return fecha;
@@ -225,7 +368,7 @@
 
          function calendariolocal() {
 
-             fetch('https://smartmirrorlg.azurewebsites.net/api/Values')
+             /*fetch('https://smartmirrorlg.azurewebsites.net/api/Values')
                  .then(function(response) {
                      return response.json();
                  })
@@ -235,7 +378,7 @@
                      for (var i = 0; i < 5; i++) {
                          /*var d = new Date(data.events[i].date);
                               var time = d.toLocaleString("en-US");
-                               var conversion = countdown(time);*/
+                               var conversion = countdown(time);
 
                          var fecha = data.events[i].date;
                          var descripcion = data.events[i].desc;
@@ -254,10 +397,10 @@
                          }
 
                          if (i == 0) {
-                             $("#f0").html(fecha);
+                             /*$("#f0").html(fecha);
                              $("#c0").html(descripcion);
                              //$("#e0").html(correo);
-                             $("#ci11").html(correo4);
+                             //$("#ci11").html(correo4);
                              $("#ci12").html(correo2);
                              $("#ci13").html(correo3);
                              $("#ci14").html(correo);
@@ -304,7 +447,7 @@
                      console.log(err);
                  });
 
-             //}, 2000); 
+             //}, 2000); */
          }
          function serviciosHotel(){
             $.ajax({
@@ -488,7 +631,10 @@
              info.set('asideBlock1Content1', time);
          }
 
+
          function bindData(jsonData) {
+            
+
              info = new BindClass('templateSix');
 
              updateTime();
