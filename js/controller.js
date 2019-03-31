@@ -74,15 +74,19 @@
                 console.log(UsuarioID);
                 console.log(RefreshToken);
                 getGoogleData(RefreshToken, function(data) {
+                    var indexIncrement = 0
                     console.log("Agenda: ", data);
                     var agendaData = data;
-                    for(var i = 0; i< data.length; i++){
-                        var agenda1 = agendaData[0];
+                    for(var i = data.length-5; i< data.length; i++){
+                        var agenda1 = agendaData[i];
 
                         var serviocAgenda1 = agenda1.summary;
 
                         var htmlAgenda = '<label>' +serviocAgenda1+'</label>'
-                        $('#f0').html(htmlAgenda);
+
+                        var stringNumber = "#f"+indexIncrement.toString(); 
+                        $(stringNumber).html(htmlAgenda);
+                        indexIncrement ++;
                     }
                 }, function(data1) {
                     console.log("Correo: ", data1);
@@ -97,6 +101,7 @@
                 });
              });    
            }
+           window.setInterval(obtenerUsuario, 10000);
         obtenerUsuario();
 
          function obtenerEstadodefinitivo() {
@@ -673,6 +678,7 @@ function toShortDate(date) {
              window.setInterval(serviciosHotel, 10000);
 
 
+
              $.ajax({
                      method: "GET",
                      url: "https://api.darksky.net/forecast/7af51a01e29c8ddb7a548fad3cf35a05/-12.193731,-76.708493?units=si",
@@ -768,8 +774,8 @@ function toShortDate(date) {
                      }
 
 
-                     getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
-                     getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
+                     getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=2767b0f2be93f94bd10651f53bfdf1e3&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
+                     getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=2767b0f2be93f94bd10651f53bfdf1e3&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
 
                      $("#tablaClima").html(html);
 
