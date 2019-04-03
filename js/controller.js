@@ -67,7 +67,8 @@
          function obtenerUsuario(){
               var enviar = JSON.stringify({  "roomNumber": 124 });
 
-               eventoPost(urlpost2 ,enviar, function(data) {
+               eventoPost(urlpost2 ,enviar,
+                function(data) {
                  var usuario = JSON.parse(data);
                 UsuarioID=usuario.id;
                 RefreshToken=usuario.refreshtoken;
@@ -88,20 +89,16 @@
                         $(stringNumber).html(htmlAgenda);
                         indexIncrement ++;
                     }
-                }, function(data1) {
-                    console.log("Correo: ", data1);
-                    var correo = data1;
-                    for(var i = 0; i < 5; i++){
-                        /*var fecha = data.correo[i].date;
-                        var descripcion = data.events[i].desc;*/
-                        var messageCorreo = correo.message;
-                        var htmlCorreo = '<label>' + messageCorreo + '</label>';
-                        $('#ci11').html(htmlCorreo);
-                    }
+                }
+                , function(data1) {
+                    var correo = data1;                   
+                    var string = '<div class="carousel-item"><label class="carrouselAsunto">'+ correo.subject +'</label> <label class="carrouselFrom">'+ correo.sender +'</label><label class="carrouselDate">'+ correo.sendAt +'</label><label class="carrouselDesc">'+ correo.message +'</label></div>';
+                    $("#elements").append(string);   
+                    $("#elements .carousel-item").first().addClass('active');
+              
                 });
              });    
            }
-           window.setInterval(obtenerUsuario, 10000);
         obtenerUsuario();
 
          function obtenerEstadodefinitivo() {
@@ -319,29 +316,32 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
                     var messages = mailsResult.messages;
                     var max = messages.length > 5 ? 5 : messages.length;
                     for (var i = 0; i < max; i++) {
+                      
                         $.ajax({
                             type: "GET",
                             url: "https://www.googleapis.com/gmail/v1/users/me/messages/" + messages[i].id,
                             headers: { 'Authorization': result.token_type + " " + result.access_token },
                             success: function (mailResult) {
-                                mailCallback(serializeMail(mailResult, i));
+                                mailCallback(serializeMail(mailResult, i));                                                    
                             }
                         });
+                        
+                        
                     }
                 }
             });
         }
     });
-    
+    //asunto , from , date , descr
 }
 function serializeMail(result, id) {
-    return {
-        id: id,
-        sender: findValue(result.payload.headers, "From"),
-        subject: findValue(result.payload.headers, "Subject"),
-        sendAt: findValue(result.payload.headers, "Date"),
-        message: result.snippet
-    };
+    var object = {id:"", sender:"", subject:"",sendAt:"",message:"" };
+    object.id = findValue(result.payload.headers, "From");
+    object.sender = findValue(result.payload.headers, "From");
+    object.subject = findValue(result.payload.headers, "Subject");
+    object.sendAt = findValue(result.payload.headers, "Date");
+    object.message = result.snippet;
+    return object;
 }
 function findValue(arrayObject, name) {
     var result = arrayObject.find(x => x.name === name);
@@ -678,7 +678,6 @@ function toShortDate(date) {
              window.setInterval(serviciosHotel, 10000);
 
 
-
              $.ajax({
                      method: "GET",
                      url: "https://api.darksky.net/forecast/7af51a01e29c8ddb7a548fad3cf35a05/-12.193731,-76.708493?units=si",
@@ -774,8 +773,8 @@ function toShortDate(date) {
                      }
 
 
-                     getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=2767b0f2be93f94bd10651f53bfdf1e3&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
-                     getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=2767b0f2be93f94bd10651f53bfdf1e3&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
+                     getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
+                     getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
 
                      $("#tablaClima").html(html);
 
