@@ -109,61 +109,61 @@
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);
                  //SETEO EL VALOR DEL BOOLEANO DE CLIMA EN ESTE CASO SE ENCUENTRA EN AL POSICION 1 DEL ARREGLO
-                 var bolsabooleano = arreglo[0];
+                 var bolsabooleano = arreglo[0].isActive;
                  if (bolsabooleano == true) {
-                     document.getElementById('Bolsa').style.display = 'block';
-                 } else {
-                     document.getElementById('Bolsa').style.display = 'none';
-                 }
-
-                 var climabooleano = arreglo[1];
-                 if (climabooleano == true) {
                      document.getElementById('Clima').style.display = 'block';
                  } else {
                      document.getElementById('Clima').style.display = 'none';
                  }
 
-                 var horabooelan = arreglo[2];
-                 if (horabooelan == true) {
+                 var climabooleano = arreglo[1].isActive;
+                 if (climabooleano == true) {
                      document.getElementById('Hora').style.display = 'block';
                  } else {
                      document.getElementById('Hora').style.display = 'none';
                  }
 
-                 var noticiabooelan = arreglo[3];
+                 var horabooelan = arreglo[2].isActive;
+                 if (horabooelan == true) {
+                     document.getElementById('Agenda').style.display = 'block';
+                 } else {
+                     document.getElementById('Agenda').style.display = 'none';
+                 }
+
+                 var noticiabooelan = arreglo[3].isActive;
                  if (noticiabooelan == true) {
-                     document.getElementById('NoticiasContenedor').style.display = 'block';
-                 } else {
-                     document.getElementById('NoticiasContenedor').style.display = 'none';
-                 }
-
-                 var agendabooelan = arreglo[4];
-                 if (agendabooelan == true) {
-                     document.getElementById('Block1').style.display = 'block';
-                 } else {
-                     document.getElementById('Block1').style.display = 'none';
-                 }
-
-
-                 var correobooelan = arreglo[5];
-                 if (correobooelan == true) {
                      document.getElementById('Correo').style.display = 'block';
                  } else {
                      document.getElementById('Correo').style.display = 'none';
                  }
 
-                 var musicaboolean = arreglo[6];
+                 var agendabooelan = arreglo[4].isActive;
+                 if (agendabooelan == true) {
+                     document.getElementById('Bolsa').style.display = 'block';
+                 } else {
+                     document.getElementById('Bolsa').style.display = 'none';
+                 }
+
+
+                 var correobooelan = arreglo[5].isActive;
+                 if (correobooelan == true) {
+                     document.getElementById('HotelServiceContenedor').style.display = 'block';
+                 } else {
+                     document.getElementById('HotelServiceContenedor').style.display = 'none';
+                 }
+
+                 var musicaboolean = arreglo[6].isActive;
                  if (musicaboolean == true) {
                      document.getElementById('Musica').style.display = 'block';
                  } else {
                      document.getElementById('Musica').style.display = 'none';
                  }
 
-                 var serviciosboolean = arreglo[7];
+                 var serviciosboolean = arreglo[7].isActive;
                  if (serviciosboolean == true) {
-                     document.getElementById('HotelServiceContenedor').style.display = 'block';
+                     document.getElementById('NoticiasContenedor').style.display = 'block';
                  } else {
-                     document.getElementById('HotelServiceContenedor').style.display = 'none';
+                     document.getElementById('NoticiasContenedor').style.display = 'none';
                  }
                  
              });
@@ -210,7 +210,7 @@
                         
                         noticiashtml=$(element).html();
                         
-                    } else if($(element).children()[0].id == 'Block1'){
+                    } else if($(element).children()[0].id == 'Agenda'){
                         
                         agendahtml=$(element).html();
                         
