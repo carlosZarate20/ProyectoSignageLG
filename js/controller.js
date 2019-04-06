@@ -231,32 +231,43 @@
                     
                  }
 
-                 var orderarreglo1='Order'+arreglo[0];
-                              
-                 document.getElementById(orderarreglo1).innerHTML=bolsahtml;
-
-                 var orderarreglo2='#Order'+arreglo[1];              
-                 $(orderarreglo2).html(climahtml);
-                 // document.getElementById(orderarreglo2).innerHTML=climahtml;
-                
-                 var orderarreglo3='Order'+arreglo[2];                 
-                 document.getElementById(orderarreglo3).innerHTML=horahtml;
-
-                 var orderarreglo4='Order'+arreglo[3];                 
-                 document.getElementById(orderarreglo4).innerHTML=noticiashtml;
-
-                 var orderarreglo5='Order'+arreglo[4];
+                 for (var j=0;j < arreglo.length;j++){
+                    if(arreglo[j].contentHtml == 'Clima')
+                    {
+                        $('#Order'+arreglo[j].order).html(climahtml);
+                    }
+                    if(arreglo[j].contentHtml == 'Bolsa')
+                    {
+                        $('#Order'+arreglo[j].order).html(bolsahtml);
+                    }
+                    if(arreglo[j].contentHtml == 'Hora')
+                    {
+                        $('#Order'+arreglo[j].order).html(horahtml);
+                    }
+                    if(arreglo[j].contentHtml == 'NoticiasContenedor')
+                    {
+                        $('#Order'+arreglo[j].order).html(noticiashtml);
+                    }
+                    if(arreglo[j].contentHtml == 'Agenda')
+                    {
+                        $('#Order'+arreglo[j].order).html(agendahtml);
+                    }
+                    if(arreglo[j].contentHtml == 'Correo')
+                    {
+                        $('#Order'+arreglo[j].order).html(correohtml);
+                    }
+                    if(arreglo[j].contentHtml == 'Musica')
+                    {
+                        $('#Order'+arreglo[j].order).html(musicahtml);
+                    }
+                    if(arreglo[j].contentHtml == 'HotelServiceContenedor')
+                    {
+                        $('#Order'+arreglo[j].order).html(servicioshtml);
+                    }
                  
-                 document.getElementById(orderarreglo5).innerHTML=agendahtml;
+                 }
 
-                 var orderarreglo6='Order'+arreglo[5];                 
-                 document.getElementById(orderarreglo6).innerHTML=correohtml;
-
-                 var orderarreglo7='Order'+arreglo[6];                 
-                 document.getElementById(orderarreglo7).innerHTML=musicahtml;
-
-                 var orderarreglo8='Order'+arreglo[7];                 
-                 document.getElementById(orderarreglo8).innerHTML=servicioshtml;
+            
    
              });
          }
