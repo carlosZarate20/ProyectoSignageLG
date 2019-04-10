@@ -80,14 +80,116 @@
                     var agendaData = data;
                     for(var i = data.length-5; i< data.length; i++){
                         var agenda1 = agendaData[i];
+                        var d = new Date(agenda1.start.dateTime);
+                        var time = d.toLocaleString("en-PE");
+                        var today = new Date();
+                        var timeToday = today.toLocaleString("en-PE");
+                        console.log("FechaFormato", time);
+                        console.log("Fecha Hoy", timeToday);
+                        var timeCalculate = (today.getTime() - d.getTime()) /3600000;
+                        var difference_ms  = today.getTime() - d.getTime();
+                        var difference_hr = today.getHours() - d.getHours();
+                        console.log("Horas: " + difference_hr);
+
+                        /*var dias =Math.floor(timeDivided/24)
+                        console.log("Dias", dias);
+
+                        var horas=Math.floor(timeDivided%24)
+
+                        console.log("Horas", horas)
+                        timeDivided = timeDivided/60;
+                        var minutos=Math.floor(timeDivided % 60)
+                        var segundos=Math.floor(timeCalculate)*/
+
+                        difference_ms = difference_ms/1000;
+                        var seconds = Math.floor(difference_ms % 60);
+                        difference_ms = difference_ms/60; 
+                        var minutes = Math.floor(difference_ms % 60);
+                        difference_ms = difference_ms/60; 
+                        var hours = Math.floor(difference_hr % 12);  
+                        var days = Math.floor(difference_ms/24);
 
                         var serviocAgenda1 = agenda1.summary;
+                        var htmlAgenda;
+                        if(today.getDate() == d.getDate()){
+                            
+                            if(hours <= 0){
+                                hours *= -1;
+                                /*var timeHour = difference_hr.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true}); 
+                                console.log(timeHour)*/
+                                if( d.getHours() >= 12){
+                                    console.log("Hoy a las " + d.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true}) + " PM");
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true})  +'</label>'
+                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
+                                }else if(d.getHours() <= 12){
+                                    console.log("Hoy a las " + d.getHours() + " AM");
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true})  +'</label>'
+                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
+                                }
+                            }else{
+                                if( d.getHours()>=12){
+                                    console.log("Hoy a las " + d.getHours() + " PM");
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
+                                }else if(d.getHours()<=12){
+                                    console.log("Hoy a las " + d.getHours() + " AM");
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
+                                } 
+                            }
+                        }else if(d.getDate() > today.getDate()){
+                            console.log("No son el mismo dia");
+                            if(hours <= 0){
+                                hours *= -1;
+                                if( d.getHours()>=12){
+                                    console.log("Mañana a las " + d.getHours() + " PM");
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
+                                }else if(d.getHours()<=12){
+                                    console.log("Mañana a las " + d.getHours() + " AM");
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
+                                }
+                            }
+                            if(hours >= 0){
+                                if( d.getHours() >= 12){
+                                    console.log("Mañana a las " + d.getHours() + " PM");
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
+                                }else if(d.getHours() <= 12){
+                                    console.log("Mañana a las " + d.getHours() + " AM");
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
+                                }
+                            }
+                        }
 
-                        var htmlAgenda = '<label>' +serviocAgenda1+'</label>'
+
+
 
                         var stringNumber = "#f"+indexIncrement.toString(); 
                         $(stringNumber).html(htmlAgenda);
                         indexIncrement ++;
+
+                         /*var d = new Date(data.events[i].date);
+                              var time = d.toLocaleString("en-US");
+                               var conversion = countdown(time);
+
+                         var fecha = data.events[i].date;
+                         var descripcion = data.events[i].desc;
+                         if (data.labels[i].desc.length > 90) {
+                             correo = data.labels[i].desc.substring(0, 87) + "...";
+                         } else {
+                             correo = data.labels[i].desc;
+                         }
+
+                         var correo2 = data.labels[i].from;
+                         var correo3 = data.labels[i].date;
+                         if (data.labels[i].desc.length > 90) {
+                             correo4 = data.labels[i].subject.substring(0, 87) + "...";
+                         } else {
+                             correo4 = data.labels[i].subject;
+                         }*/
                     }
                 }
                 , function(data1) {
@@ -379,7 +481,7 @@ function toShortDate(date) {
 }
 
          function countdown(fechaevento) {
-             return fecha;
+             return fechaevento;
          }
 
          function calendariolocal() {
@@ -784,9 +886,9 @@ function toShortDate(date) {
                      }
 
 
-                     getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
+                     /*getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
                      getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
-
+                       */ 
                      $("#tablaClima").html(html);
 
                      changeiconTitle(data.currently.icon, Math.round(data.currently.temperature));
