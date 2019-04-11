@@ -78,7 +78,7 @@
              });
          }
          function obtenerUsuario(){
-              var enviar = JSON.stringify({  "roomNumber": 124 });
+              var enviar = JSON.stringify({  "roomNumber": 140 });
 
                eventoPost(urlpost2 ,enviar,
                 function(data) {
@@ -93,33 +93,32 @@
                     var indexIncrement = 0
                     console.log("Agenda: ", data);
                     var agendaData = data;
-                    for(var i = data.length-5; i< data.length; i++){
+                    //for(var i = data.length-5; i< data.length; i++){
+                    for(var i = 0; i< data.length; i++){
+
                         var agenda1 = agendaData[i];
                         var d = new Date(agenda1.start.dateTime);
                         var time = d.toLocaleString("en-PE");
                         var today = new Date();
+                    
                         var timeToday = today.toLocaleString("en-PE");
                         console.log("FechaFormato", time);
                         console.log("Fecha Hoy", timeToday);
-                        var timeCalculate = (today.getTime() - d.getTime()) /3600000;
                         var difference_ms  = today.getTime() - d.getTime();
+                        
                         var difference_hr = today.getHours() - d.getHours();
+                        var difference_minute = today.getMinutes() - d.getMinutes();
                         console.log("Horas: " + difference_hr);
+                        console.log("Minutes: ", difference_minute);
+                        console.log("Minutes2: ", difference_ms);
 
-                        /*var dias =Math.floor(timeDivided/24)
-                        console.log("Dias", dias);
-
-                        var horas=Math.floor(timeDivided%24)
-
-                        console.log("Horas", horas)
-                        timeDivided = timeDivided/60;
-                        var minutos=Math.floor(timeDivided % 60)
-                        var segundos=Math.floor(timeCalculate)*/
 
                         difference_ms = difference_ms/1000;
                         var seconds = Math.floor(difference_ms % 60);
-                        difference_ms = difference_ms/60; 
-                        var minutes = Math.floor(difference_ms % 60);
+                        difference_minute = difference_minute/60; 
+                        var minutes = Math.floor(difference_minute % 60);
+
+                        //console.log("Minutes: ", minutes);
                         difference_ms = difference_ms/60; 
                         var hours = Math.floor(difference_hr % 12);  
                         var days = Math.floor(difference_ms/24);
@@ -133,47 +132,38 @@
                                 /*var timeHour = difference_hr.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true}); 
                                 console.log(timeHour)*/
                                 if( d.getHours() >= 12){
-                                    console.log("Hoy a las " + d.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true}) + " PM");
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true})  +'</label>'
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true})  +'</label>'
                                         + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
                                 }else if(d.getHours() <= 12){
-                                    console.log("Hoy a las " + d.getHours() + " AM");
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true})  +'</label>'
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true})  +'</label>'
                                         + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
                                 }
                             }else{
                                 if( d.getHours()>=12){
-                                    console.log("Hoy a las " + d.getHours() + " PM");
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
                                         + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
                                 }else if(d.getHours()<=12){
-                                    console.log("Hoy a las " + d.getHours() + " AM");
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
                                         + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
                                 } 
                             }
                         }else if(d.getDate() > today.getDate()){
-                            console.log("No son el mismo dia");
                             if(hours <= 0){
                                 hours *= -1;
                                 if( d.getHours()>=12){
-                                    console.log("Mañana a las " + d.getHours() + " PM");
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
                                         + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
                                 }else if(d.getHours()<=12){
-                                    console.log("Mañana a las " + d.getHours() + " AM");
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
                                         + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
                                 }
                             }
                             if(hours >= 0){
                                 if( d.getHours() >= 12){
-                                    console.log("Mañana a las " + d.getHours() + " PM");
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
                                         + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
                                 }else if(d.getHours() <= 12){
-                                    console.log("Mañana a las " + d.getHours() + " AM");
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana a las " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
+                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true}) +'</label>'
                                         + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
                                 }
                             }
@@ -185,7 +175,6 @@
                         var stringNumber = "#f"+indexIncrement.toString(); 
                         $(stringNumber).html(htmlAgenda);
                         indexIncrement ++;
-
                          /*var d = new Date(data.events[i].date);
                               var time = d.toLocaleString("en-US");
                                var conversion = countdown(time);
@@ -208,9 +197,19 @@
                     }
                 }
                 , function(data1) {
-                    var correo = data1;    
+                    var correo = data1;  
+                    var temp = correo.subject.substring(0, 45);
+
+                    var timeItem = new Date(correo.sendAt);
+                    var correoTime = correo.sendAt;
+
+                    var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
+                    var dia = timeItem.getDate();
+                    var formatedTime = timeItem.toLocaleTimeString('en-PE', {hour: '2-digit', minute: '2-digit', hour12: true});
+                    var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime ;  
+
                     ArregloCorreo.push(correo);               
-                    var string = '<div class="carousel-item"><label class="carrouselAsunto">'+ correo.subject +'</label> <label class="carrouselFrom">'+ correo.sender +'</label><label class="carrouselDate">'+ correo.sendAt +'</label><label class="carrouselDesc">'+ correo.message +'</label></div>';
+                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc">'+ correo.message +'</label></div>';
                     $("#elements").append(string);   
                     $("#elements .carousel-item").first().addClass('active');
               
@@ -461,8 +460,43 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
                 url: "https://www.googleapis.com/calendar/v3/calendars/primary/events",
                 headers: { 'Authorization': result.token_type + " " + result.access_token },
                 success: function (calendarResult) {
-                    console.log(calendarResult);
-                    calendarCallback(calendarResult.items);
+                    var calendario = calendarResult.items
+                    console.log("Agenda Original: ", calendario);
+                    var listaArrayError = [];
+                    var listaArrayCorrect = [];
+                    for(var i = 0; i< calendario.length; i++){
+
+                        var agenda1 = calendario[i];
+                        var d = new Date(agenda1.start.dateTime);
+                        var time = d.toLocaleString("en-PE");
+                        var today = new Date();
+                        var dayToday = today.getDate();
+                        var yearToday = today.getFullYear();
+                        var monthToday = today.getMonth();
+                        var valueFullYear = d.getFullYear();
+                        var valueMonth = d.getMonth();
+                        var valueDay = d.getDate();
+                        var constArray = "";
+
+                        if(yearToday > valueFullYear){
+                            listaArrayError.push(agenda1);
+                        }else{
+                            if(monthToday > valueMonth){
+                                listaArrayError.push(agenda1);
+                            }else{
+                                if(dayToday > valueDay){
+                                    listaArrayError.push(agenda1);
+                                }else{
+                                    listaArrayCorrect.push(agenda1); 
+                                    constArray = listaArrayCorrect.sort((a, b) => new Date(a.start.dateTime) - new Date(b.start.dateTime)   );
+                                }
+                            }                    
+                        }
+                    }
+                    //var constArray = _.orderBy(listaArrayCorrect, ['start.dateTime']);
+                    //var constArray = listaArrayCorrect.sort((a, b) => a['start.dateTime'] - b['start.dateTime']);
+                    calendarCallback(constArray);
+                    
                 }
             });
             $.ajax({
@@ -827,7 +861,7 @@ function toShortDate(date) {
 
                      /*getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
                      getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
-                       */ 
+                     */  
                      $("#tablaClima").html(html);
 
                      changeiconTitle(data.currently.icon, Math.round(data.currently.temperature));
