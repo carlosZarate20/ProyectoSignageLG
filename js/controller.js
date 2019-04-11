@@ -66,6 +66,7 @@
          var UsuarioID=undefined;
          var RefreshToken=undefined;
 
+         var ArregloCorreo=[];
 
        
              
@@ -207,7 +208,8 @@
                     }
                 }
                 , function(data1) {
-                    var correo = data1;                   
+                    var correo = data1;    
+                    ArregloCorreo.push(correo);               
                     var string = '<div class="carousel-item"><label class="carrouselAsunto">'+ correo.subject +'</label> <label class="carrouselFrom">'+ correo.sender +'</label><label class="carrouselDate">'+ correo.sendAt +'</label><label class="carrouselDesc">'+ correo.message +'</label></div>';
                     $("#elements").append(string);   
                     $("#elements .carousel-item").first().addClass('active');
@@ -216,7 +218,7 @@
              });    
            }
         obtenerUsuario();    
-         
+         console.log(ArregloCorreo);
          function obtenerEstadodefinitivo() {
 
              var enviar = JSON.stringify({  "id": UsuarioID });
@@ -305,7 +307,7 @@
                  var arreglo = JSON.parse(data);
                  
 
-                 if(arreglo.status){
+                 if(arreglo.order){
 
                  } else{
 
@@ -359,6 +361,8 @@
                     
                  }
 
+                
+
                  for (var j=0;j < arreglo.length;j++){
                     if(arreglo[j].contentHtml == 'Clima')
                     {
@@ -394,8 +398,19 @@
                     }
                  
                  }
+                  $('#elements').html('');
+                 for(var k=0;k<ArregloCorreo.length;k++){
+                          var string = '<div class="carousel-item"><label class="carrouselAsunto">'+ ArregloCorreo[k].subject +'</label> <label class="carrouselFrom">'+ ArregloCorreo[k].sender +'</label><label class="carrouselDate">'+ ArregloCorreo[k].sendAt +'</label><label class="carrouselDesc">'+ ArregloCorreo[k].message +'</label></div>';
+                    $("#elements").append(string);   
+                   
+                 }
+                 $("#elements .carousel-item").first().addClass('active');
+                 $('.carousel-item').carousel({ interval: 4000 });
+                    $('.carousel').carousel({ interval: 4000 });
 
-            
+                    $('#tablaClima').html('');
+                    GetWeather();
+
                  }
 
    
@@ -713,6 +728,118 @@ function toShortDate(date) {
              }
          }
 
+
+        function GetWeather(){
+             $.ajax({
+                     method: "GET",
+                     url: "https://api.darksky.net/forecast/7af51a01e29c8ddb7a548fad3cf35a05/-12.193731,-76.708493?units=si",
+                     crossDomain: true,
+                     dataType: 'jsonp',
+
+                 })
+                 .done(function(data) {
+
+                     info.set('asideBlock11Content2', "↑" + changeicon2(data.daily.data[0].icon, Math.round(data.daily.data[0].temperatureMax)));
+                     info.set('asideBlock11Content3', "↓" + changeicon2(data.daily.data[0].icon, Math.round(data.daily.data[0].temperatureMin)));
+
+                     function changeiconTitle(icon, temp) {
+                         switch (icon) {
+                             case "clear-day":
+                                 return info.set('asideBlock11Content1', jsonData.weather_clear);
+                             case "clear-night":
+                                 return info.set('asideBlock11Content1', jsonData.weather_clearnight);
+                             case "cloudy":
+                                 return info.set('asideBlock11Content1', jsonData.weather_cloudy);
+                             case "fog":
+                                 return info.set('asideBlock11Content1', jsonData.weather_fog);
+                             case "partly-cloudy-day":
+                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
+                             case "partly-cloudy-night":
+                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
+                             case "rain":
+                                 return info.set('asideBlock11Content1', jsonData.weather_rain);
+                             case "sleet":
+                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                             case "snow":
+                                 return info.set('asideBlock11Content1', jsonData.weather_snow);
+                             case "sunny":
+                                 return info.set('asideBlock11Content1', jsonData.weather_sunny);
+                             case "wind":
+                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                         }
+                     }
+
+
+
+
+                     function changeicon(icon, temp) {
+                         return temp + "°";
+                     }
+
+                     function changeicon2(icon, temp) {
+                         return temp + "°C";
+                     }
+
+                     function getDayString(number) {
+                         switch (number) {
+                             case 0:
+                                 return "D";
+                             case 1:
+                                 return "L";
+                             case 2:
+                                 return "M";
+                             case 3:
+                                 return "M";
+
+                             case 4:
+                                 return "J";
+                             case 5:
+                                 return "V";
+
+                             case 6:
+                                 return "S";
+
+                         }
+                     }
+
+                     var html = "";
+
+                     html += "<tr>"
+                     for (var i = 0; i < 7; ++i) {
+                         var date = new Date();
+                         date.setDate(date.getDate() + i);
+                         html += "<td>" + getDayString(date.getDay()) + "</td>";
+                     }
+                     html += "</tr>"
+
+
+                     html += "<tr>"
+                     for (var i = 0; i < 7; ++i) {
+                         html += "<td>" + changeicon(data.daily.data[i].icon, Math.round(data.daily.data[i].temperatureMax)) + "</td>"
+                     }
+                     html += "</tr>"
+
+                     html += "<tr>"
+                     for (var i = 0; i < 7; ++i) {
+                         html += "<td>" + changeicon(data.daily.data[i].icon, Math.round(data.daily.data[i].temperatureMin)) + "</td>"
+                     }
+
+
+                     /*getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
+                     getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
+                       */ 
+                     $("#tablaClima").html(html);
+
+                     changeiconTitle(data.currently.icon, Math.round(data.currently.temperature));
+
+                     var html2 = changeicon2(data.currently.icon, Math.round(data.currently.temperature));
+
+
+                     $("#logoClima").html(html2);
+
+                 });
+
+        }
 
 
          function getCurrency(from, to, textdesign, urls) {
