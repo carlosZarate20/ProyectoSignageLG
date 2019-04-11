@@ -55,22 +55,36 @@
          }
 
          var proxyurl = "https://cors-anywhere.herokuapp.com/";
-         var urlpost = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetStatus';
+         var urlpost = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetStatusSmart';
 
          var urlpost2 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetUser';
 
-         var urlpost3 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetOrder';
+         var urlpost3 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetOrderSmart';
+
+         var urlpost4 = proxyurl + 'http://smartmirror-api.azurewebsites.net/UpdateBooleans';
 
          var UsuarioID=undefined;
          var RefreshToken=undefined;
 
+
+       
+             
+        function UpdateBooleans(idesito) {
+            var enviar2 = JSON.stringify({  "id": idesito });
+
+             eventoPost(urlpost4, enviar2, function(data) {           
+                 
+             });
+         }
          function obtenerUsuario(){
               var enviar = JSON.stringify({  "roomNumber": 124 });
 
                eventoPost(urlpost2 ,enviar,
                 function(data) {
+
                  var usuario = JSON.parse(data);
                 UsuarioID=usuario.id;
+                UpdateBooleans(UsuarioID);
                 RefreshToken=usuario.refreshtoken;
                 console.log(UsuarioID);
                 console.log(RefreshToken);
@@ -201,15 +215,19 @@
                 });
              });    
            }
-        obtenerUsuario();
-
+        obtenerUsuario();    
+         
          function obtenerEstadodefinitivo() {
 
              var enviar = JSON.stringify({  "id": UsuarioID });
 
              eventoPost(urlpost, enviar, function(data) {
-                 // OBTENGO LA LISTA DE BOOLEANOS
-                 var arreglo = JSON.parse(data);
+                var arreglo = JSON.parse(data);
+                if(arreglo.status){
+ 
+                } else{
+                     // OBTENGO LA LISTA DE BOOLEANOS
+                 
                  //SETEO EL VALOR DEL BOOLEANO DE CLIMA EN ESTE CASO SE ENCUENTRA EN AL POSICION 1 DEL ARREGLO
                  var bolsabooleano = arreglo[0].isActive;
                  if (bolsabooleano == true) {
@@ -266,7 +284,10 @@
                      document.getElementById('NoticiasContenedor').style.display = 'block';
                  } else {
                      document.getElementById('NoticiasContenedor').style.display = 'none';
-                 }
+                 }     
+                }
+
+               
                  
              });
          }
@@ -283,6 +304,11 @@
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);
                  
+
+                 if(arreglo.status){
+
+                 } else{
+
                  //OBTENIENDO HTML DE CADA GADGET
                  var bolsahtml=undefined;
                  var climahtml=undefined;
@@ -370,30 +396,33 @@
                  }
 
             
+                 }
+
    
              });
          }
          // obtenerOrderfinitivo();
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR EL ORDEN DE LOS GADGET
-         // window.setInterval(obtenerOrderfinitivo, 1000);
-        addEvent(document, "keydown", function (e) {
-            console.log("Se presiono una tecla");
-            console.log(e);
-            if(e.code == "Space"){
-                console.log("entro aca");
-                obtenerOrderfinitivo();
-                }
-            });
+         window.setInterval(obtenerOrderfinitivo, 1000);
 
-        function addEvent(element, eventName, callback) {
-            if (element.addEventListener) {
-                element.addEventListener(eventName, callback, false);
-            } else if (element.attachEvent) {
-              element.attachEvent("on" + eventName, callback);
-            } else {
-              element["on" + eventName] = callback;
-             }
-        }
+        // addEvent(document, "keydown", function (e) {
+        //     console.log("Se presiono una tecla");
+        //     console.log(e);
+        //     if(e.code == "Space"){
+        //         console.log("entro aca");
+        //         obtenerOrderfinitivo();
+        //         }
+        //     });
+
+        // function addEvent(element, eventName, callback) {
+        //     if (element.addEventListener) {
+        //         element.addEventListener(eventName, callback, false);
+        //     } else if (element.attachEvent) {
+        //       element.attachEvent("on" + eventName, callback);
+        //     } else {
+        //       element["on" + eventName] = callback;
+        //      }
+        // }
 
 
 var clientId = "541429281292-8v02kma7fl8fhmiih66kdqnlh8b6opmn.apps.googleusercontent.com";
