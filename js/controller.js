@@ -481,7 +481,7 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
                             }else{
                                 if(dayToday == valueDay){
                                     if(hourToday == valueHour){
-                                        if(difference_minutes == 0){
+                                        if(difference_minutes >= 0){
                                             listaArrayError.push(agenda1);
                                         }else{
                                             listaArrayCorrect.push(agenda1); 
