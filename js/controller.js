@@ -175,25 +175,6 @@
                         var stringNumber = "#f"+indexIncrement.toString(); 
                         $(stringNumber).html(htmlAgenda);
                         indexIncrement ++;
-                         /*var d = new Date(data.events[i].date);
-                              var time = d.toLocaleString("en-US");
-                               var conversion = countdown(time);
-
-                         var fecha = data.events[i].date;
-                         var descripcion = data.events[i].desc;
-                         if (data.labels[i].desc.length > 90) {
-                             correo = data.labels[i].desc.substring(0, 87) + "...";
-                         } else {
-                             correo = data.labels[i].desc;
-                         }
-
-                         var correo2 = data.labels[i].from;
-                         var correo3 = data.labels[i].date;
-                         if (data.labels[i].desc.length > 90) {
-                             correo4 = data.labels[i].subject.substring(0, 87) + "...";
-                         } else {
-                             correo4 = data.labels[i].subject;
-                         }*/
                     }
                 }
                 , function(data1) {
@@ -473,9 +454,13 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
                         var dayToday = today.getDate();
                         var yearToday = today.getFullYear();
                         var monthToday = today.getMonth();
+                        var hourToday = today.getHours();
+
                         var valueFullYear = d.getFullYear();
                         var valueMonth = d.getMonth();
                         var valueDay = d.getDate();
+                        var valueHour = d.getHours();
+
                         var constArray = "";
 
                         if(yearToday > valueFullYear){
@@ -484,15 +469,21 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
                             if(monthToday > valueMonth){
                                 listaArrayError.push(agenda1);
                             }else{
-                                if(dayToday > valueDay){
+                                if(dayToday == valueDay){
+                                    if(hourToday > valueHour){
+                                        listaArrayError.push(agenda1);
+                                    }else{
+                                        listaArrayCorrect.push(agenda1); 
+                                    }
+                                }else if(dayToday > valueDay){
                                     listaArrayError.push(agenda1);
                                 }else{
                                     listaArrayCorrect.push(agenda1); 
-                                    constArray = listaArrayCorrect.sort((a, b) => new Date(a.start.dateTime) - new Date(b.start.dateTime)   );
                                 }
                             }                    
                         }
                     }
+                    constArray = listaArrayCorrect.sort((a, b) => new Date(a.start.dateTime) - new Date(b.start.dateTime)   );
                     //var constArray = _.orderBy(listaArrayCorrect, ['start.dateTime']);
                     //var constArray = listaArrayCorrect.sort((a, b) => a['start.dateTime'] - b['start.dateTime']);
                     calendarCallback(constArray);
@@ -525,38 +516,38 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
     });
     //asunto , from , date , descr
 }
-function serializeMail(result, id) {
-    var object = {id:"", sender:"", subject:"",sendAt:"",message:"" };
-    object.id = findValue(result.payload.headers, "From");
-    object.sender = findValue(result.payload.headers, "From");
-    object.subject = findValue(result.payload.headers, "Subject");
-    object.sendAt = findValue(result.payload.headers, "Date");
-    object.message = result.snippet;
-    return object;
-}
-function findValue(arrayObject, name) {
-    var result = arrayObject.find(x => x.name === name);
-    return result !== undefined ? removeExtraString(result.value) : "not found";
-}
-function removeExtraString(value) {
-    return value.replace("<", "").replace(">", " ").replace(".", " ").replace("@", " ");
-}
-function parseDate(stringDate) { //as string like "Wed, 21 Jun 2017 18:39:35 -0700"
-    var _date = new Date(stringDate);
-    if (_date.getDate() === new Date().getDate()) {
-        return extractTime(_date);
-    } else {
-        return toShortDate(_date);
+    function serializeMail(result, id) {
+        var object = {id:"", sender:"", subject:"",sendAt:"",message:"" };
+        object.id = findValue(result.payload.headers, "From");
+        object.sender = findValue(result.payload.headers, "From");
+        object.subject = findValue(result.payload.headers, "Subject");
+        object.sendAt = findValue(result.payload.headers, "Date");
+        object.message = result.snippet;
+        return object;
     }
-}
+    function findValue(arrayObject, name) {
+        var result = arrayObject.find(x => x.name === name);
+        return result !== undefined ? removeExtraString(result.value) : "not found";
+    }
+    function removeExtraString(value) {
+        return value.replace("<", "").replace(">", " ").replace(".", " ").replace("@", " ");
+    }
+    function parseDate(stringDate) { //as string like "Wed, 21 Jun 2017 18:39:35 -0700"
+        var _date = new Date(stringDate);
+        if (_date.getDate() === new Date().getDate()) {
+            return extractTime(_date);
+        } else {
+            return toShortDate(_date);
+        }
+    }
 
-function extractTime(date) {
-    var time = date.toLocaleString('es-PE', { hour: 'numeric', minute: 'numeric', hour12: true });
-    return time.replace("p. m.", "PM").replace("a. m.", "AM");
-}
-function toShortDate(date) {
-    return date.toLocaleString('es-PE', { day: 'numeric', month: 'long' });
-}
+    function extractTime(date) {
+        var time = date.toLocaleString('es-PE', { hour: 'numeric', minute: 'numeric', hour12: true });
+        return time.replace("p. m.", "PM").replace("a. m.", "AM");
+    }
+    function toShortDate(date) {
+        return date.toLocaleString('es-PE', { day: 'numeric', month: 'long' });
+    }
 
          function countdown(fechaevento) {
              return fechaevento;
@@ -914,23 +905,6 @@ function toShortDate(date) {
                      $(textdesign).html('<marquee direction="left" scrolldelay="100" behavior="scroll">' + full + '</marquee>');
 
                  });
-
-             /*  var text = '{'+
-                  '"Realtime Currency Exchange Rate": {'+
-                  '"1. From_Currency Code": "USD",'+
-                  '"2. From_Currency Name": "United States Dollar",'+
-                  '"3. To_Currency Code": "PEN",'+
-                  '"4. To_Currency Name": "Peruvian Nuevo Sol",'+
-                  '"5. Exchange Rate": "3.35550000",'+
-                  '"6. Last Refreshed": "2018-11-02 17:56:53",'+
-                  '"7. Time Zone": "UTC"'+
-                  '}'+
-                  '}'
-                  var obj = JSON.parse(text);
-                    // console.log(obj["Realtime Currency Exchange Rate"]["5. Exchange Rate"]);
-                      var value = obj["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
-
-                      info.set(textdesign, from + " " + value);*/
          }
 
          function updateTime() {
