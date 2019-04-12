@@ -462,12 +462,14 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
                         var yearToday = today.getFullYear();
                         var monthToday = today.getMonth();
                         var hourToday = today.getHours();
+                        var minuteToday = today.getMinutes();
 
-                        var difference_hr = today.getHours() - d.getHours();
+                        var difference_minutes = today.getMinutes() - d.getMinutes();
                         var valueFullYear = d.getFullYear();
                         var valueMonth = d.getMonth();
                         var valueDay = d.getDate();
                         var valueHour = d.getHours();
+                        var valMinute = d.getMinutes();
 
                         var constArray = "";
 
@@ -478,9 +480,15 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
                                 listaArrayError.push(agenda1);
                             }else{
                                 if(dayToday == valueDay){
-                                    if(hourToday > valueHour){
+                                    if(hourToday == valueHour){
+                                        if(difference_minutes == 0){
+                                            listaArrayError.push(agenda1);
+                                        }else{
+                                            listaArrayCorrect.push(agenda1); 
+                                        }
+                                    }else if(hourToday > valueHour){
                                         listaArrayError.push(agenda1);
-                                    }else if(difference_hr != 0){
+                                    }else {
                                         listaArrayCorrect.push(agenda1); 
                                     }
                                 }else if(dayToday > valueDay){
