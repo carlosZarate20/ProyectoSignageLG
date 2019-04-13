@@ -96,7 +96,7 @@
                                             var orderAgenda = [];
                     //for(var i = data.length-5; i< data.length; i++){
                     for(var i = 0; i< data.length; i++){
-
+                        orderAgenda.push(i);
                         var agenda1 = agendaData[i];
                         var d = new Date(agenda1.start.dateTime);
                         var d2 = new Date(agenda1.start.dateTime);
@@ -188,7 +188,7 @@
                         var stringNumber = "#f"+indexIncrement.toString(); 
                         $(stringNumber).html(htmlAgenda);
                         indexIncrement ++;
-                        orderAgenda.push({'item':indexIncrement});
+                        
                     }
                     ontenerParametroAgenda(orderAgenda);
                 }
@@ -216,13 +216,21 @@
          console.log(ArregloCorreo);
 
          function ontenerParametroAgenda(orderAgenda){
-                console.log("OrderAgendaRecibida", orderAgenda);
-                for(var i = 0; i < orderAgenda.length; i++){
-                    eventoAgenda = orderAgenda.item[i];
-                }
-                if(orderAgenda.item == 1){
 
-                }
+                // console.log("OrderAgendaRecibida", orderAgenda);
+                // for(var i = 0; i < orderAgenda.length; i++){
+                //     eventoAgenda = orderAgenda.item[i];
+                // }
+                // if(orderAgenda.item == 1){
+
+                // }       
+
+                var index=orderAgenda-1;
+                //ESTE OBJ ES EL QUE VAS A MOSTRAR
+                var obj=agendaData[index];
+
+                //ACA VA LA MAGIA DEL HTML
+
          }
          function obtenerEstadodefinitivo() {
 
