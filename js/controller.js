@@ -54,14 +54,14 @@
              return xhr;
          }
 
-         var proxyurl = "https://cors-anywhere.herokuapp.com/";
-         var urlpost = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetStatusSmart';
+         //var proxyurl = "https://cors-anywhere.herokuapp.com/";
+         var urlpost = 'http://smartmirror-api.azurewebsites.net/GetGadgetStatusSmart';
 
-         var urlpost2 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetUser';
+         var urlpost2 ='http://smartmirror-api.azurewebsites.net/GetUser';
 
-         var urlpost3 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetOrderSmart';
+         var urlpost3 = 'http://smartmirror-api.azurewebsites.net/GetGadgetOrderSmart';
 
-         var urlpost4 = proxyurl + 'http://smartmirror-api.azurewebsites.net/UpdateBooleans';
+         var urlpost4 = 'http://smartmirror-api.azurewebsites.net/UpdateBooleans';
 
          var UsuarioID=undefined;
          var RefreshToken=undefined;
@@ -138,7 +138,7 @@
                             
                             if(hours <= 0){
                                 hours *= -1;
-                                if( jsonHours <= todayDataHour){
+                                if( jsonHours == todayDataHour){
                                     if(difference_minute <= 0)
                                     {
                                         difference_minute *= -1;
@@ -146,8 +146,7 @@
                                             + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
                                     }
                                         
-                                } else
-                                if( d.getHours() >= 12){
+                                } else if( d.getHours() >= 12){
                                      htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + variableTimer  +'</label>'
                                         + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
                                 }else if(d.getHours() <= 12){
