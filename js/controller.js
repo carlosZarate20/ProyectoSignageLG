@@ -128,11 +128,13 @@
                         var htmlAgenda;
                         var variableTimer = d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true});
                         var variableTimerMinutes = d2.toLocaleTimeString('en-PE', {minute: '2-digit'});
+                        var jsonHours = d.toLocaleTimeString('en-PE', {hour: '2-digit'});
+                        var todayDataHour = today.toLocaleTimeString('en-PE', {hour: '2-digit'});
                         if(today.getDate() == d.getDate()){
                             
                             if(hours <= 0){
                                 hours *= -1;
-                                if( d.getHours() <= 1){
+                                if( jsonHours <= todayDataHour){
                                     if(difference_minute <= 0)
                                     {
                                         difference_minute *= -1;
@@ -197,7 +199,7 @@
                     var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime ;  
 
                     ArregloCorreo.push(correo);               
-                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc">'+ correo.message +'</label></div>';
+                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
                     $("#elements").append(string);   
                     $("#elements .carousel-item").first().addClass('active');
               
@@ -387,7 +389,18 @@
                  }
                   $('#elements').html('');
                  for(var k=0;k<ArregloCorreo.length;k++){
-                          var string = '<div class="carousel-item"><label class="carrouselAsunto">'+ ArregloCorreo[k].subject +'</label> <label class="carrouselFrom">'+ ArregloCorreo[k].sender +'</label><label class="carrouselDate">'+ ArregloCorreo[k].sendAt +'</label><label class="carrouselDesc">'+ ArregloCorreo[k].message +'</label></div>';
+
+                    var temp = ArregloCorreo[k].subject.substring(0, 45);
+
+                    var timeItem = new Date(ArregloCorreo[k].sendAt);
+                    var correoTime = ArregloCorreo[k].sendAt;
+
+                    var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
+                    var dia = timeItem.getDate();
+                    var formatedTime = timeItem.toLocaleTimeString('en-PE', {hour: '2-digit', minute: '2-digit', hour12: true});
+                    var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime ;  
+
+                          var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style"word-break: break-word; float: left; display: inline-block">'+ ArregloCorreo[k].sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc">'+ ArregloCorreo[k].message +'</label></div>';
                     $("#elements").append(string);   
                    
                  }
