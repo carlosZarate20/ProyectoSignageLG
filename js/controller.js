@@ -94,7 +94,7 @@
          
          var orderAgenda = [];
          function obtenerUsuario(){
-              var enviar = JSON.stringify({  "roomNumber": 140 });
+              var enviar = JSON.stringify({  "roomNumber": 150 });
 
                eventoPost(urlpost2 ,enviar,
                 function(data) {
@@ -143,7 +143,7 @@
 
                         var serviocAgenda1 = agenda1.summary;
                         var htmlAgenda;
-                        var variableTimer = d.toLocaleTimeString('en-PE', {hour: '2-digit', hour12: true});
+                        var variableTimer = d.toLocaleTimeString('en-PE', {hour: '2-digit', minute: '2-digit', hour12: true});
                         var variableTimerMinutes = d2.toLocaleTimeString('en-PE', {minute: '2-digit'});
                         var jsonHours = d.toLocaleTimeString('en-PE', {hour: '2-digit'});
                         var todayDataHour = today.toLocaleTimeString('en-PE', {hour: '2-digit'});
