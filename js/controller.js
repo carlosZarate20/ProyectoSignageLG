@@ -68,7 +68,7 @@
 
          var ArregloCorreo=[];
 
-       
+         var agendaData;
              
         function UpdateBooleans(idesito) {
             var enviar2 = JSON.stringify({  "id": idesito });
@@ -92,8 +92,8 @@
                 getGoogleData(RefreshToken, function(data) {
                     var indexIncrement = 0
                     console.log("Agenda: ", data);
-                    var agendaData = data;
-                                            var orderAgenda = [];
+                    agendaData = data;
+                    var orderAgenda = [];
                     //for(var i = data.length-5; i< data.length; i++){
                     for(var i = 0; i< data.length; i++){
                         orderAgenda.push(i);
@@ -205,7 +205,8 @@
                     var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime ;  
 
                     ArregloCorreo.push(correo);               
-                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
+                    //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
+                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
                     $("#elements").append(string);   
                     $("#elements .carousel-item").first().addClass('active');
               
@@ -217,18 +218,20 @@
 
          function ontenerParametroAgenda(orderAgenda){
 
-                // console.log("OrderAgendaRecibida", orderAgenda);
-                // for(var i = 0; i < orderAgenda.length; i++){
-                //     eventoAgenda = orderAgenda.item[i];
-                // }
-                // if(orderAgenda.item == 1){
+                console.log("OrderAgendaRecibida", orderAgenda);  
 
-                // }       
-
-                var index=orderAgenda-1;
+                /*var index=orderAgenda-1;
+                var index2=0;
+                console.log("index", index)
                 //ESTE OBJ ES EL QUE VAS A MOSTRAR
-                var obj=agendaData[index];
-
+                var obj=agendaData[index2];
+                console.log("obj", obj);
+                var htmlDescripcion;
+                $("#Agenda").hide(1000, function(){
+                    htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
+                    $('#Agenda2').html(htmlDescripcion);
+                });*/
+                
                 //ACA VA LA MAGIA DEL HTML
 
          }
@@ -309,6 +312,7 @@
 
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR LOS ESTADOS DE LOS GADGETS
          window.setInterval(obtenerEstadodefinitivo, 1000);
+
          
 
         function obtenerOrderfinitivo() {
@@ -424,7 +428,7 @@
                     var formatedTime = timeItem.toLocaleTimeString('en-PE', {hour: '2-digit', minute: '2-digit', hour12: true});
                     var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime ;  
 
-                          var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style"word-break: break-word; float: left; display: inline-block">'+ ArregloCorreo[k].sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc">'+ ArregloCorreo[k].message +'</label></div>';
+                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style"word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ ArregloCorreo[k].sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc">'+ ArregloCorreo[k].message +'</label></div>';
                     $("#elements").append(string);   
                    
                  }
@@ -608,86 +612,6 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
 
          function calendariolocal() {
 
-             /*fetch('https://smartmirrorlg.azurewebsites.net/api/Values')
-                 .then(function(response) {
-                     return response.json();
-                 })
-                 .then(function(data) {
-                     var correo = "";
-                     var correo4 = "";
-                     for (var i = 0; i < 5; i++) {
-                         /*var d = new Date(data.events[i].date);
-                              var time = d.toLocaleString("en-US");
-                               var conversion = countdown(time);
-
-                         var fecha = data.events[i].date;
-                         var descripcion = data.events[i].desc;
-                         if (data.labels[i].desc.length > 90) {
-                             correo = data.labels[i].desc.substring(0, 87) + "...";
-                         } else {
-                             correo = data.labels[i].desc;
-                         }
-
-                         var correo2 = data.labels[i].from;
-                         var correo3 = data.labels[i].date;
-                         if (data.labels[i].desc.length > 90) {
-                             correo4 = data.labels[i].subject.substring(0, 87) + "...";
-                         } else {
-                             correo4 = data.labels[i].subject;
-                         }
-
-                         if (i == 0) {
-                             /*$("#f0").html(fecha);
-                             $("#c0").html(descripcion);
-                             //$("#e0").html(correo);
-                             //$("#ci11").html(correo4);
-                             $("#ci12").html(correo2);
-                             $("#ci13").html(correo3);
-                             $("#ci14").html(correo);
-
-                         }
-                         if (i == 1) {
-                             $("#f1").html(fecha);
-                             $("#c1").html(descripcion);
-                             //$("#e1").html(correo);
-                             $("#ci21").html(correo4);
-                             $("#ci22").html(correo2);
-                             $("#ci23").html(correo3);
-                             $("#ci24").html(correo);
-                         }
-                         if (i == 2) {
-                             $("#f2").html(fecha);
-                             $("#c2").html(descripcion);
-                             //$("#e2").html(correo);
-                             $("#ci31").html(correo4);
-                             $("#ci32").html(correo2);
-                             $("#ci33").html(correo3);
-                             $("#ci34").html(correo);
-
-                         }
-                         if (i == 3) {
-                             $("#f3").html(fecha);
-                             $("#c3").html(descripcion);
-                             //$("#e3").html(correo);
-                             $("#ci41").html(correo4);
-                             $("#ci42").html(correo2);
-                             $("#ci43").html(correo3);
-                             $("#ci44").html(correo);
-                         }
-                         if (i == 4) {
-                             $("#f4").html(fecha);
-                             $("#c4").html(descripcion);
-                             //$("#e4").html(correo);
-                         }
-                     }
-
-
-                 })
-                 .catch(function(err) {
-                     console.log(err);
-                 });
-
-             //}, 2000); */
          }
          function serviciosHotel(){
             $.ajax({
@@ -1006,7 +930,7 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
              window.setInterval(updateTime, 1800000);
              window.setInterval(calendariolocal, 10000);
              window.setInterval(serviciosHotel, 10000);
-
+             //window.setInterval(obtenerUsuario, 10000);
 
              $.ajax({
                      method: "GET",
