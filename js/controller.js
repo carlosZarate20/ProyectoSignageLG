@@ -63,6 +63,9 @@
 
          var urlpost4 = 'http://smartmirror-api.azurewebsites.net/UpdateBooleans';
 
+         var urlpost5 = 'http://smartmirror-api.azurewebsites.net/SaveDiaries';
+         var urlpost6 = 'http://smartmirror-api.azurewebsites.net/GetDiaries';
+
          var UsuarioID=undefined;
          var RefreshToken=undefined;
 
@@ -77,6 +80,19 @@
                  
              });
          }
+
+        function GuardarIndexAgenda(parametro1,parametro2) {
+
+             var enviar3 = JSON.stringify({  "userId": parametro1,"list":parametro2 });
+
+             eventoPost(urlpost5, enviar3, function(data) {
+                var arreglo = JSON.parse(data);
+                
+                 
+             });
+         }
+         
+         var orderAgenda = [];
          function obtenerUsuario(){
               var enviar = JSON.stringify({  "roomNumber": 140 });
 
@@ -93,7 +109,7 @@
                     var indexIncrement = 0
                     console.log("Agenda: ", data);
                     agendaData = data;
-                    var orderAgenda = [];
+                    orderAgenda = [];
                     //for(var i = data.length-5; i< data.length; i++){
                     for(var i = 0; i< data.length; i++){
                         orderAgenda.push(i);
@@ -189,7 +205,7 @@
                         indexIncrement ++;
                         
                     }
-                    ontenerParametroAgenda(orderAgenda);
+                    GuardarIndexAgenda(UsuarioID,orderAgenda);
                 }
                 , function(data1) {
                     var correo = data1;  
@@ -215,21 +231,21 @@
         obtenerUsuario();    
          console.log(ArregloCorreo);
 
-         function ontenerParametroAgenda(orderAgenda){
+         function ontenerParametroAgenda(indice){
 
-                console.log("OrderAgendaRecibida", orderAgenda);  
+                console.log("OrderAgendaRecibida", indice);  
 
-                /*var index=orderAgenda-1;
-                var index2=0;
+                var index=indice;
+                
                 console.log("index", index)
                 //ESTE OBJ ES EL QUE VAS A MOSTRAR
-                var obj=agendaData[index2];
+                var obj=agendaData[index];
                 console.log("obj", obj);
                 var htmlDescripcion;
                 $("#Agenda").hide(1000, function(){
                     htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
                     $('#Agenda2').html(htmlDescripcion);
-                });*/
+                });
                 
                 //ACA VA LA MAGIA DEL HTML
 
@@ -466,7 +482,31 @@
         //      }
         // }
 
+         function obtenerDiaries() {
 
+            var enviar = JSON.stringify({  "userId": UsuarioID });
+
+             eventoPost(urlpost6, enviar, function(data) {
+                 // OBTENGO LA LISTA DE BOOLEANOS
+                 var arreglo = JSON.parse(data);
+                    
+                 if(arreglo.respuesta == 1){
+                    $('#Agenda2').show();
+
+                    ontenerParametroAgenda(arreglo.order);
+                    
+                 } else if(arreglo.respuesta == 2){
+                    $('#Agenda2').hide();
+                    $('#Agenda').show();
+
+                 } else{
+
+                 }
+
+   
+             });
+         }
+                window.setInterval(obtenerDiaries, 1000);
 var clientId = "541429281292-8v02kma7fl8fhmiih66kdqnlh8b6opmn.apps.googleusercontent.com";
 var clientSecret = "XbyAoBAIlUlqBbS1Lal0GrAF";
 
