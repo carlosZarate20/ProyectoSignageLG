@@ -93,6 +93,7 @@
                     var indexIncrement = 0
                     console.log("Agenda: ", data);
                     var agendaData = data;
+                                            var orderAgenda = [];
                     //for(var i = data.length-5; i< data.length; i++){
                     for(var i = 0; i< data.length; i++){
 
@@ -130,6 +131,9 @@
                         var variableTimerMinutes = d2.toLocaleTimeString('en-PE', {minute: '2-digit'});
                         var jsonHours = d.toLocaleTimeString('en-PE', {hour: '2-digit'});
                         var todayDataHour = today.toLocaleTimeString('en-PE', {hour: '2-digit'});
+
+                        
+
                         if(today.getDate() == d.getDate()){
                             
                             if(hours <= 0){
@@ -184,7 +188,9 @@
                         var stringNumber = "#f"+indexIncrement.toString(); 
                         $(stringNumber).html(htmlAgenda);
                         indexIncrement ++;
+                        orderAgenda.push({'item':indexIncrement});
                     }
+                    ontenerParametroAgenda(orderAgenda);
                 }
                 , function(data1) {
                     var correo = data1;  
@@ -208,6 +214,16 @@
            }
         obtenerUsuario();    
          console.log(ArregloCorreo);
+
+         function ontenerParametroAgenda(orderAgenda){
+                console.log("OrderAgendaRecibida", orderAgenda);
+                for(var i = 0; i < orderAgenda.length; i++){
+                    eventoAgenda = orderAgenda.item[i];
+                }
+                if(orderAgenda.item == 1){
+
+                }
+         }
          function obtenerEstadodefinitivo() {
 
              var enviar = JSON.stringify({  "id": UsuarioID });
