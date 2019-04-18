@@ -94,7 +94,7 @@
          
          var orderAgenda = [];
          function obtenerUsuario(){
-              var enviar = JSON.stringify({  "roomNumber": 150 });
+              var enviar = JSON.stringify({  "roomNumber": 140 });
 
                eventoPost(urlpost2 ,enviar,
                 function(data) {
@@ -221,7 +221,7 @@
 
                     ArregloCorreo.push(correo);               
                     //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
-                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
+                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
                     $("#elements").append(string);   
                     $("#elements .carousel-item").first().addClass('active');
               
@@ -443,7 +443,7 @@
                     var formatedTime = timeItem.toLocaleTimeString('en-PE', {hour: '2-digit', minute: '2-digit', hour12: true});
                     var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime ;  
 
-                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style"word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ ArregloCorreo[k].sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc">'+ ArregloCorreo[k].message +'</label></div>';
+                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">'+ ArregloCorreo[k].sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc">'+ ArregloCorreo[k].message +'</label></div>';
                     $("#elements").append(string);   
                    
                  }
@@ -462,25 +462,6 @@
          // obtenerOrderfinitivo();
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR EL ORDEN DE LOS GADGET
          window.setInterval(obtenerOrderfinitivo, 1000);
-
-        // addEvent(document, "keydown", function (e) {
-        //     console.log("Se presiono una tecla");
-        //     console.log(e);
-        //     if(e.code == "Space"){
-        //         console.log("entro aca");
-        //         obtenerOrderfinitivo();
-        //         }
-        //     });
-
-        // function addEvent(element, eventName, callback) {
-        //     if (element.addEventListener) {
-        //         element.addEventListener(eventName, callback, false);
-        //     } else if (element.attachEvent) {
-        //       element.attachEvent("on" + eventName, callback);
-        //     } else {
-        //       element["on" + eventName] = callback;
-        //      }
-        // }
 
          function obtenerDiaries() {
 
@@ -593,6 +574,7 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
                 success: function (mailsResult) {
                     var messages = mailsResult.messages;
                     var max = messages.length > 5 ? 5 : messages.length;
+                    //var max = 1;
                     for (var i = 0; i < max; i++) {
                       
                         $.ajax({
@@ -660,6 +642,9 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
                 dataType: 'json',
             }). done (function(data) {
                 var servicio = data.result.list;
+                /*for(var i = servicio.length-5; i< servicio.length; i++){
+
+                }*/
                 for(var i = 0; i < servicio.length; i++){
                     var service1 = servicio[0];
                     var service2 = servicio[1];
@@ -868,7 +853,7 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
 
                      /*getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
                      getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
-                     */  
+                      */
                      $("#tablaClima").html(html);
 
                      changeiconTitle(data.currently.icon, Math.round(data.currently.temperature));
@@ -968,7 +953,7 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
              window.setInterval(updateTime, 60000);
              window.setInterval(updateTime, 1800000);
              window.setInterval(calendariolocal, 10000);
-             window.setInterval(serviciosHotel, 10000);
+             window.setInterval(serviciosHotel, 100000);
              //window.setInterval(obtenerUsuario, 10000);
 
              $.ajax({
