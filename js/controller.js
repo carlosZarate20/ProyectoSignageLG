@@ -489,15 +489,47 @@
 
                  getGoogleData(RefreshToken, function(data) {
                      var nuevotamanio = data.length;
-                     if (nuevotamanio != TamanioInicial) {
+                     console.log("Nuevo Tamaño: ", nuevotamanio);
+                     console.log("Tamaño Inicial: ", TamanioInicial);
+                     var booelanAgenda = false;
+
+                     for(var i=0; i<data.length; i++){
+                        for(var j=0; j<agendaData.length; j++){
+                            if(data[i].id === agendaData[j].id){
+                                console.log("Entro: ")
+                                console.log("IdData",data[i].id);
+                                console.log("IdAgendaData", agendaData[j].id);
+                                if(data[i].summary !== agendaData[j].summary || data[i].description !== agendaData[j].description
+                                    ||  data[i].start.dateTime !== agendaData[j].start.dateTime ||  data[i].location !== agendaData[j].location){
+                                    console.log("Entro2: ")
+                                    booelanAgenda = true;
+                                }
+                            }
+                        }
+                     }
+                     if(nuevotamanio != TamanioInicial){
+                        booelanAgenda = true;
+                     }
+
+                     if (booelanAgenda) {
                          console.log("INGRESO ACASITO");
+                         booelanAgenda = false;
+                        for(var j=0; j<TamanioInicial; j++){
+                            var stringNumber = "#f" + j.toString();
+                            $(stringNumber).html("");
+                        }
+
                          TamanioInicial = nuevotamanio;
-                         var indexIncrement = 0
+                         var indexIncrement = 0;
                          console.log("Agenda: ", data);
                          agendaData = data;
                          orderAgenda = [];
+
+
                          //for(var i = data.length-5; i< data.length; i++){
                          for (var i = 0; i < data.length; i++) {
+
+
                              orderAgenda.push(i);
                              var agenda1 = agendaData[i];
                              var d = new Date(agenda1.start.dateTime);
@@ -884,17 +916,17 @@
                          if (title.length <= 67) {
                              temp = title;
                          } else {
-                             temp = noti.title.substring(0, 64) + "...";
+                             temp = noti.title.substring(0, 60) + "...";
                              efect = "";
                              // effect prueba
                          }
 
                          if (i == 0) {
                              //full = full + '<div class="carousel-item active"> <img src="'+ foto +'" style="height: 250px; width:220px; float:left;" /> <label style ="color: white;display:table;font-size: 20px;margin-left: 234px;margin-top:-6px;font-family: &quot;b-medium&quot;height: 87px; word-wrap:break-word;"> ' + title +' </label> <label style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 234px;margin-top:-7px; height: 100px;">'+ desc+' </label> </div>';
-                             full = full + '<div class="carousel-item active"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right;word-break: break-all;display: inline;margin-left: 203px;margin-top: -153px;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;word-break: break-word;float:left">' + desc + '</div></div>';
+                             full = full + '<div class="carousel-item active"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;word-break: break-word;float:left">' + desc + '</div></div>';
                          } else {
                              //full = full + '<div class="carousel-item"> <img src="'+ foto +'" style="height: 250px; width:220px; float:left;" /> <label style ="color: white;display:table;font-size: 20px;margin-left: 234px;margin-top:-6px;font-family: &quot;b-medium&quot; height: 87px; word-wrap:break-word;"> ' + title +' </label> <label style = "display:block; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 234px;margin-top:-7px; height: 100px; word-wrap:break-word;">'+ desc+' </label> </div>';
-                             full = full + '<div class="carousel-item"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right;word-break: break-all;display: inline;margin-left: 203px;margin-top: -153px;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;word-break: break-word;float:left">' + desc + '</div></div>';
+                             full = full + '<div class="carousel-item"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;word-break: break-word;float:left">' + desc + '</div></div>';
 
                          }
 
