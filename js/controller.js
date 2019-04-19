@@ -48,7 +48,7 @@
              xhr.onreadystatechange = function() {
                  if (xhr.readyState > 3 && xhr.status == 200) { success(xhr.responseText); }
              };
-             
+
              xhr.setRequestHeader("Content-Type", "application/json");
              xhr.send(data);
              return xhr;
@@ -57,7 +57,7 @@
          //var proxyurl = "https://cors-anywhere.herokuapp.com/";
          var urlpost = 'http://smartmirror-api.azurewebsites.net/GetGadgetStatusSmart';
 
-         var urlpost2 ='http://smartmirror-api.azurewebsites.net/GetUser';
+         var urlpost2 = 'http://smartmirror-api.azurewebsites.net/GetUser';
 
          var urlpost3 = 'http://smartmirror-api.azurewebsites.net/GetGadgetOrderSmart';
 
@@ -67,758 +67,749 @@
          var urlpost6 = 'http://smartmirror-api.azurewebsites.net/GetDiaries';
 
          var urlpost7 = 'http://smartmirror-api.azurewebsites.net/SaveDiaryInformations';
-         
 
-         var UsuarioID=undefined;
-         var RefreshToken=undefined;
 
-         var ArregloCorreo=[];
-         var TamanioInicial=0;
-         var TamanioInicialCorreo=0;
+         var UsuarioID = undefined;
+         var RefreshToken = undefined;
+
+         var ArregloCorreo = [];
+         var TamanioInicial = 0;
+         var TamanioInicialCorreo = 0;
          var agendaData;
-             
-        function UpdateBooleans(idesito) {
-            var enviar2 = JSON.stringify({  "id": idesito });
 
-             eventoPost(urlpost4, enviar2, function(data) {           
-                 
+         function UpdateBooleans(idesito) {
+             var enviar2 = JSON.stringify({ "id": idesito });
+
+             eventoPost(urlpost4, enviar2, function(data) {
+
              });
          }
 
 
-        function SaveDiaryInformation(idesito,objeto) {
-            var enviar2 = JSON.stringify({  "userId": idesito, "objectReference":objeto });
+         function SaveDiaryInformation(idesito, objeto) {
+             var enviar2 = JSON.stringify({ "userId": idesito, "objectReference": objeto });
 
-             eventoPost(urlpost7, enviar2, function(data) {           
-                 
+             eventoPost(urlpost7, enviar2, function(data) {
+
              });
          }
 
 
-        function GuardarIndexAgenda(parametro1,parametro2) {
+         function GuardarIndexAgenda(parametro1, parametro2) {
 
-             var enviar3 = JSON.stringify({  "userId": parametro1,"list":parametro2 });
+             var enviar3 = JSON.stringify({ "userId": parametro1, "list": parametro2 });
 
              eventoPost(urlpost5, enviar3, function(data) {
-                var arreglo = JSON.parse(data);
-                
-                 
+                 var arreglo = JSON.parse(data);
+
+
              });
          }
-         
+
          var orderAgenda = [];
-         function obtenerUsuario(){
-              var enviar = JSON.stringify({  "roomNumber": 140 });
 
-               eventoPost(urlpost2 ,enviar,
-                function(data) {
+         function obtenerUsuario() {
+             var enviar = JSON.stringify({ "roomNumber": 140 });
 
-                 var usuario = JSON.parse(data);
-                UsuarioID=usuario.id;
-                UpdateBooleans(UsuarioID);
-                RefreshToken=usuario.refreshtoken;
-                console.log(UsuarioID);
-                console.log(RefreshToken);
-                getGoogleData(RefreshToken, function(data) {
-                    var indexIncrement = 0
-                    console.log("Agenda: ", data);
-                    agendaData = data;
-                    orderAgenda = [];
-                    //for(var i = data.length-5; i< data.length; i++){
-                    for(var i = 0; i< data.length; i++){
-                        orderAgenda.push(i);
-                        var agenda1 = agendaData[i];
-                        var d = new Date(agenda1.start.dateTime);
-                        var d2 = new Date(agenda1.start.dateTime);
-                        var time = d.toLocaleString("en-PE");
-                        var today = new Date();
-                    
-                        var timeToday = today.toLocaleString("en-PE");
-                        console.log("FechaFormato", time);
-                        console.log("Fecha Hoy", timeToday);
-                        var difference_ms  = today.getTime() - d.getTime();
-                        
-                        var difference_hr = today.getHours() - d.getHours();
-                        var difference_minute = today.getMinutes() - d.getMinutes();
-                        console.log("Horas: " + difference_hr);
-                        console.log("Minutes: ", difference_minute);
-                        console.log("Minutes2: ", difference_ms);
+             eventoPost(urlpost2, enviar,
+                 function(data) {
+
+                     var usuario = JSON.parse(data);
+                     UsuarioID = usuario.id;
+                     UpdateBooleans(UsuarioID);
+                     RefreshToken = usuario.refreshtoken;
+                     console.log(UsuarioID);
+                     console.log(RefreshToken);
+                     getGoogleData(RefreshToken, function(data) {
+                         var indexIncrement = 0
+                         console.log("Agenda: ", data);
+                         agendaData = data;
+                         orderAgenda = [];
+                         //for(var i = data.length-5; i< data.length; i++){
+                         for (var i = 0; i < data.length; i++) {
+                             orderAgenda.push(i);
+                             var agenda1 = agendaData[i];
+                             var d = new Date(agenda1.start.dateTime);
+                             var d2 = new Date(agenda1.start.dateTime);
+                             var time = d.toLocaleString("en-PE");
+                             var today = new Date();
+
+                             var timeToday = today.toLocaleString("en-PE");
+                             console.log("FechaFormato", time);
+                             console.log("Fecha Hoy", timeToday);
+                             var difference_ms = today.getTime() - d.getTime();
+
+                             var difference_hr = today.getHours() - d.getHours();
+                             var difference_minute = today.getMinutes() - d.getMinutes();
+                             console.log("Horas: " + difference_hr);
+                             console.log("Minutes: ", difference_minute);
+                             console.log("Minutes2: ", difference_ms);
 
 
-                        difference_ms = difference_ms/1000;
-                        var seconds = Math.floor(difference_ms % 60);
-                        /*difference_minute = difference_minute/60; 
-                        var minutes = Math.floor(difference_minute % 60);*/
+                             difference_ms = difference_ms / 1000;
+                             var seconds = Math.floor(difference_ms % 60);
+                             /*difference_minute = difference_minute/60; 
+                             var minutes = Math.floor(difference_minute % 60);*/
 
-                        //console.log("Minutes: ", minutes);
-                        difference_ms = difference_ms/60; 
-                        var hours = Math.floor(difference_hr % 12);  
-                        var days = Math.floor(difference_ms/24);
+                             //console.log("Minutes: ", minutes);
+                             difference_ms = difference_ms / 60;
+                             var hours = Math.floor(difference_hr % 12);
+                             var days = Math.floor(difference_ms / 24);
 
-                        var serviocAgenda1 = agenda1.summary;
-                        var htmlAgenda;
-                        var variableTimer = d.toLocaleTimeString('en-PE', {hour: '2-digit', minute: '2-digit', hour12: true});
-                        var variableTimerMinutes = d2.toLocaleTimeString('en-PE', {minute: '2-digit'});
-                        var jsonHours = d.toLocaleTimeString('en-PE', {hour: '2-digit'});
-                        var todayDataHour = today.toLocaleTimeString('en-PE', {hour: '2-digit'});
+                             var serviocAgenda1 = agenda1.summary;
+                             var htmlAgenda;
+                             var variableTimer = d.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
+                             var variableTimerMinutes = d2.toLocaleTimeString('en-PE', { minute: '2-digit' });
+                             var jsonHours = d.toLocaleTimeString('en-PE', { hour: '2-digit' });
+                             var todayDataHour = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
 
-                        
-                        var variable=undefined;
-                        if(today.getDate() == d.getDate()){
-                            
-                            if(hours <= 0){
-                                hours *= -1;
-                                if( jsonHours == todayDataHour){
-                                    if(difference_minute <= 0)
-                                    {   
-                                        variable="En " +difference_minute+ " minutos";
-                                        difference_minute *= -1;
-                                        htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "En " + difference_minute  + " minutos" +'</label>'
-                                            + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                    }
-                                        
-                                } else if( d.getHours() >= 12){
-                                    variable="Hoy " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + variableTimer  +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }else if(d.getHours() <= 12){
-                                    variable="Hoy " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + variableTimer  +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }
-                            }else{
-                                if( d.getHours()>=12){
-                                    variable="Hoy " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + variableTimer +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }else if(d.getHours()<=12){
-                                    variable="Hoy " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + variableTimer +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                } 
-                            }
-                        }else if(d.getDate() > today.getDate()){
-                            if(hours <= 0){
-                                hours *= -1;
-                                if( d.getHours()>=12){
-                                    variable="Mañana "+variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + variableTimer+'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }else if(d.getHours()<=12){
-                                    variable="Mañana "+variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + variableTimer +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }
-                            }
-                            if(hours >= 0){
-                                if( d.getHours() >= 12){
-                                    variable="Mañana " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + variableTimer +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }else if(d.getHours() <= 12){
-                                    variable="Mañana " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + variableTimer +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }
-                            }
-                        }
-                        agendaData[i].horatransformada=variable;
-                        var stringNumber = "#f"+indexIncrement.toString(); 
-                        $(stringNumber).html(htmlAgenda);
-                        indexIncrement ++;
-                        
-                    }
-                    TamanioInicial=orderAgenda.length;
-                    GuardarIndexAgenda(UsuarioID,orderAgenda);
-                }
-                , function(data1) {
-                    TamanioInicialCorreo++;
-                    var correo = data1;  
-                    
-                    var temp = correo.subject.substring(0, 45);
 
-                    var timeItem = new Date(correo.sendAt);
-                    var correoTime = correo.sendAt;
+                             var variable = undefined;
+                             if (today.getDate() == d.getDate()) {
 
-                    var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
-                    var dia = timeItem.getDate();
-                    var formatedTime = timeItem.toLocaleTimeString('en-PE', {hour: '2-digit', minute: '2-digit', hour12: true});
-                    var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime ;  
+                                 if (hours <= 0) {
+                                     hours *= -1;
+                                     if (jsonHours == todayDataHour) {
+                                         if (difference_minute <= 0) {
+                                             variable = "En " + difference_minute + " minutos";
+                                             difference_minute *= -1;
+                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "En " + difference_minute + " minutos" + '</label>' +
+                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                         }
 
-                    ArregloCorreo.push(correo);               
-                    //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
-                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
-                    $("#elements").append(string);   
-                    $("#elements .carousel-item").first().addClass('active');
-              
-                });
-             });    
-           }
-        obtenerUsuario();    
+                                     } else if (d.getHours() >= 12) {
+                                         variable = "Hoy " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     } else if (d.getHours() <= 12) {
+                                         variable = "Hoy " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     }
+                                 } else {
+                                     if (d.getHours() >= 12) {
+                                         variable = "Hoy " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     } else if (d.getHours() <= 12) {
+                                         variable = "Hoy " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     }
+                                 }
+                             } else if (d.getDate() > today.getDate()) {
+                                 if (hours <= 0) {
+                                     hours *= -1;
+                                     if (d.getHours() >= 12) {
+                                         variable = "Mañana " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     } else if (d.getHours() <= 12) {
+                                         variable = "Mañana " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     }
+                                 }
+                                 if (hours >= 0) {
+                                     if (d.getHours() >= 12) {
+                                         variable = "Mañana " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     } else if (d.getHours() <= 12) {
+                                         variable = "Mañana " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     }
+                                 }
+                             }
+                             agendaData[i].horatransformada = variable;
+                             var stringNumber = "#f" + indexIncrement.toString();
+                             $(stringNumber).html(htmlAgenda);
+                             indexIncrement++;
+
+                         }
+                         TamanioInicial = orderAgenda.length;
+                         GuardarIndexAgenda(UsuarioID, orderAgenda);
+                     }, function(data1) {
+                         TamanioInicialCorreo++;
+                         var correo = data1;
+
+                         var temp = correo.subject.substring(0, 45);
+
+                         var timeItem = new Date(correo.sendAt);
+                         var correoTime = correo.sendAt;
+
+                         var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
+                         var dia = timeItem.getDate();
+                         var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
+                         var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
+
+                         ArregloCorreo.push(correo);
+                         //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
+                         var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + correo.sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + correo.message + '</label></div>';
+                         $("#elements").append(string);
+                         $("#elements .carousel-item").first().addClass('active');
+
+                     });
+                 });
+         }
+         obtenerUsuario();
          console.log(ArregloCorreo);
 
 
 
-         function ontenerParametroAgenda(indice){
+         function ontenerParametroAgenda(indice) {
 
-                console.log("OrderAgendaRecibida", indice);  
+             console.log("OrderAgendaRecibida", indice);
 
-                var index=indice;
-                
-                console.log("index", index)
-                //ESTE OBJ ES EL QUE VAS A MOSTRAR
-                var obj=agendaData[index];
-                console.log("obj", obj);
-                var htmlDescripcion;
-                $("#Agenda").hide(1000, function(){
-                    htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
-                    $('#Agenda2').html(htmlDescripcion);
-                });
-                
-                //ACA VA LA MAGIA DEL HTML
+             var index = indice;
+
+             console.log("index", index)
+                 //ESTE OBJ ES EL QUE VAS A MOSTRAR
+             var obj = agendaData[index];
+             console.log("obj", obj);
+             var htmlDescripcion;
+             $("#Agenda").hide(1000, function() {
+                 htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
+                 $('#Agenda2').html(htmlDescripcion);
+             });
+
+             //ACA VA LA MAGIA DEL HTML
 
          }
 
 
          function obtenerEstadodefinitivo() {
 
-             var enviar = JSON.stringify({  "id": UsuarioID });
+             var enviar = JSON.stringify({ "id": UsuarioID });
 
              eventoPost(urlpost, enviar, function(data) {
-                var arreglo = JSON.parse(data);
-                if(arreglo.status){
- 
-                } else{
+                 var arreglo = JSON.parse(data);
+                 if (arreglo.status) {
+
+                 } else {
                      // OBTENGO LA LISTA DE BOOLEANOS
-                 
-                 //SETEO EL VALOR DEL BOOLEANO DE CLIMA EN ESTE CASO SE ENCUENTRA EN AL POSICION 1 DEL ARREGLO
-                 var bolsabooleano = arreglo[0].isActive;
-                 if (bolsabooleano == true) {
-                     document.getElementById('Clima').style.display = 'block';
-                 } else {
-                     document.getElementById('Clima').style.display = 'none';
+
+                     //SETEO EL VALOR DEL BOOLEANO DE CLIMA EN ESTE CASO SE ENCUENTRA EN AL POSICION 1 DEL ARREGLO
+                     var bolsabooleano = arreglo[0].isActive;
+                     if (bolsabooleano == true) {
+                         document.getElementById('Clima').style.display = 'block';
+                     } else {
+                         document.getElementById('Clima').style.display = 'none';
+                     }
+
+                     var climabooleano = arreglo[1].isActive;
+                     if (climabooleano == true) {
+                         document.getElementById('Hora').style.display = 'block';
+                     } else {
+                         document.getElementById('Hora').style.display = 'none';
+                     }
+
+                     var horabooelan = arreglo[2].isActive;
+                     if (horabooelan == true) {
+                         document.getElementById('Agenda').style.display = 'block';
+                     } else {
+                         document.getElementById('Agenda').style.display = 'none';
+                     }
+
+                     var noticiabooelan = arreglo[3].isActive;
+                     if (noticiabooelan == true) {
+                         document.getElementById('Correo').style.display = 'block';
+                     } else {
+                         document.getElementById('Correo').style.display = 'none';
+                     }
+
+                     var agendabooelan = arreglo[4].isActive;
+                     if (agendabooelan == true) {
+                         document.getElementById('Bolsa').style.display = 'block';
+                     } else {
+                         document.getElementById('Bolsa').style.display = 'none';
+                     }
+
+
+                     var correobooelan = arreglo[5].isActive;
+                     if (correobooelan == true) {
+                         document.getElementById('HotelServiceContenedor').style.display = 'block';
+                     } else {
+                         document.getElementById('HotelServiceContenedor').style.display = 'none';
+                     }
+
+                     var musicaboolean = arreglo[6].isActive;
+                     if (musicaboolean == true) {
+                         document.getElementById('Musica').style.display = 'block';
+                     } else {
+                         document.getElementById('Musica').style.display = 'none';
+                     }
+
+                     var serviciosboolean = arreglo[7].isActive;
+                     if (serviciosboolean == true) {
+                         document.getElementById('NoticiasContenedor').style.display = 'block';
+                     } else {
+                         document.getElementById('NoticiasContenedor').style.display = 'none';
+                     }
                  }
 
-                 var climabooleano = arreglo[1].isActive;
-                 if (climabooleano == true) {
-                     document.getElementById('Hora').style.display = 'block';
-                 } else {
-                     document.getElementById('Hora').style.display = 'none';
-                 }
-
-                 var horabooelan = arreglo[2].isActive;
-                 if (horabooelan == true) {
-                     document.getElementById('Agenda').style.display = 'block';
-                 } else {
-                     document.getElementById('Agenda').style.display = 'none';
-                 }
-
-                 var noticiabooelan = arreglo[3].isActive;
-                 if (noticiabooelan == true) {
-                     document.getElementById('Correo').style.display = 'block';
-                 } else {
-                     document.getElementById('Correo').style.display = 'none';
-                 }
-
-                 var agendabooelan = arreglo[4].isActive;
-                 if (agendabooelan == true) {
-                     document.getElementById('Bolsa').style.display = 'block';
-                 } else {
-                     document.getElementById('Bolsa').style.display = 'none';
-                 }
 
 
-                 var correobooelan = arreglo[5].isActive;
-                 if (correobooelan == true) {
-                     document.getElementById('HotelServiceContenedor').style.display = 'block';
-                 } else {
-                     document.getElementById('HotelServiceContenedor').style.display = 'none';
-                 }
-
-                 var musicaboolean = arreglo[6].isActive;
-                 if (musicaboolean == true) {
-                     document.getElementById('Musica').style.display = 'block';
-                 } else {
-                     document.getElementById('Musica').style.display = 'none';
-                 }
-
-                 var serviciosboolean = arreglo[7].isActive;
-                 if (serviciosboolean == true) {
-                     document.getElementById('NoticiasContenedor').style.display = 'block';
-                 } else {
-                     document.getElementById('NoticiasContenedor').style.display = 'none';
-                 }     
-                }
-
-               
-                 
              });
          }
 
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR LOS ESTADOS DE LOS GADGETS
          window.setInterval(obtenerEstadodefinitivo, 1000);
 
-         
 
-        function obtenerOrderfinitivo() {
 
-            var enviar = JSON.stringify({  "id": UsuarioID });
+         function obtenerOrderfinitivo() {
+
+             var enviar = JSON.stringify({ "id": UsuarioID });
 
              eventoPost(urlpost3, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);
-                 
-
-                 if(arreglo.order){
-
-                 } else{
-
-                 //OBTENIENDO HTML DE CADA GADGET
-                 var bolsahtml=undefined;
-                 var climahtml=undefined;
-                 var horahtml=undefined;
-                 var noticiashtml=undefined;
-                 var agendahtml=undefined;
-                 var correohtml=undefined;
-                 var musicahtml=undefined;
-                 var servicioshtml=undefined;
-                 for (var a=1;a< 9;a++){
-                    var element='#Order'+a;                   
-
-                    if($(element).children()[0].id == 'Bolsa'){
-                        
-                        bolsahtml=$(element).html();
-                        
-                    } else if($(element).children()[0].id == 'Clima'){
-                        
-                        climahtml=$(element).html();
-                        console.log(climahtml);
-                        
-                    } else if($(element).children()[0].id == 'Hora'){
-                        
-                        horahtml=$(element).html();
-                        
-                    } else if($(element).children()[0].id == 'NoticiasContenedor'){
-                        
-                        noticiashtml=$(element).html();
-                        
-                    } else if($(element).children()[0].id == 'Agenda'){
-                        
-                        agendahtml=$(element).html();
-                        
-                    } else if($(element).children()[0].id == 'Correo'){
-                        
-                        correohtml=$(element).html();
-                        
-                    } else if($(element).children()[0].id == 'Musica'){
-                        
-                        musicahtml=$(element).html();
-                    } else if($(element).children()[0].id == 'HotelServiceContenedor'){
-                        
-                        servicioshtml=$(element).html();
-                        
-                    }      
 
 
-                    
-                 }
+                 if (arreglo.order) {
 
-                
+                 } else {
 
-                 for (var j=0;j < arreglo.length;j++){
-                    if(arreglo[j].contentHtml == 'Clima')
-                    {
-                        $('#Order'+arreglo[j].order).html(climahtml);
-                    }
-                    if(arreglo[j].contentHtml == 'Bolsa')
-                    {
-                        $('#Order'+arreglo[j].order).html(bolsahtml);
-                    }
-                    if(arreglo[j].contentHtml == 'Hora')
-                    {
-                        $('#Order'+arreglo[j].order).html(horahtml);
-                    }
-                    if(arreglo[j].contentHtml == 'NoticiasContenedor')
-                    {
-                        $('#Order'+arreglo[j].order).html(noticiashtml);
-                    }
-                    if(arreglo[j].contentHtml == 'Agenda')
-                    {
-                        $('#Order'+arreglo[j].order).html(agendahtml);
-                    }
-                    if(arreglo[j].contentHtml == 'Correo')
-                    {
-                        $('#Order'+arreglo[j].order).html(correohtml);
-                    }
-                    if(arreglo[j].contentHtml == 'Musica')
-                    {
-                        $('#Order'+arreglo[j].order).html(musicahtml);
-                    }
-                    if(arreglo[j].contentHtml == 'HotelServiceContenedor')
-                    {
-                        $('#Order'+arreglo[j].order).html(servicioshtml);
-                    }
-                 
-                 }
-                  $('#elements').html('');
-                 for(var k=0;k<ArregloCorreo.length;k++){
+                     //OBTENIENDO HTML DE CADA GADGET
+                     var bolsahtml = undefined;
+                     var climahtml = undefined;
+                     var horahtml = undefined;
+                     var noticiashtml = undefined;
+                     var agendahtml = undefined;
+                     var correohtml = undefined;
+                     var musicahtml = undefined;
+                     var servicioshtml = undefined;
+                     for (var a = 1; a < 9; a++) {
+                         var element = '#Order' + a;
 
-                    var temp = ArregloCorreo[k].subject.substring(0, 45);
+                         if ($(element).children()[0].id == 'Bolsa') {
 
-                    var timeItem = new Date(ArregloCorreo[k].sendAt);
-                    var correoTime = ArregloCorreo[k].sendAt;
+                             bolsahtml = $(element).html();
 
-                    var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
-                    var dia = timeItem.getDate();
-                    var formatedTime = timeItem.toLocaleTimeString('en-PE', {hour: '2-digit', minute: '2-digit', hour12: true});
-                    var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime ;  
+                         } else if ($(element).children()[0].id == 'Clima') {
 
-                    var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">'+ ArregloCorreo[k].sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc">'+ ArregloCorreo[k].message +'</label></div>';
-                    $("#elements").append(string);   
-                   
-                 }
-                 $("#elements .carousel-item").first().addClass('active');
-                 $('.carousel-item').carousel({ interval: 4000 });
-                    $('.carousel').carousel({ interval: 4000 });
+                             climahtml = $(element).html();
+                             console.log(climahtml);
 
-                    $('#tablaClima').html('');
-                    GetWeather();
+                         } else if ($(element).children()[0].id == 'Hora') {
+
+                             horahtml = $(element).html();
+
+                         } else if ($(element).children()[0].id == 'NoticiasContenedor') {
+
+                             noticiashtml = $(element).html();
+
+                         } else if ($(element).children()[0].id == 'Agenda') {
+
+                             agendahtml = $(element).html();
+
+                         } else if ($(element).children()[0].id == 'Correo') {
+
+                             correohtml = $(element).html();
+
+                         } else if ($(element).children()[0].id == 'Musica') {
+
+                             musicahtml = $(element).html();
+                         } else if ($(element).children()[0].id == 'HotelServiceContenedor') {
+
+                             servicioshtml = $(element).html();
+
+                         }
+
+
+
+                     }
+
+
+
+                     for (var j = 0; j < arreglo.length; j++) {
+                         if (arreglo[j].contentHtml == 'Clima') {
+                             $('#Order' + arreglo[j].order).html(climahtml);
+                         }
+                         if (arreglo[j].contentHtml == 'Bolsa') {
+                             $('#Order' + arreglo[j].order).html(bolsahtml);
+                         }
+                         if (arreglo[j].contentHtml == 'Hora') {
+                             $('#Order' + arreglo[j].order).html(horahtml);
+                         }
+                         if (arreglo[j].contentHtml == 'NoticiasContenedor') {
+                             $('#Order' + arreglo[j].order).html(noticiashtml);
+                         }
+                         if (arreglo[j].contentHtml == 'Agenda') {
+                             $('#Order' + arreglo[j].order).html(agendahtml);
+                         }
+                         if (arreglo[j].contentHtml == 'Correo') {
+                             $('#Order' + arreglo[j].order).html(correohtml);
+                         }
+                         if (arreglo[j].contentHtml == 'Musica') {
+                             $('#Order' + arreglo[j].order).html(musicahtml);
+                         }
+                         if (arreglo[j].contentHtml == 'HotelServiceContenedor') {
+                             $('#Order' + arreglo[j].order).html(servicioshtml);
+                         }
+
+                     }
+                     $('#elements').html('');
+                     for (var k = 0; k < ArregloCorreo.length; k++) {
+
+                         var temp = ArregloCorreo[k].subject.substring(0, 45);
+
+                         var timeItem = new Date(ArregloCorreo[k].sendAt);
+                         var correoTime = ArregloCorreo[k].sendAt;
+
+                         var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
+                         var dia = timeItem.getDate();
+                         var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
+                         var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
+
+                         var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[k].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc">' + ArregloCorreo[k].message + '</label></div>';
+                         $("#elements").append(string);
+
+                     }
+                     $("#elements .carousel-item").first().addClass('active');
+                     $('.carousel-item').carousel({ interval: 4000 });
+                     $('.carousel').carousel({ interval: 4000 });
+
+                     $('#tablaClima').html('');
+                     GetWeather();
 
                  }
 
-   
+
              });
          }
          // obtenerOrderfinitivo();
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR EL ORDEN DE LOS GADGET
          window.setInterval(obtenerOrderfinitivo, 1000);
 
-<<<<<<< HEAD
-         function updateDiariesInfinite(){
-            if(RefreshToken != undefined && TamanioInicial != 0){
+         function updateDiariesInfinite() {
+             if (RefreshToken != undefined && TamanioInicial != 0) {
 
-                   getGoogleData(RefreshToken, function(data) {
-                    var nuevotamanio=data.length;
-                    if( nuevotamanio != TamanioInicial){
-                        console.log("INGRESO ACASITO");
-                    TamanioInicial=nuevotamanio;
-                    var indexIncrement = 0
-                    console.log("Agenda: ", data);
-                    agendaData = data;
-                    orderAgenda = [];
-                    //for(var i = data.length-5; i< data.length; i++){
-                    for(var i = 0; i< data.length; i++){
-                        orderAgenda.push(i);
-                        var agenda1 = agendaData[i];
-                        var d = new Date(agenda1.start.dateTime);
-                        var d2 = new Date(agenda1.start.dateTime);
-                        var time = d.toLocaleString("en-PE");
-                        var today = new Date();
-                    
-                        var timeToday = today.toLocaleString("en-PE");
-                        console.log("FechaFormato", time);
-                        console.log("Fecha Hoy", timeToday);
-                        var difference_ms  = today.getTime() - d.getTime();
-                        
-                        var difference_hr = today.getHours() - d.getHours();
-                        var difference_minute = today.getMinutes() - d.getMinutes();
-                        console.log("Horas: " + difference_hr);
-                        console.log("Minutes: ", difference_minute);
-                        console.log("Minutes2: ", difference_ms);
+                 getGoogleData(RefreshToken, function(data) {
+                     var nuevotamanio = data.length;
+                     if (nuevotamanio != TamanioInicial) {
+                         console.log("INGRESO ACASITO");
+                         TamanioInicial = nuevotamanio;
+                         var indexIncrement = 0
+                         console.log("Agenda: ", data);
+                         agendaData = data;
+                         orderAgenda = [];
+                         //for(var i = data.length-5; i< data.length; i++){
+                         for (var i = 0; i < data.length; i++) {
+                             orderAgenda.push(i);
+                             var agenda1 = agendaData[i];
+                             var d = new Date(agenda1.start.dateTime);
+                             var d2 = new Date(agenda1.start.dateTime);
+                             var time = d.toLocaleString("en-PE");
+                             var today = new Date();
+
+                             var timeToday = today.toLocaleString("en-PE");
+                             console.log("FechaFormato", time);
+                             console.log("Fecha Hoy", timeToday);
+                             var difference_ms = today.getTime() - d.getTime();
+
+                             var difference_hr = today.getHours() - d.getHours();
+                             var difference_minute = today.getMinutes() - d.getMinutes();
+                             console.log("Horas: " + difference_hr);
+                             console.log("Minutes: ", difference_minute);
+                             console.log("Minutes2: ", difference_ms);
 
 
-                        difference_ms = difference_ms/1000;
-                        var seconds = Math.floor(difference_ms % 60);
-                        /*difference_minute = difference_minute/60; 
-                        var minutes = Math.floor(difference_minute % 60);*/
+                             difference_ms = difference_ms / 1000;
+                             var seconds = Math.floor(difference_ms % 60);
+                             /*difference_minute = difference_minute/60; 
+                             var minutes = Math.floor(difference_minute % 60);*/
 
-                        //console.log("Minutes: ", minutes);
-                        difference_ms = difference_ms/60; 
-                        var hours = Math.floor(difference_hr % 12);  
-                        var days = Math.floor(difference_ms/24);
+                             //console.log("Minutes: ", minutes);
+                             difference_ms = difference_ms / 60;
+                             var hours = Math.floor(difference_hr % 12);
+                             var days = Math.floor(difference_ms / 24);
 
-                        var serviocAgenda1 = agenda1.summary;
-                        var htmlAgenda;
-                        var variableTimer = d.toLocaleTimeString('en-PE', {hour: '2-digit', minute: '2-digit', hour12: true});
-                        var variableTimerMinutes = d2.toLocaleTimeString('en-PE', {minute: '2-digit'});
-                        var jsonHours = d.toLocaleTimeString('en-PE', {hour: '2-digit'});
-                        var todayDataHour = today.toLocaleTimeString('en-PE', {hour: '2-digit'});
+                             var serviocAgenda1 = agenda1.summary;
+                             var htmlAgenda;
+                             var variableTimer = d.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
+                             var variableTimerMinutes = d2.toLocaleTimeString('en-PE', { minute: '2-digit' });
+                             var jsonHours = d.toLocaleTimeString('en-PE', { hour: '2-digit' });
+                             var todayDataHour = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
 
-                        
 
-                                               var variable=undefined;
-                        if(today.getDate() == d.getDate()){
-                            
-                            if(hours <= 0){
-                                hours *= -1;
-                                if( jsonHours == todayDataHour){
-                                    if(difference_minute <= 0)
-                                    {   
-                                        variable="En " +difference_minute+ " minutos";
-                                        difference_minute *= -1;
-                                        htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "En " + difference_minute  + " minutos" +'</label>'
-                                            + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                    }
-                                        
-                                } else if( d.getHours() >= 12){
-                                    variable="Hoy " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + variableTimer  +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }else if(d.getHours() <= 12){
-                                    variable="Hoy " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + variableTimer  +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }
-                            }else{
-                                if( d.getHours()>=12){
-                                    variable="Hoy " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + variableTimer +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }else if(d.getHours()<=12){
-                                    variable="Hoy " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Hoy " + variableTimer +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                } 
-                            }
-                        }else if(d.getDate() > today.getDate()){
-                            if(hours <= 0){
-                                hours *= -1;
-                                if( d.getHours()>=12){
-                                    variable="Mañana "+variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + variableTimer+'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }else if(d.getHours()<=12){
-                                    variable="Mañana "+variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + variableTimer +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }
-                            }
-                            if(hours >= 0){
-                                if( d.getHours() >= 12){
-                                    variable="Mañana " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + variableTimer +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }else if(d.getHours() <= 12){
-                                    variable="Mañana " +variableTimer;
-                                     htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">'+ "Mañana " + variableTimer +'</label>'
-                                        + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1+ '</label> </br>'
-                                }
-                            }
-                        }
-                        agendaData[i].horatransformada=variable;
-                        var stringNumber = "#f"+indexIncrement.toString(); 
-                        $(stringNumber).html(htmlAgenda);
-                        indexIncrement ++;
-                        
-                    }
 
-                    GuardarIndexAgenda(UsuarioID,orderAgenda);
-                }
-                }
-                , function(data1) {
-                    // var correo = data1;  
-                    // console.log(correo);
-                    // var temp = correo.subject.substring(0, 45);
+                             var variable = undefined;
+                             if (today.getDate() == d.getDate()) {
 
-                    // var timeItem = new Date(correo.sendAt);
-                    // var correoTime = correo.sendAt;
+                                 if (hours <= 0) {
+                                     hours *= -1;
+                                     if (jsonHours == todayDataHour) {
+                                         if (difference_minute <= 0) {
+                                             variable = "En " + difference_minute + " minutos";
+                                             difference_minute *= -1;
+                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "En " + difference_minute + " minutos" + '</label>' +
+                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                         }
 
-                    // var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
-                    // var dia = timeItem.getDate();
-                    // var formatedTime = timeItem.toLocaleTimeString('en-PE', {hour: '2-digit', minute: '2-digit', hour12: true});
-                    // var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime ;  
+                                     } else if (d.getHours() >= 12) {
+                                         variable = "Hoy " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     } else if (d.getHours() <= 12) {
+                                         variable = "Hoy " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     }
+                                 } else {
+                                     if (d.getHours() >= 12) {
+                                         variable = "Hoy " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     } else if (d.getHours() <= 12) {
+                                         variable = "Hoy " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     }
+                                 }
+                             } else if (d.getDate() > today.getDate()) {
+                                 if (hours <= 0) {
+                                     hours *= -1;
+                                     if (d.getHours() >= 12) {
+                                         variable = "Mañana " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     } else if (d.getHours() <= 12) {
+                                         variable = "Mañana " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     }
+                                 }
+                                 if (hours >= 0) {
+                                     if (d.getHours() >= 12) {
+                                         variable = "Mañana " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     } else if (d.getHours() <= 12) {
+                                         variable = "Mañana " + variableTimer;
+                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                                     }
+                                 }
+                             }
+                             agendaData[i].horatransformada = variable;
+                             var stringNumber = "#f" + indexIncrement.toString();
+                             $(stringNumber).html(htmlAgenda);
+                             indexIncrement++;
 
-                    // ArregloCorreo.push(correo);               
-                    // //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
-                    // var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
-                    // $('#elements').html('');
-                    // $("#elements").append(string);   
-                    // $("#elements .carousel-item").first().addClass('active');
-              
-                });
-             // });  
-            }
+                         }
+
+                         GuardarIndexAgenda(UsuarioID, orderAgenda);
+                     }
+                 }, function(data1) {
+                     // var correo = data1;  
+                     // console.log(correo);
+                     // var temp = correo.subject.substring(0, 45);
+
+                     // var timeItem = new Date(correo.sendAt);
+                     // var correoTime = correo.sendAt;
+
+                     // var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
+                     // var dia = timeItem.getDate();
+                     // var formatedTime = timeItem.toLocaleTimeString('en-PE', {hour: '2-digit', minute: '2-digit', hour12: true});
+                     // var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime ;  
+
+                     // ArregloCorreo.push(correo);               
+                     // //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
+                     // var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
+                     // $('#elements').html('');
+                     // $("#elements").append(string);   
+                     // $("#elements .carousel-item").first().addClass('active');
+
+                 });
+                 // });  
+             }
          }
 
-        window.setInterval(updateDiariesInfinite, 1000);
+         window.setInterval(updateDiariesInfinite, 1000);
 
-=======
->>>>>>> eafffe8e610241aca4f129d7e4eefebaf93028bb
          function obtenerDiaries() {
 
-            var enviar = JSON.stringify({  "userId": UsuarioID });
+             var enviar = JSON.stringify({ "userId": UsuarioID });
 
              eventoPost(urlpost6, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);
-                    
-                 if(arreglo.respuesta == 1){
-                    $('#Agenda2').show();
 
-                    var objeto1 = agendaData[arreglo.order];
-                    var objetoenviar= {
-                        summary: objeto1.summary,
-                        location:  objeto1.location,
-                        description: objeto1.description,
-                        dateTime: objeto1.horatransformada
-                    }
-                    console.log("SE GUARDO");
-                    SaveDiaryInformation(UsuarioID,objetoenviar)
-                    ontenerParametroAgenda(arreglo.order);
-                        
-                 } else if(arreglo.respuesta == 2){
-                    $('#Agenda2').hide();
-                    $('#Agenda').show();
+                 if (arreglo.respuesta == 1) {
+                     $('#Agenda2').show();
 
-                 } else{
+                     var objeto1 = agendaData[arreglo.order];
+                     var objetoenviar = {
+                         summary: objeto1.summary,
+                         location: objeto1.location,
+                         description: objeto1.description,
+                         dateTime: objeto1.horatransformada
+                     }
+                     console.log("SE GUARDO");
+                     SaveDiaryInformation(UsuarioID, objetoenviar)
+                     ontenerParametroAgenda(arreglo.order);
+
+                 } else if (arreglo.respuesta == 2) {
+                     $('#Agenda2').hide();
+                     $('#Agenda').show();
+
+                 } else {
 
                  }
 
-   
+
              });
          }
-                window.setInterval(obtenerDiaries, 1000);
-var clientId = "541429281292-8v02kma7fl8fhmiih66kdqnlh8b6opmn.apps.googleusercontent.com";
-var clientSecret = "XbyAoBAIlUlqBbS1Lal0GrAF";
+         window.setInterval(obtenerDiaries, 1000);
+         var clientId = "541429281292-8v02kma7fl8fhmiih66kdqnlh8b6opmn.apps.googleusercontent.com";
+         var clientSecret = "XbyAoBAIlUlqBbS1Lal0GrAF";
 
-function getGoogleData(refreshToken, calendarCallback, mailCallback) {
-    var mails = [];
-    $.ajax({
-        type: "POST",
-        url: "https://www.googleapis.com/oauth2/v4/token",
-        headers: { 'Content-Type': "application/x-www-form-urlencoded" },
-        data: {
-            'refresh_token': RefreshToken,
-            'client_id': clientId,
-            'client_secret': clientSecret,
-            'grant_type': "refresh_token"
-        },
-        success: function (result) {
-            $.ajax({
-                type: "GET",
-                url: "https://www.googleapis.com/calendar/v3/calendars/primary/events",
-                headers: { 'Authorization': result.token_type + " " + result.access_token },
-                success: function (calendarResult) {
-                    var calendario = calendarResult.items
-                    
-                    var listaArrayError = [];
-                    var listaArrayCorrect = [];
-                    for(var i = 0; i< calendario.length; i++){
+         function getGoogleData(refreshToken, calendarCallback, mailCallback) {
+             var mails = [];
+             $.ajax({
+                 type: "POST",
+                 url: "https://www.googleapis.com/oauth2/v4/token",
+                 headers: { 'Content-Type': "application/x-www-form-urlencoded" },
+                 data: {
+                     'refresh_token': RefreshToken,
+                     'client_id': clientId,
+                     'client_secret': clientSecret,
+                     'grant_type': "refresh_token"
+                 },
+                 success: function(result) {
+                     $.ajax({
+                         type: "GET",
+                         url: "https://www.googleapis.com/calendar/v3/calendars/primary/events",
+                         headers: { 'Authorization': result.token_type + " " + result.access_token },
+                         success: function(calendarResult) {
+                             var calendario = calendarResult.items
 
-                        var agenda1 = calendario[i];
-                        var d = new Date(agenda1.start.dateTime);
-                        var time = d.toLocaleString("en-PE");
-                        var today = new Date();
-                        var dayToday = today.getDate();
-                        var yearToday = today.getFullYear();
-                        var monthToday = today.getMonth();
-                        var hourToday = today.getHours();
-                        var minuteToday = today.getMinutes();
+                             var listaArrayError = [];
+                             var listaArrayCorrect = [];
+                             for (var i = 0; i < calendario.length; i++) {
 
-                        var difference_minutes = today.getMinutes() - d.getMinutes();
-                        var valueFullYear = d.getFullYear();
-                        var valueMonth = d.getMonth();
-                        var valueDay = d.getDate();
-                        var valueHour = d.getHours();
-                        var valMinute = d.getMinutes();
+                                 var agenda1 = calendario[i];
+                                 var d = new Date(agenda1.start.dateTime);
+                                 var time = d.toLocaleString("en-PE");
+                                 var today = new Date();
+                                 var dayToday = today.getDate();
+                                 var yearToday = today.getFullYear();
+                                 var monthToday = today.getMonth();
+                                 var hourToday = today.getHours();
+                                 var minuteToday = today.getMinutes();
 
-                        var constArray = "";
+                                 var difference_minutes = today.getMinutes() - d.getMinutes();
+                                 var valueFullYear = d.getFullYear();
+                                 var valueMonth = d.getMonth();
+                                 var valueDay = d.getDate();
+                                 var valueHour = d.getHours();
+                                 var valMinute = d.getMinutes();
 
-                        if(yearToday > valueFullYear){
-                            listaArrayError.push(agenda1);
-                        }else{
-                            if(monthToday > valueMonth){
-                                listaArrayError.push(agenda1);
-                            }else{
-                                if(dayToday == valueDay){
-                                    if(hourToday == valueHour){
-                                        if(difference_minutes >= 0){
-                                            listaArrayError.push(agenda1);
-                                        }else{
-                                            listaArrayCorrect.push(agenda1); 
-                                        }
-                                    }else if(hourToday > valueHour){
-                                        listaArrayError.push(agenda1);
-                                    }else {
-                                        listaArrayCorrect.push(agenda1); 
-                                    }
-                                }else if(dayToday > valueDay){
-                                    listaArrayError.push(agenda1);
-                                }else {
-                                    listaArrayCorrect.push(agenda1); 
-                                }
-                            }                    
-                        }
-                    }
-                    constArray = listaArrayCorrect.sort((a, b) => new Date(a.start.dateTime) - new Date(b.start.dateTime)   );
-                    //var constArray = _.orderBy(listaArrayCorrect, ['start.dateTime']);
-                    //var constArray = listaArrayCorrect.sort((a, b) => a['start.dateTime'] - b['start.dateTime']);
-                    calendarCallback(constArray);
-                    
-                }
-            });
-            $.ajax({
-                type: "GET",
-                url: "https://www.googleapis.com/gmail/v1/users/me/messages?q=is:inbox",
-                headers: { 'Authorization': result.token_type + " " + result.access_token },
-                success: function (mailsResult) {
-                    var messages = mailsResult.messages;
-                    var max = messages.length > 5 ? 5 : messages.length;
-                    //var max = 1;
-                    for (var i = 0; i < max; i++) {
-                      
-                        $.ajax({
-                            type: "GET",
-                            url: "https://www.googleapis.com/gmail/v1/users/me/messages/" + messages[i].id,
-                            headers: { 'Authorization': result.token_type + " " + result.access_token },
-                            success: function (mailResult) {
-                                
-                                mailCallback(serializeMail(mailResult, i));                                                    
-                            }
-                        });
-                        
-                        
-                    }
-                }
-            });
-        }
-    });
-    //asunto , from , date , descr
-}
-    function serializeMail(result, id) {
-        // console.log(result);
+                                 var constArray = "";
 
-        var object = {id:"", sender:"", subject:"",sendAt:"",message:"" };
-        object.id = findValue(result.payload.headers, "From");
-        object.sender = findValue(result.payload.headers, "From");
-        object.subject = findValue(result.payload.headers, "Subject");
-        object.sendAt = findValue(result.payload.headers, "Date");
-        object.message = result.snippet;
-        return object;
-    }
-    function findValue(arrayObject, name) {
-        var result = arrayObject.find(x => x.name === name);
-        return result !== undefined ? removeExtraString(result.value) : "not found";
-    }
-    function removeExtraString(value) {
-        return value.replace("<", "").replace(">", " ").replace(".", " ").replace("@", " ");
-    }
-    function parseDate(stringDate) { //as string like "Wed, 21 Jun 2017 18:39:35 -0700"
-        var _date = new Date(stringDate);
-        if (_date.getDate() === new Date().getDate()) {
-            return extractTime(_date);
-        } else {
-            return toShortDate(_date);
-        }
-    }
+                                 if (yearToday > valueFullYear) {
+                                     listaArrayError.push(agenda1);
+                                 } else {
+                                     if (monthToday > valueMonth) {
+                                         listaArrayError.push(agenda1);
+                                     } else {
+                                         if (dayToday == valueDay) {
+                                             if (hourToday == valueHour) {
+                                                 if (difference_minutes >= 0) {
+                                                     listaArrayError.push(agenda1);
+                                                 } else {
+                                                     listaArrayCorrect.push(agenda1);
+                                                 }
+                                             } else if (hourToday > valueHour) {
+                                                 listaArrayError.push(agenda1);
+                                             } else {
+                                                 listaArrayCorrect.push(agenda1);
+                                             }
+                                         } else if (dayToday > valueDay) {
+                                             listaArrayError.push(agenda1);
+                                         } else {
+                                             listaArrayCorrect.push(agenda1);
+                                         }
+                                     }
+                                 }
+                             }
+                             constArray = listaArrayCorrect.sort((a, b) => new Date(a.start.dateTime) - new Date(b.start.dateTime));
+                             //var constArray = _.orderBy(listaArrayCorrect, ['start.dateTime']);
+                             //var constArray = listaArrayCorrect.sort((a, b) => a['start.dateTime'] - b['start.dateTime']);
+                             calendarCallback(constArray);
 
-    function extractTime(date) {
-        var time = date.toLocaleString('es-PE', { hour: 'numeric', minute: 'numeric', hour12: true });
-        return time.replace("p. m.", "PM").replace("a. m.", "AM");
-    }
-    function toShortDate(date) {
-        return date.toLocaleString('es-PE', { day: 'numeric', month: 'long' });
-    }
+                         }
+                     });
+                     $.ajax({
+                         type: "GET",
+                         url: "https://www.googleapis.com/gmail/v1/users/me/messages?q=is:inbox",
+                         headers: { 'Authorization': result.token_type + " " + result.access_token },
+                         success: function(mailsResult) {
+                             var messages = mailsResult.messages;
+                             var max = messages.length > 5 ? 5 : messages.length;
+                             //var max = 1;
+                             for (var i = 0; i < max; i++) {
+
+                                 $.ajax({
+                                     type: "GET",
+                                     url: "https://www.googleapis.com/gmail/v1/users/me/messages/" + messages[i].id,
+                                     headers: { 'Authorization': result.token_type + " " + result.access_token },
+                                     success: function(mailResult) {
+
+                                         mailCallback(serializeMail(mailResult, i));
+                                     }
+                                 });
+
+
+                             }
+                         }
+                     });
+                 }
+             });
+             //asunto , from , date , descr
+         }
+
+         function serializeMail(result, id) {
+             // console.log(result);
+
+             var object = { id: "", sender: "", subject: "", sendAt: "", message: "" };
+             object.id = findValue(result.payload.headers, "From");
+             object.sender = findValue(result.payload.headers, "From");
+             object.subject = findValue(result.payload.headers, "Subject");
+             object.sendAt = findValue(result.payload.headers, "Date");
+             object.message = result.snippet;
+             return object;
+         }
+
+         function findValue(arrayObject, name) {
+             var result = arrayObject.find(x => x.name === name);
+             return result !== undefined ? removeExtraString(result.value) : "not found";
+         }
+
+         function removeExtraString(value) {
+             return value.replace("<", "").replace(">", " ").replace(".", " ").replace("@", " ");
+         }
+
+         function parseDate(stringDate) { //as string like "Wed, 21 Jun 2017 18:39:35 -0700"
+             var _date = new Date(stringDate);
+             if (_date.getDate() === new Date().getDate()) {
+                 return extractTime(_date);
+             } else {
+                 return toShortDate(_date);
+             }
+         }
+
+         function extractTime(date) {
+             var time = date.toLocaleString('es-PE', { hour: 'numeric', minute: 'numeric', hour12: true });
+             return time.replace("p. m.", "PM").replace("a. m.", "AM");
+         }
+
+         function toShortDate(date) {
+             return date.toLocaleString('es-PE', { day: 'numeric', month: 'long' });
+         }
 
          function countdown(fechaevento) {
              return fechaevento;
@@ -827,45 +818,46 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
          function calendariolocal() {
 
          }
-         function serviciosHotel(){
-            $.ajax({
-                method: "GET",
-                url: "https://tp-ires-api.azurewebsites.net/v1/services",
-                crossDomain: true,
-                dataType: 'json',
-            }). done (function(data) {
-                var servicio = data.result.list;
-                /*for(var i = servicio.length-5; i< servicio.length; i++){
 
-                }*/
-                for(var i = 0; i < servicio.length; i++){
-                    var service1 = servicio[0];
-                    var service2 = servicio[1];
-                    var service3 = servicio[2];
-                    var service4 = servicio[3];
+         function serviciosHotel() {
+             $.ajax({
+                 method: "GET",
+                 url: "https://tp-ires-api.azurewebsites.net/v1/services",
+                 crossDomain: true,
+                 dataType: 'json',
+             }).done(function(data) {
+                 var servicio = data.result.list;
+                 /*for(var i = servicio.length-5; i< servicio.length; i++){
 
-                    var nameService1 = service1.name;
-                    var nameService2 = service2.name;
-                    var nameService3 = service3.name;
-                    var nameService4 = service4.name;
+                 }*/
+                 for (var i = 0; i < servicio.length; i++) {
+                     var service1 = servicio[0];
+                     var service2 = servicio[1];
+                     var service3 = servicio[2];
+                     var service4 = servicio[3];
 
-                    var serType1 = service1.serviceType.name;
-                    var serType2 = service2.serviceType.name;
-                    var serType3 = service3.serviceType.name;
-                    var serType4 = service4.serviceType.name;
+                     var nameService1 = service1.name;
+                     var nameService2 = service2.name;
+                     var nameService3 = service3.name;
+                     var nameService4 = service4.name;
 
-                    var htmlView = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">'+ serType1+'</label>'
-                                + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService1 + '</label> </br>'
-                                +'<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">'+ serType2+'</label>'
-                                + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService2 + '</label> </br>'
-                                +'<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">'+ serType3+'</label>'
-                                + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService3 + '</label> </br>'
-                                +'<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">'+ serType4+'</label>'
-                                + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService4 + '</label>';
+                     var serType1 = service1.serviceType.name;
+                     var serType2 = service2.serviceType.name;
+                     var serType3 = service3.serviceType.name;
+                     var serType4 = service4.serviceType.name;
 
-                    $('#HotelService').html(htmlView);
-                }
-            });
+                     var htmlView = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">' + serType1 + '</label>' +
+                         '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService1 + '</label> </br>' +
+                         '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">' + serType2 + '</label>' +
+                         '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService2 + '</label> </br>' +
+                         '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">' + serType3 + '</label>' +
+                         '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService3 + '</label> </br>' +
+                         '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">' + serType4 + '</label>' +
+                         '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService4 + '</label>';
+
+                     $('#HotelService').html(htmlView);
+                 }
+             });
          }
 
 
@@ -948,7 +940,7 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
          }
 
 
-        function GetWeather(){
+         function GetWeather() {
              $.ajax({
                      method: "GET",
                      url: "https://api.darksky.net/forecast/7af51a01e29c8ddb7a548fad3cf35a05/-12.193731,-76.708493?units=si",
@@ -1058,7 +1050,7 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
 
                  });
 
-        }
+         }
 
 
          function getCurrency(from, to, textdesign, urls) {
@@ -1109,7 +1101,7 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
 
 
          function bindData(jsonData) {
-            
+
 
              info = new BindClass('templateSix');
 
@@ -1246,7 +1238,7 @@ function getGoogleData(refreshToken, calendarCallback, mailCallback) {
 
                      /*getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
                      getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
-                       */ 
+                       */
                      $("#tablaClima").html(html);
 
                      changeiconTitle(data.currently.icon, Math.round(data.currently.temperature));
