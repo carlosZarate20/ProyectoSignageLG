@@ -169,8 +169,24 @@
                          $("#elements").append(string);
                          $("#elements .carousel-item").first().addClass('active');    
                             }
-                            
+                            $('#correoCarousel').carousel({ interval: 6000 });
+
+                            $('#correoCarousel').on('slid.bs.carousel', function (e) {console.log("SLIDING")});    
+                        $('#correoCarousel').bind('slid.bs.carousel', function(e) {
+                            console.log("SLIDING CORREO");
+                              var objeto= {
+                                sender: ArregloCorreo[e.to].sender,
+                                subject: ArregloCorreo[e.to].subject,
+                                senderAt: ArregloCorreo[e.to].sendAt,
+                                message: ArregloCorreo[e.to].message
+                        }
+
+                         SaveEmailInformation(UsuarioID,objeto);
+                        });
                          }
+
+
+
                          
                          
                      });
@@ -505,7 +521,7 @@
                      }
                      $('#elements').html('');
                      for (var k = 0; k < ArregloCorreo.length; k++) {
-
+                        console.log('agregando coerreo');
                          var temp = ArregloCorreo[k].subject.substring(0, 45);
 
                          var timeItem = new Date(ArregloCorreo[k].sendAt);
@@ -518,25 +534,36 @@
                          
                          var string = '<div id="email'+k.toString()+'" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[k].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc">' + ArregloCorreo[k].message + '</label></div>';
                          $("#elements").append(string);
-
+                         $("#elements .carousel-item").first().addClass('active');
 
                      }
-                     console.log("INGRESO A INICIAR EL CARRUSEL");
-                     console.log("PRIMER OBJETO",ArregloCorreo[0]);
-                     var objeto= {
-                        sender: ArregloCorreo[0].sender,
-                        subject: ArregloCorreo[0].subject,
-                        senderAt: ArregloCorreo[0].sendAt,
-                        message: ArregloCorreo[0].message
-                     }
+                     // console.log("INGRESO A INICIAR EL CARRUSEL");
+                     // console.log("PRIMER OBJETO",ArregloCorreo[0]);
+                     // var objeto= {
+                     //    sender: ArregloCorreo[0].sender,
+                     //    subject: ArregloCorreo[0].subject,
+                     //    senderAt: ArregloCorreo[0].sendAt,
+                     //    message: ArregloCorreo[0].message
+                     // }
 
-                     SaveEmailInformation(UsuarioID,objeto);
-
-                     $("#elements .carousel-item").first().addClass('active');
-                     $('#correoCarousel').carousel({ interval: 7000 });
+                     // SaveEmailInformation(UsuarioID,objeto);
+                     
+                     $('#correoCarousel').carousel({ interval: 6000 });
                      $('#carouselNews').carousel({ interval: 4000 });
 
                      $('#tablaClima').html('');
+                     $('#correoCarousel').on('slid.bs.carousel', function (e) {console.log("SLIDING")});    
+                    $('#correoCarousel').bind('slid.bs.carousel', function(e) {
+                     console.log("SLIDING CORREO");
+                              var objeto= {
+                        sender: ArregloCorreo[e.to].sender,
+                        subject: ArregloCorreo[e.to].subject,
+                        senderAt: ArregloCorreo[e.to].sendAt,
+                        message: ArregloCorreo[e.to].message
+                     }
+
+                     SaveEmailInformation(UsuarioID,objeto);
+                        });
                      GetWeather();
 
                  }
@@ -1110,18 +1137,12 @@
         //      console.log("cambio el slide");
         // })
         
-         $('#correoCarousel').on('slid.bs.carousel', function (e) {
-            
-           console.log("SLIDING CORREO");
-                              var objeto= {
-                        sender: ArregloCorreo[e.to].sender,
-                        subject: ArregloCorreo[e.to].subject,
-                        senderAt: ArregloCorreo[e.to].sendAt,
-                        message: ArregloCorreo[e.to].message
-                     }
+         // alert("invoked");
+        
 
-                     SaveEmailInformation(UsuarioID,objeto);
-         });
+         
+            
+      
 
          function bindData(jsonData) {
 
