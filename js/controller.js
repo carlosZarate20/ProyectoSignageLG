@@ -126,117 +126,8 @@
                          agendaData = data;
                          orderAgenda = [];
                          //for(var i = data.length-5; i< data.length; i++){
-                         for (var i = 0; i < data.length; i++) {
-                             orderAgenda.push(i);
-                             var agenda1 = agendaData[i];
-                             var d = new Date(agenda1.start.dateTime);
-                             var d2 = new Date(agenda1.start.dateTime);
-                             var time = d.toLocaleString("en-PE");
-                             var today = new Date();
-
-                             var timeToday = today.toLocaleString("en-PE");
-                             console.log("FechaFormato", time);
-                             console.log("Fecha Hoy", timeToday);
-                             var difference_ms = today.getTime() - d.getTime();
-
-                             var difference_hr = today.getHours() - d.getHours();
-                             var difference_minute = today.getMinutes() - d.getMinutes();
-                             var difference_day = d.getDate() - today.getDate();
-                             console.log("Horas: " + difference_hr);
-                             console.log("Minutes: ", difference_ms);
-                             console.log("Dias: ", difference_day);
-
-
-                             difference_ms = difference_ms / 1000;
-                             var seconds = Math.floor(difference_ms % 60);
-                             /*difference_minute = difference_minute/60; 
-                             var minutes = Math.floor(difference_minute % 60);*/
-
-                             //console.log("Minutes: ", minutes);
-                             difference_ms = difference_ms / 60;
-                             var hours = Math.floor(difference_hr % 12);
-                             var days = Math.floor(difference_ms / 24);
-
-                             var serviocAgenda1 = agenda1.summary;
-                             var htmlAgenda;
-                             var variableTimer = d.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
-                             var variableTimerMinutes = d2.toLocaleTimeString('en-PE', { minute: '2-digit' });
-                             var jsonHours = d.toLocaleTimeString('en-PE', { hour: '2-digit' });
-                             var todayDataHour = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
-                             console.log("Hora siguiente: ", jsonHours + 1);
-
-                             var variable = undefined;
-                             if (today.getDate() == d.getDate()) {
-
-                                 if (hours <= 0) {
-                                     hours *= -1;
-                                     if (jsonHours == todayDataHour) {
-                                         if (difference_minute <= 0) {
-                                             variable = "En " + difference_minute + " minutos";
-                                             difference_minute *= -1;
-                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "En " + difference_minute + " minutos" + '</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                         }
-
-                                     } else if (d.getHours() >= 12) {
-                                         variable = "Hoy " + variableTimer;
-                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
-                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                     } else if (d.getHours() <= 12) {
-                                         variable = "Hoy " + variableTimer;
-                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
-                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                     }
-                                 } else {
-                                     if (d.getHours() >= 12) {
-                                         variable = "Hoy " + variableTimer;
-                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
-                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                     } else if (d.getHours() <= 12) {
-                                         variable = "Hoy " + variableTimer;
-                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
-                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                     }
-                                 }
-                             } else if (d.getDate() > today.getDate()) {
-                                if(difference_day == 1){
-                                    if (hours <= 0) {
-                                         hours *= -1;
-                                         if (d.getHours() >= 12) {
-                                             variable = "Mañana " + variableTimer;
-                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                         } else if (d.getHours() <= 12) {
-                                             variable = "Mañana " + variableTimer;
-                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                         }
-                                     }
-                                     if (hours >= 0) {
-                                         if (d.getHours() >= 12) {
-                                             variable = "Mañana " + variableTimer;
-                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                         } else if (d.getHours() <= 12) {
-                                             variable = "Mañana " + variableTimer;
-                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                         }
-                                     }
-                                }else{
-                                    variable = "En" + difference_day + "días";
-                                    htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "En " + difference_day + " días" +'</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                   
-                                }
-                                 
-                             }
-                             agendaData[i].horatransformada = variable;
-                             var stringNumber = "#f" + indexIncrement.toString();
-                             $(stringNumber).html(htmlAgenda);
-                             indexIncrement++;
-
-                         }
+                        //Validacion de fechas para agenda
+                         validateDatesAgenda(data, indexIncrement);
                          TamanioInicial = orderAgenda.length;
                          GuardarIndexAgenda(UsuarioID, orderAgenda);
                      }, function(data1) {
@@ -265,13 +156,127 @@
          obtenerUsuario();
          console.log(ArregloCorreo);
 
+         function validateDatesAgenda(data, indexIncrement ){
+            for (var i = 0; i < data.length; i++) {
+                 orderAgenda.push(i);
+                 var agenda1 = agendaData[i];
+                 var d = new Date(agenda1.start.dateTime);
+                 var d2 = new Date(agenda1.start.dateTime);
+                 var time = d.toLocaleString("en-PE");
+                 var today = new Date();
 
+                 var timeToday = today.toLocaleString("en-PE");
+                 console.log("FechaFormato", time);
+                 console.log("Fecha Hoy", timeToday);
+                 var difference_ms = today.getTime() - d.getTime();
+
+                 var difference_hr = today.getHours() - d.getHours();
+                 var difference_minute = today.getMinutes() - d.getMinutes();
+                 var difference_day = d.getDate() - today.getDate();
+                 console.log("Horas: " + difference_hr);
+                 console.log("Minutes: ", difference_ms);
+                 console.log("Dias: ", difference_day);
+
+
+                 difference_ms = difference_ms / 1000;
+                 var seconds = Math.floor(difference_ms % 60);
+
+                 difference_ms = difference_ms / 60;
+                 var hours = Math.floor(difference_hr % 12);
+                 var days = Math.floor(difference_ms / 24);
+
+                 var serviocAgenda1 = agenda1.summary;
+                 var htmlAgenda;
+                 var variableTimer = d.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
+                 var variableTimerMinutes = d2.toLocaleTimeString('en-PE', { minute: '2-digit' });
+                 var jsonHours = d.toLocaleTimeString('en-PE', { hour: '2-digit' });
+                 var todayDataHour = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
+                 console.log("Hora siguiente: ", jsonHours + 1);
+
+                 var variable = undefined;
+                 if (today.getDate() == d.getDate()) {
+
+                     if (hours <= 0) {
+                         hours *= -1;
+                         if (jsonHours == todayDataHour) {
+                             if (difference_minute <= 0) {
+                                 variable = "En " + difference_minute + " minutos";
+                                 difference_minute *= -1;
+                                 htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "En " + difference_minute + " minutos" + '</label>' +
+                                     '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                             }
+
+                         } else if (d.getHours() >= 12) {
+                             variable = "Hoy " + variableTimer;
+                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                         } else if (d.getHours() <= 12) {
+                             variable = "Hoy " + variableTimer;
+                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                         }
+                     } else {
+                         if (d.getHours() >= 12) {
+                             variable = "Hoy " + variableTimer;
+                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                         } else if (d.getHours() <= 12) {
+                             variable = "Hoy " + variableTimer;
+                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
+                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                         }
+                     }
+                 } else if (d.getDate() > today.getDate()) {
+                    if(difference_day == 1){
+                        if (hours <= 0) {
+                             hours *= -1;
+                             if (d.getHours() >= 12) {
+                                 variable = "Mañana " + variableTimer;
+                                 htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                     '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                             } else if (d.getHours() <= 12) {
+                                 variable = "Mañana " + variableTimer;
+                                 htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                     '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                             }
+                         }
+                         if (hours >= 0) {
+                             if (d.getHours() >= 12) {
+                                 variable = "Mañana " + variableTimer;
+                                 htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                     '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                             } else if (d.getHours() <= 12) {
+                                 variable = "Mañana " + variableTimer;
+                                 htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
+                                     '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                             }
+                         }
+                    }else{
+                        variable = "En" + difference_day + "días";
+                        htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "En " + difference_day + " días" +'</label>' +
+                                     '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+                       
+                    }
+                     
+                 }
+                 agendaData[i].horatransformada = variable;
+                 var stringNumber = "#f" + indexIncrement.toString();
+                 $(stringNumber).html(htmlAgenda);
+                 indexIncrement++;
+
+             }
+             return indexIncrement;
+         }
 
          function ontenerParametroAgenda(indice) {
 
              console.log("OrderAgendaRecibida", indice);
 
              var index = indice;
+             var sumary = "";
+             var description = "";
+             var location = "";
+             var botDesLoc = "";
 
              console.log("index", index)
                  //ESTE OBJ ES EL QUE VAS A MOSTRAR
@@ -279,7 +284,20 @@
              console.log("obj", obj);
              var htmlDescripcion;
              $("#Agenda").hide(1000, function() {
-                 htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
+                sumary = "No se encuentra un detalle para la descripcion";
+                location = "No se encuentra un detalle para la localizacion";
+                if(obj.description === undefined && obj.location !== undefined){
+                    htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
+                }else if(obj.location === undefined && obj.description !== undefined){
+                    
+                    htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + location + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
+                }else if(obj.description === undefined && obj.location === undefined){
+                    htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
+                }else{
+                     htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
+                }
+                
+                 
                  $('#Agenda2').html(htmlDescripcion);
              });
 
@@ -521,126 +539,14 @@
                             $(stringNumber).html("");
                         }
 
-                         TamanioInicial = nuevotamanio;
-                         var indexIncrement = 0;
-                         agendaData = data;
-                         orderAgenda = [];
+                        TamanioInicial = nuevotamanio;
+                        var indexIncrement = 0;
+                        agendaData = data;
+                        orderAgenda = [];
+                       //Validacion de fechas para agenda
+                        validateDatesAgenda(data, indexIncrement);
 
-
-                         //for(var i = data.length-5; i< data.length; i++){
-                         for (var i = 0; i < data.length; i++) {
-
-
-                             orderAgenda.push(i);
-                             var agenda1 = agendaData[i];
-                             var d = new Date(agenda1.start.dateTime);
-                             var d2 = new Date(agenda1.start.dateTime);
-                             var time = d.toLocaleString("en-PE");
-                             var today = new Date();
-
-                             var timeToday = today.toLocaleString("en-PE");
-                             console.log("FechaFormato", time);
-                             console.log("Fecha Hoy", timeToday);
-                             var difference_ms = today.getTime() - d.getTime();
-
-                             var difference_hr = today.getHours() - d.getHours();
-                             var difference_minute = today.getMinutes() - d.getMinutes();
-
-                             var difference_day = d.getDate() - today.getDate();
-
-
-                             difference_ms = difference_ms / 1000;
-                             var seconds = Math.floor(difference_ms % 60);
-                             /*difference_minute = difference_minute/60; 
-                             var minutes = Math.floor(difference_minute % 60);*/
-
-                             //console.log("Minutes: ", minutes);
-                             difference_ms = difference_ms / 60;
-                             var hours = Math.floor(difference_hr % 12);
-                             var days = Math.floor(difference_ms / 24);
-
-                             var serviocAgenda1 = agenda1.summary;
-                             var htmlAgenda;
-                             var variableTimer = d.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
-                             var variableTimerMinutes = d2.toLocaleTimeString('en-PE', { minute: '2-digit' });
-                             var jsonHours = d.toLocaleTimeString('en-PE', { hour: '2-digit' });
-                             var todayDataHour = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
-
-
-
-                             var variable = undefined;
-                             if (today.getDate() == d.getDate()) {
-
-                                 if (hours <= 0) {
-                                     hours *= -1;
-                                     if (jsonHours == todayDataHour) {
-                                         if (difference_minute <= 0) {
-                                             variable = "En " + difference_minute + " minutos";
-                                             difference_minute *= -1;
-                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "En " + difference_minute + " minutos" + '</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                         }
-
-                                     } else if (d.getHours() >= 12) {
-                                         variable = "Hoy " + variableTimer;
-                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
-                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                     } else if (d.getHours() <= 12) {
-                                         variable = "Hoy " + variableTimer;
-                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
-                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                     }
-                                 } else {
-                                     if (d.getHours() >= 12) {
-                                         variable = "Hoy " + variableTimer;
-                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
-                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                     } else if (d.getHours() <= 12) {
-                                         variable = "Hoy " + variableTimer;
-                                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Hoy " + variableTimer + '</label>' +
-                                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                     }
-                                 }
-                             } else if (d.getDate() > today.getDate()) {
-                                if(difference_day == 1){
-                                    if (hours <= 0) {
-                                     hours *= -1;
-                                     if (d.getHours() >= 12) {
-                                             variable = "Mañana " + variableTimer;
-                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                         } else if (d.getHours() <= 12) {
-                                             variable = "Mañana " + variableTimer;
-                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                         }
-                                     }
-                                     if (hours >= 0) {
-                                         if (d.getHours() >= 12) {
-                                             variable = "Mañana " + variableTimer;
-                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                         } else if (d.getHours() <= 12) {
-                                             variable = "Mañana " + variableTimer;
-                                             htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "Mañana " + variableTimer + '</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                         }
-                                     }
-                                }else{
-                                    variable = "En" + difference_day + "días";
-                                    htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "En " + difference_day + " dias" +'</label>' +
-                                                 '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                                }
-                                 
-                             }
-                             agendaData[i].horatransformada = variable;
-                             var stringNumber = "#f" + indexIncrement.toString();
-                             $(stringNumber).html(htmlAgenda);
-                             indexIncrement++;
-
-                         }
-
-                         GuardarIndexAgenda(UsuarioID, orderAgenda);
+                        GuardarIndexAgenda(UsuarioID, orderAgenda);
                      }
                  }, function(data1) {
                      // var correo = data1;  
