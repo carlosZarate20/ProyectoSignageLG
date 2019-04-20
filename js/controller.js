@@ -106,8 +106,8 @@
              });
          }
 
-         var orderAgenda = [];
-
+         var orderAgenda = [];  
+         var orderCorreos=[];
          function obtenerUsuario() {
              var enviar = JSON.stringify({ "roomNumber": 140 });
 
@@ -130,31 +130,43 @@
                          validateDatesAgenda(data, indexIncrement);
                          TamanioInicial = orderAgenda.length;
                          GuardarIndexAgenda(UsuarioID, orderAgenda);
-                     }, function(data1) {
-                         TamanioInicialCorreo++;
+                     }, function(data1) {                     
+                        
+                        
+                         
                          var correo = data1;
 
-                         var temp = correo.subject.substring(0, 45);
+                  
 
-                         var timeItem = new Date(correo.sendAt);
-                         var correoTime = correo.sendAt;
+                         ArregloCorreo.push(correo);
+                         console.log("tamanio",ArregloCorreo.length);
+                         //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
+                         if(ArregloCorreo.length== 5){  
+                            for(var j=0;j<ArregloCorreo.length;j++){
+                                       var temp = ArregloCorreo[j].subject.substring(0, 45);
+
+                         var timeItem = new Date(ArregloCorreo[j].sendAt);
+                         var correoTime = ArregloCorreo[j].sendAt;
 
                          var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
                          var dia = timeItem.getDate();
                          var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
                          var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
-
-                         ArregloCorreo.push(correo);
-                         //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
-                         var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + correo.sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + correo.message + '</label></div>';
+                                var string = '<div id="email'+j+'" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
                          $("#elements").append(string);
-                         $("#elements .carousel-item").first().addClass('active');
-
+                         $("#elements .carousel-item").first().addClass('active');    
+                            }
+                            
+                         }
+                         
+                         
                      });
                  });
          }
+
          obtenerUsuario();
          console.log(ArregloCorreo);
+
 
          function validateDatesAgenda(data, indexIncrement ){
             for (var i = 0; i < data.length; i++) {
@@ -494,7 +506,9 @@
                          var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[k].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc">' + ArregloCorreo[k].message + '</label></div>';
                          $("#elements").append(string);
 
+
                      }
+                     console.log("INGRESO A INICIAR EL CARRUSEL");
                      $("#elements .carousel-item").first().addClass('active');
                      $('.carousel-item').carousel({ interval: 4000 });
                      $('.carousel').carousel({ interval: 4000 });
@@ -506,7 +520,14 @@
 
 
              });
-         }
+         }  
+        $('.carousel').bind('slid', function (e) {
+             console.log("cambio el slide");
+        })
+        
+        $('.carousel').on('slid.bs.carousel', function () {
+           console.log("sliding ended");
+         });
          // obtenerOrderfinitivo();
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR EL ORDEN DE LOS GADGET
          window.setInterval(obtenerOrderfinitivo, 1000);
@@ -696,20 +717,23 @@
                              var messages = mailsResult.messages;
                              var max = messages.length > 5 ? 5 : messages.length;
                              //var max = 1;
+                             var arreglocorreos=[]
                              for (var i = 0; i < max; i++) {
-
+                                var objetoauxiliar=undefined;
                                  $.ajax({
                                      type: "GET",
                                      url: "https://www.googleapis.com/gmail/v1/users/me/messages/" + messages[i].id,
                                      headers: { 'Authorization': result.token_type + " " + result.access_token },
                                      success: function(mailResult) {
 
-                                         mailCallback(serializeMail(mailResult, i));
+                                        objetoauxiliar=serializeMail((mailResult), i);
+                                        mailCallback(objetoauxiliar);
                                      }
                                  });
 
 
                              }
+                             
                          }
                      });
                  }
