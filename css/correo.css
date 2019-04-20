@@ -37,10 +37,11 @@
 }
 .carrouselDesc{
     display:block; 
-    word-wrap:break-word; 
+    /*word-wrap:break-word; */
     color: white; font-family: &quot;b-light-condensed&quot;; 
     margin-left: 2px;
     margin-top:-7px; 
     height: 100px;
     float: left;
+    text-align : justify;
 }

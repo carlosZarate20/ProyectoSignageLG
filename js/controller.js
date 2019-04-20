@@ -144,30 +144,31 @@
                          TamanioInicial = orderAgenda.length;
                          GuardarIndexAgenda(UsuarioID, orderAgenda);
                      }, function(data1) {                     
-                        
-                        
-                         
+                                
                          var correo = data1;
-
-                  
-
+                
                          ArregloCorreo.push(correo);
                          console.log("tamanio",ArregloCorreo.length);
                          //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
                          if(ArregloCorreo.length== 5){  
                             for(var j=0;j<ArregloCorreo.length;j++){
-                                       var temp = ArregloCorreo[j].subject.substring(0, 45);
+                                var temp = "";
+                                 if(ArregloCorreo[j].subject.length <= 45){
+                                    temp = ArregloCorreo[j].subject;
+                                 }else{
+                                    temp = ArregloCorreo[j].subject.substring(0, 44) + "...";
+                                 }
 
-                         var timeItem = new Date(ArregloCorreo[j].sendAt);
-                         var correoTime = ArregloCorreo[j].sendAt;
+                                 var timeItem = new Date(ArregloCorreo[j].sendAt);
+                                 var correoTime = ArregloCorreo[j].sendAt;
 
-                         var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
-                         var dia = timeItem.getDate();
-                         var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
-                         var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
-                                var string = '<div id="email'+j.toString()+'" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
-                         $("#elements").append(string);
-                         $("#elements .carousel-item").first().addClass('active');    
+                                 var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
+                                 var dia = timeItem.getDate();
+                                 var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
+                                 var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
+                                        var string = '<div id="email'+j.toString()+'" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
+                                 $("#elements").append(string);
+                                 $("#elements .carousel-item").first().addClass('active');    
                             }
                           console.log("INGRESO A INICIAR EL CARRUSEL");
                          console.log("PRIMER OBJETO",ArregloCorreo[0]);
@@ -533,7 +534,12 @@
                      $('#elements').html('');
                      for (var k = 0; k < ArregloCorreo.length; k++) {
                         console.log('agregando coerreo');
-                         var temp = ArregloCorreo[k].subject.substring(0, 45);
+                         var temp = "";
+                         if(ArregloCorreo[k].subject.length <= 45){
+                            temp = ArregloCorreo[k].subject;
+                         }else{
+                            temp = ArregloCorreo[k].subject.substring(0, 44) + "...";
+                         }
 
                          var timeItem = new Date(ArregloCorreo[k].sendAt);
                          var correoTime = ArregloCorreo[k].sendAt;
@@ -934,10 +940,10 @@
 
                          if (i == 0) {
                              //full = full + '<div class="carousel-item active"> <img src="'+ foto +'" style="height: 250px; width:220px; float:left;" /> <label style ="color: white;display:table;font-size: 20px;margin-left: 234px;margin-top:-6px;font-family: &quot;b-medium&quot;height: 87px; word-wrap:break-word;"> ' + title +' </label> <label style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 234px;margin-top:-7px; height: 100px;">'+ desc+' </label> </div>';
-                             full = full + '<div class="carousel-item active"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;word-break: break-word;float:left">' + desc + '</div></div>';
+                             full = full + '<div class="carousel-item active"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;float:left; text-align : justify;">' + desc + '</div></div>';
                          } else {
                              //full = full + '<div class="carousel-item"> <img src="'+ foto +'" style="height: 250px; width:220px; float:left;" /> <label style ="color: white;display:table;font-size: 20px;margin-left: 234px;margin-top:-6px;font-family: &quot;b-medium&quot; height: 87px; word-wrap:break-word;"> ' + title +' </label> <label style = "display:block; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 234px;margin-top:-7px; height: 100px; word-wrap:break-word;">'+ desc+' </label> </div>';
-                             full = full + '<div class="carousel-item"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;word-break: break-word;float:left">' + desc + '</div></div>';
+                             full = full + '<div class="carousel-item"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;float:left; text-align : justify;">' + desc + '</div></div>';
 
                          }
 
@@ -998,28 +1004,28 @@
 
                      function changeiconTitle(icon, temp) {
                          switch (icon) {
-                             // case "clear-day":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_clear);
-                             // case "clear-night":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_clearnight);
-                             // case "cloudy":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_cloudy);
-                             // case "fog":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_fog);
-                             // case "partly-cloudy-day":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
-                             // case "partly-cloudy-night":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
-                             // case "rain":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_rain);
-                             // case "sleet":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_sleet);
-                             // case "snow":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_snow);
-                             // case "sunny":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_sunny);
-                             // case "wind":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                             case "clear-day":
+                                  return info.set('asideBlock11Content1', jsonData.weather_clear);
+                              case "clear-night":
+                                  return info.set('asideBlock11Content1', jsonData.weather_clearnight);
+                              case "cloudy":
+                                  return info.set('asideBlock11Content1', jsonData.weather_cloudy);
+                              case "fog":
+                                  return info.set('asideBlock11Content1', jsonData.weather_fog);
+                              case "partly-cloudy-day":
+                                  return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
+                              case "partly-cloudy-night":
+                                  return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
+                             case "rain":
+                                 return info.set('asideBlock11Content1', jsonData.weather_rain);
+                             case "sleet":
+                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                             case "snow":
+                                 return info.set('asideBlock11Content1', jsonData.weather_snow);
+                             case "sunny":
+                                 return info.set('asideBlock11Content1', jsonData.weather_sunny);
+                             case "wind":
+                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
                          }
                      }
 
@@ -1210,28 +1216,28 @@
 
                      function changeiconTitle(icon, temp) {
                          switch (icon) {
-                             // case "clear-day":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_clear);
-                             // case "clear-night":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_clearnight);
-                             // case "cloudy":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_cloudy);
-                             // case "fog":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_fog);
-                             // case "partly-cloudy-day":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
-                             // case "partly-cloudy-night":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
-                             // case "rain":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_rain);
-                             // case "sleet":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_sleet);
-                             // case "snow":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_snow);
-                             // case "sunny":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_sunny);
-                             // case "wind":
-                             //     return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                             case "clear-day":
+                                 return info.set('asideBlock11Content1', jsonData.weather_clear);
+                             case "clear-night":
+                                 return info.set('asideBlock11Content1', jsonData.weather_clearnight);
+                             case "cloudy":
+                                 return info.set('asideBlock11Content1', jsonData.weather_cloudy);
+                             case "fog":
+                                 return info.set('asideBlock11Content1', jsonData.weather_fog);
+                             case "partly-cloudy-day":
+                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
+                             case "partly-cloudy-night":
+                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
+                             case "rain":
+                                 return info.set('asideBlock11Content1', jsonData.weather_rain);
+                             case "sleet":
+                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                             case "snow":
+                                 return info.set('asideBlock11Content1', jsonData.weather_snow);
+                             case "sunny":
+                                 return info.set('asideBlock11Content1', jsonData.weather_sunny);
+                             case "wind":
+                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
                          }
                      }
 
