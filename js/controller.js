@@ -169,6 +169,17 @@
                          $("#elements").append(string);
                          $("#elements .carousel-item").first().addClass('active');    
                             }
+                          console.log("INGRESO A INICIAR EL CARRUSEL");
+                         console.log("PRIMER OBJETO",ArregloCorreo[0]);
+                            var objeto= {
+                                sender: ArregloCorreo[0].sender,
+                                subject: ArregloCorreo[0].subject,
+                                senderAt: ArregloCorreo[0].sendAt,
+                                message: ArregloCorreo[0].message
+                            }
+
+                     SaveEmailInformation(UsuarioID,objeto);
+
                             $('#correoCarousel').carousel({ interval: 6000 });
 
                             $('#correoCarousel').on('slid.bs.carousel', function (e) {console.log("SLIDING")});    
@@ -537,16 +548,16 @@
                          $("#elements .carousel-item").first().addClass('active');
 
                      }
-                     // console.log("INGRESO A INICIAR EL CARRUSEL");
-                     // console.log("PRIMER OBJETO",ArregloCorreo[0]);
-                     // var objeto= {
-                     //    sender: ArregloCorreo[0].sender,
-                     //    subject: ArregloCorreo[0].subject,
-                     //    senderAt: ArregloCorreo[0].sendAt,
-                     //    message: ArregloCorreo[0].message
-                     // }
+                     console.log("INGRESO A INICIAR EL CARRUSEL");
+                     console.log("PRIMER OBJETO",ArregloCorreo[0]);
+                     var objeto= {
+                        sender: ArregloCorreo[0].sender,
+                        subject: ArregloCorreo[0].subject,
+                        senderAt: ArregloCorreo[0].sendAt,
+                        message: ArregloCorreo[0].message
+                     }
 
-                     // SaveEmailInformation(UsuarioID,objeto);
+                     SaveEmailInformation(UsuarioID,objeto);
                      
                      $('#correoCarousel').carousel({ interval: 6000 });
                      $('#carouselNews').carousel({ interval: 4000 });
