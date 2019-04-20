@@ -37,7 +37,7 @@
           */
          function init() {
 
-         }
+         }  
 
 
 
@@ -54,20 +54,24 @@
              return xhr;
          }
 
-         //var proxyurl = "https://cors-anywhere.herokuapp.com/";
-         var urlpost = 'http://smartmirror-api.azurewebsites.net/GetGadgetStatusSmart';
+         var proxyurl = "https://cors-anywhere.herokuapp.com/";
+         var urlpost = proxyurl+'http://smartmirror-api.azurewebsites.net/GetGadgetStatusSmart';
 
-         var urlpost2 = 'http://smartmirror-api.azurewebsites.net/GetUser';
+         var urlpost2 = proxyurl+'http://smartmirror-api.azurewebsites.net/GetUser';
 
-         var urlpost3 = 'http://smartmirror-api.azurewebsites.net/GetGadgetOrderSmart';
+         var urlpost3 = proxyurl+'http://smartmirror-api.azurewebsites.net/GetGadgetOrderSmart';
 
-         var urlpost4 = 'http://smartmirror-api.azurewebsites.net/UpdateBooleans';
+         var urlpost4 = proxyurl+'http://smartmirror-api.azurewebsites.net/UpdateBooleans';
 
-         var urlpost5 = 'http://smartmirror-api.azurewebsites.net/SaveDiaries';
-         var urlpost6 = 'http://smartmirror-api.azurewebsites.net/GetDiaries';
+         var urlpost5 = proxyurl+'http://smartmirror-api.azurewebsites.net/SaveDiaries';
+         var urlpost6 = proxyurl+'http://smartmirror-api.azurewebsites.net/GetDiaries';
 
-         var urlpost7 = 'http://smartmirror-api.azurewebsites.net/SaveDiaryInformations';
+         var urlpost7 = proxyurl+'http://smartmirror-api.azurewebsites.net/SaveDiaryInformations';
 
+         var urlpost8 = proxyurl+'http://smartmirror-api.azurewebsites.net/SaveEmailInformations';
+
+         var urlpost9 =  proxyurl+'http://smartmirror-api.azurewebsites.net/GetEmailInformations2';
+         
 
          var UsuarioID = undefined;
          var RefreshToken = undefined;
@@ -95,12 +99,21 @@
          }
 
 
+
+         function SaveEmailInformation(idesito, objeto) {
+             var enviar2 = JSON.stringify({ "userId": idesito, "objectReference": objeto });
+
+             eventoPost(urlpost8, enviar2, function(data) {
+
+             });
+         }
+
          function GuardarIndexAgenda(parametro1, parametro2) {
 
              var enviar3 = JSON.stringify({ "userId": parametro1, "list": parametro2 });
 
              eventoPost(urlpost5, enviar3, function(data) {
-                 var arreglo = JSON.parse(data);
+                 // var arreglo = JSON.parse(data);
 
 
              });
@@ -152,7 +165,7 @@
                          var dia = timeItem.getDate();
                          var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
                          var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
-                                var string = '<div id="email'+j+'" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
+                                var string = '<div id="email'+j.toString()+'" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
                          $("#elements").append(string);
                          $("#elements .carousel-item").first().addClass('active');    
                             }
@@ -502,16 +515,26 @@
                          var dia = timeItem.getDate();
                          var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
                          var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
-
-                         var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[k].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc">' + ArregloCorreo[k].message + '</label></div>';
+                         
+                         var string = '<div id="email'+k.toString()+'" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[k].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc">' + ArregloCorreo[k].message + '</label></div>';
                          $("#elements").append(string);
 
 
                      }
                      console.log("INGRESO A INICIAR EL CARRUSEL");
+                     console.log("PRIMER OBJETO",ArregloCorreo[0]);
+                     var objeto= {
+                        sender: ArregloCorreo[0].sender,
+                        subject: ArregloCorreo[0].subject,
+                        senderAt: ArregloCorreo[0].sendAt,
+                        message: ArregloCorreo[0].message
+                     }
+
+                     SaveEmailInformation(UsuarioID,objeto);
+
                      $("#elements .carousel-item").first().addClass('active');
-                     $('.carousel-item').carousel({ interval: 4000 });
-                     $('.carousel').carousel({ interval: 4000 });
+                     $('#correoCarousel').carousel({ interval: 7000 });
+                     $('#carouselNews').carousel({ interval: 4000 });
 
                      $('#tablaClima').html('');
                      GetWeather();
@@ -521,16 +544,29 @@
 
              });
          }  
-        $('.carousel').bind('slid', function (e) {
-             console.log("cambio el slide");
-        })
-        
-        $('.carousel').on('slid.bs.carousel', function () {
-           console.log("sliding ended");
-         });
+     
          // obtenerOrderfinitivo();
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR EL ORDEN DE LOS GADGET
          window.setInterval(obtenerOrderfinitivo, 1000);
+
+         function obtenerEmailInformationDefinitivo() {
+
+             var enviar = JSON.stringify({ "userID": UsuarioID });
+
+             eventoPost(urlpost9, enviar, function(data) {             
+                var arreglo=JSON.parse(data);
+                if(arreglo.status == 1){
+                     $('#correoCarousel').carousel('pause');
+                } else if(arreglo.status == 2){
+
+                } else if (arreglo.status == 3){
+                    $('#correoCarousel').carousel('cycle');
+                }   
+
+             });
+         }
+
+         window.setInterval(obtenerEmailInformationDefinitivo, 1000);
 
          function updateDiariesInfinite() {
              if (RefreshToken != undefined && TamanioInicial != 0) {
@@ -869,8 +905,8 @@
 
 
                      }
-                     $("#333").html('<div id="carouselExampleControls" style="margin-left: 25px;" class="carousel slide" data-ride="carousel"> <div class="carousel-inner">' + full + '</div> <a class="hidden carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span"> <span class="sr-only">Previous</span> </a> <a class="hidden carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div>')
-                     $('.carousel').carousel({ interval: 4000 });
+                     $("#333").html('<div id="carouselNews" style="margin-left: 25px;" class="carousel slide" data-ride="carousel"> <div class="carousel-inner">' + full + '</div> <a class="hidden carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span"> <span class="sr-only">Previous</span> </a> <a class="hidden carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div>')
+                     $('#carouselNews').carousel({ interval: 4000 });
                  });
 
          }
@@ -924,28 +960,28 @@
 
                      function changeiconTitle(icon, temp) {
                          switch (icon) {
-                             case "clear-day":
-                                 return info.set('asideBlock11Content1', jsonData.weather_clear);
-                             case "clear-night":
-                                 return info.set('asideBlock11Content1', jsonData.weather_clearnight);
-                             case "cloudy":
-                                 return info.set('asideBlock11Content1', jsonData.weather_cloudy);
-                             case "fog":
-                                 return info.set('asideBlock11Content1', jsonData.weather_fog);
-                             case "partly-cloudy-day":
-                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
-                             case "partly-cloudy-night":
-                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
-                             case "rain":
-                                 return info.set('asideBlock11Content1', jsonData.weather_rain);
-                             case "sleet":
-                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
-                             case "snow":
-                                 return info.set('asideBlock11Content1', jsonData.weather_snow);
-                             case "sunny":
-                                 return info.set('asideBlock11Content1', jsonData.weather_sunny);
-                             case "wind":
-                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                             // case "clear-day":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_clear);
+                             // case "clear-night":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_clearnight);
+                             // case "cloudy":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_cloudy);
+                             // case "fog":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_fog);
+                             // case "partly-cloudy-day":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
+                             // case "partly-cloudy-night":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
+                             // case "rain":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_rain);
+                             // case "sleet":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                             // case "snow":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_snow);
+                             // case "sunny":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_sunny);
+                             // case "wind":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_sleet);
                          }
                      }
 
@@ -1069,6 +1105,24 @@
          }
 
 
+
+        // $('.carousel').bind('slid', function (e) {
+        //      console.log("cambio el slide");
+        // })
+        
+         $('#correoCarousel').on('slid.bs.carousel', function (e) {
+            
+           console.log("SLIDING CORREO");
+                              var objeto= {
+                        sender: ArregloCorreo[e.to].sender,
+                        subject: ArregloCorreo[e.to].subject,
+                        senderAt: ArregloCorreo[e.to].sendAt,
+                        message: ArregloCorreo[e.to].message
+                     }
+
+                     SaveEmailInformation(UsuarioID,objeto);
+         });
+
          function bindData(jsonData) {
 
 
@@ -1124,28 +1178,28 @@
 
                      function changeiconTitle(icon, temp) {
                          switch (icon) {
-                             case "clear-day":
-                                 return info.set('asideBlock11Content1', jsonData.weather_clear);
-                             case "clear-night":
-                                 return info.set('asideBlock11Content1', jsonData.weather_clearnight);
-                             case "cloudy":
-                                 return info.set('asideBlock11Content1', jsonData.weather_cloudy);
-                             case "fog":
-                                 return info.set('asideBlock11Content1', jsonData.weather_fog);
-                             case "partly-cloudy-day":
-                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
-                             case "partly-cloudy-night":
-                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
-                             case "rain":
-                                 return info.set('asideBlock11Content1', jsonData.weather_rain);
-                             case "sleet":
-                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
-                             case "snow":
-                                 return info.set('asideBlock11Content1', jsonData.weather_snow);
-                             case "sunny":
-                                 return info.set('asideBlock11Content1', jsonData.weather_sunny);
-                             case "wind":
-                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                             // case "clear-day":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_clear);
+                             // case "clear-night":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_clearnight);
+                             // case "cloudy":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_cloudy);
+                             // case "fog":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_fog);
+                             // case "partly-cloudy-day":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
+                             // case "partly-cloudy-night":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
+                             // case "rain":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_rain);
+                             // case "sleet":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                             // case "snow":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_snow);
+                             // case "sunny":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_sunny);
+                             // case "wind":
+                             //     return info.set('asideBlock11Content1', jsonData.weather_sleet);
                          }
                      }
 
@@ -1381,3 +1435,4 @@
 
 
      }());
+
