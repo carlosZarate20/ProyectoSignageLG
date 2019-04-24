@@ -196,10 +196,6 @@
                          SaveEmailInformation(UsuarioID,objeto);
                         });
                          }
-
-
-
-                         
                          
                      });
                  });
@@ -305,7 +301,7 @@
                              }
                          }
                     }else{
-                        variable = "En" + difference_day + "días";
+                        variable = "En " + difference_day + " días";
                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "En " + difference_day + " días" +'</label>' +
                                      '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
                        
@@ -320,6 +316,66 @@
              }
              return indexIncrement;
          }
+         function validarHoraAgendaDetalle(today, dayJson){
+            var htmlDescripcion
+            var difference_minute = today.getMinutes() - dayJson.getMinutes();
+            var difference_day = dayJson.getDate() - today.getDate();
+            var difference_hr = today.getHours() - dayJson.getHours();
+
+            var jsonHours = dayJson.toLocaleTimeString('en-PE', { hour: '2-digit' });
+            var todayDataHour = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
+            var difference_hr = today.getHours() - dayJson.getHours();
+            var hours = Math.floor(difference_hr % 12);
+            var variableTimer;
+            var variable;
+            if (today.getDate() == dayJson.getDate()) {
+
+                 if (hours <= 0) {
+                     hours *= -1;
+                     if (jsonHours == todayDataHour) {
+                         if (difference_minute <= 0) {
+                             difference_minute *= -1;
+                             variable = "En " + difference_minute + " minutos";
+                             
+                         }
+
+                     } else if (dayJson.getHours() >= 12) {
+                         variable = "Hoy " + variableTimer;
+                     } else if (dayJson.getHours() <= 12) {
+                         variable = "Hoy " + variableTimer;
+                     }
+                 } else {
+                     if (dayJson.getHours() >= 12) {
+                         variable = "Hoy " + variableTimer;
+                     } else if (dayJson.getHours() <= 12) {
+                         variable = "Hoy " + variableTimer;
+                     }
+                 }
+             } else if (dayJson.getDate() > today.getDate()) {
+                if(difference_day == 1){
+                    if (hours <= 0) {
+                         hours *= -1;
+                         if (d.getHours() >= 12) {
+                             variable = "Mañana " + variableTimer;
+                         } else if (d.getHours() <= 12) {
+                             variable = "Mañana " + variableTimer;        
+                         }
+                     }
+                     if (hours >= 0) {
+                         if (dayJson.getHours() >= 12) {
+                             variable = "Mañana " + variableTimer;
+                         } else if (dayJson.getHours() <= 12) {
+                             variable = "Mañana " + variableTimer;
+                         }
+                     }
+                }else{
+                    variable = "En " + difference_day + " días";
+                
+                }
+                 
+             }
+             return variable;
+         }
 
          function ontenerParametroAgenda(indice) {
 
@@ -332,22 +388,33 @@
              var botDesLoc = "";
 
              console.log("index", index)
+
+
                  //ESTE OBJ ES EL QUE VAS A MOSTRAR
              var obj = agendaData[index];
              console.log("obj", obj);
+
+             var dayJson = new Date(obj.start.dateTime);
+             console.log("Dia json: ", dayJson);
+             var today = new Date();
+             var valueHora = ""
+             valueHora = validarHoraAgendaDetalle(today, dayJson);
+             console.log("ValueHora", valueHora);
+
+
              var htmlDescripcion;
              $("#Agenda").hide(1000, function() {
                 sumary = "No se encuentra un detalle para la descripcion";
                 location = "No se encuentra un detalle para la localizacion";
                 if(obj.description === undefined && obj.location !== undefined){
-                    htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
+                    htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
                 }else if(obj.location === undefined && obj.description !== undefined){
                     
-                    htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + location + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
+                    htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + location + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
                 }else if(obj.description === undefined && obj.location === undefined){
-                    htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
+                    htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " +'<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
                 }else{
-                     htmlDescripcion = '<div><p style = "color: white; font-family: b-medium; font-size: 24px">' + obj.summary + "</p></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
+                    htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
                 }
                 
                  
@@ -619,8 +686,31 @@
                      var nuevotamanio = data.length;
                      var booelanAgenda = false;
 
+                     var today = new Date();
+                     var dataToday = "";
+                     var agendaDataToday = "";
+
                      for(var i=0; i<data.length; i++){
                         for(var j=0; j<agendaData.length; j++){
+                            dataToday = data[i];
+                            agendaDataToday = agendaData[j];
+
+                            var oriDataToday = new Date(dataToday.start.dateTime);
+                            var newDataToday = new Date(agendaDataToday.start.dateTime);
+                            var difference_agendaData = today.getMinutes() - newDataToday.getMinutes();
+                            var difference_data = today.getMinutes() - oriDataToday.getMinutes();
+                            var jsonToday = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
+                            var jsonData = oriDataToday.toLocaleTimeString('en-PE', { hour: '2-digit' });
+                            var jsonAgenData = newDataToday.toLocaleTimeString('en-PE', { hour: '2-digit' });
+
+                            if(today.getDate() == oriDataToday.getDate()){
+
+                                if(jsonToday === jsonAgenData || jsonToday === jsonData){
+                                    //booelanAgenda = true;
+                                } 
+                            }
+                            
+                            
                             if(data[i].id === agendaData[j].id){
                                 if(data[i].summary !== agendaData[j].summary || data[i].description !== agendaData[j].description
                                     ||  data[i].start.dateTime !== agendaData[j].start.dateTime ||  data[i].location !== agendaData[j].location){
@@ -674,7 +764,7 @@
              }
          }
 
-         window.setInterval(updateDiariesInfinite, 1000);
+         window.setInterval(updateDiariesInfinite, 2000);
 
          function obtenerDiaries() {
 
