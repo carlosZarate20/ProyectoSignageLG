@@ -326,7 +326,7 @@
             var todayDataHour = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
             var difference_hr = today.getHours() - dayJson.getHours();
             var hours = Math.floor(difference_hr % 12);
-            var variableTimer;
+            var variableTimer = dayJson.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });;
             var variable;
             if (today.getDate() == dayJson.getDate()) {
 
