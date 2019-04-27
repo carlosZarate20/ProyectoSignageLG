@@ -122,7 +122,7 @@
          var orderAgenda = [];  
          var orderCorreos=[];
          function obtenerUsuario() {
-             var enviar = JSON.stringify({ "roomNumber": 140 });
+             var enviar = JSON.stringify({ "mirrorId": 1 });
 
              eventoPost(urlpost2, enviar,
                  function(data) {
@@ -355,7 +355,7 @@
                 if(difference_day == 1){
                     if (hours <= 0) {
                          hours *= -1;
-                         if (d.getHours() >= 12) {
+                         if (dayJson.getHours() >= 12) {
                              variable = "Mañana " + variableTimer;
                          } else if (d.getHours() <= 12) {
                              variable = "Mañana " + variableTimer;        
