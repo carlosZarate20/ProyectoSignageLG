@@ -1012,12 +1012,30 @@
                      headers: { 'Content-Type': "application/json" },
                      data: enviar2,
                      success: function(mailsResult) {
-
+                        //ontenerParametroHotel(arregloServiciosHotel.index);
                      }
                  });
              });
          }
+        function ontenerParametroHotel(indice) {
 
+             console.log("OrderHotelRecibida", indice);
+
+             var index = indice;
+             var name = "";
+             var description = "";
+
+             console.log("index", index)
+
+             var obj = arregloServiciosHotel[index];
+             console.log("obj", obj);
+             var htmlDescripcion;
+             $("#HotelService").hide(1000, function() {
+                //'<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
+                htmlDescripcion = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">' + obj.name + "</label> </div>" + "<div><p>" + obj.description + "</p></div>" ;
+                $('#HotelService2').html(htmlDescripcion);
+             });
+         }
 
          function noti() {
              $.ajax({
