@@ -37,7 +37,7 @@
           */
          function init() {
 
-         }  
+         }
 
 
 
@@ -55,23 +55,23 @@
          }
 
          var proxyurl = "https://cors-anywhere.herokuapp.com/";
-         var urlpost = proxyurl+'http://smartmirror-api.azurewebsites.net/GetGadgetStatusSmart';
+         var urlpost = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetStatusSmart';
 
-         var urlpost2 = proxyurl+'http://smartmirror-api.azurewebsites.net/GetUser';
+         var urlpost2 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetUser';
 
-         var urlpost3 = proxyurl+'http://smartmirror-api.azurewebsites.net/GetGadgetOrderSmart';
+         var urlpost3 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetOrderSmart';
 
-         var urlpost4 = proxyurl+'http://smartmirror-api.azurewebsites.net/UpdateBooleans';
+         var urlpost4 = proxyurl + 'http://smartmirror-api.azurewebsites.net/UpdateBooleans';
 
-         var urlpost5 = proxyurl+'http://smartmirror-api.azurewebsites.net/SaveDiaries';
-         var urlpost6 = proxyurl+'http://smartmirror-api.azurewebsites.net/GetDiaries';
+         var urlpost5 = proxyurl + 'http://smartmirror-api.azurewebsites.net/SaveDiaries';
+         var urlpost6 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetDiaries';
 
-         var urlpost7 = proxyurl+'http://smartmirror-api.azurewebsites.net/SaveDiaryInformations';
+         var urlpost7 = proxyurl + 'http://smartmirror-api.azurewebsites.net/SaveDiaryInformations';
 
-         var urlpost8 = proxyurl+'http://smartmirror-api.azurewebsites.net/SaveEmailInformations';
+         var urlpost8 = proxyurl + 'http://smartmirror-api.azurewebsites.net/SaveEmailInformations';
 
-         var urlpost9 =  proxyurl+'http://smartmirror-api.azurewebsites.net/GetEmailInformations2';
-         
+         var urlpost9 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetEmailInformations2';
+
 
          var UsuarioID = undefined;
          var RefreshToken = undefined;
@@ -119,8 +119,9 @@
              });
          }
 
-         var orderAgenda = [];  
-         var orderCorreos=[];
+         var orderAgenda = [];
+         var orderCorreos = [];
+
          function obtenerUsuario() {
              var enviar = JSON.stringify({ "mirrorId": 1 });
 
@@ -139,24 +140,24 @@
                          agendaData = data;
                          orderAgenda = [];
                          //for(var i = data.length-5; i< data.length; i++){
-                        //Validacion de fechas para agenda
+                         //Validacion de fechas para agenda
                          validateDatesAgenda(data, indexIncrement);
                          TamanioInicial = orderAgenda.length;
                          GuardarIndexAgenda(UsuarioID, orderAgenda);
-                     }, function(data1) {                     
-                                
+                     }, function(data1) {
+
                          var correo = data1;
-                
+
                          ArregloCorreo.push(correo);
-                         console.log("tamanio",ArregloCorreo.length);
+                         console.log("tamanio", ArregloCorreo.length);
                          //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
-                         if(ArregloCorreo.length== 5){  
-                            for(var j=0;j<ArregloCorreo.length;j++){
-                                var temp = "";
-                                 if(ArregloCorreo[j].subject.length <= 45){
-                                    temp = ArregloCorreo[j].subject;
-                                 }else{
-                                    temp = ArregloCorreo[j].subject.substring(0, 44) + "...";
+                         if (ArregloCorreo.length == 5) {
+                             for (var j = 0; j < ArregloCorreo.length; j++) {
+                                 var temp = "";
+                                 if (ArregloCorreo[j].subject.length <= 45) {
+                                     temp = ArregloCorreo[j].subject;
+                                 } else {
+                                     temp = ArregloCorreo[j].subject.substring(0, 44) + "...";
                                  }
 
                                  var timeItem = new Date(ArregloCorreo[j].sendAt);
@@ -166,37 +167,37 @@
                                  var dia = timeItem.getDate();
                                  var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
                                  var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
-                                        var string = '<div id="email'+j.toString()+'" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
+                                 var string = '<div id="email' + j.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
                                  $("#elements").append(string);
-                                 $("#elements .carousel-item").first().addClass('active');    
-                            }
-                          console.log("INGRESO A INICIAR EL CARRUSEL");
-                         console.log("PRIMER OBJETO",ArregloCorreo[0]);
-                            var objeto= {
-                                sender: ArregloCorreo[0].sender,
-                                subject: ArregloCorreo[0].subject,
-                                senderAt: ArregloCorreo[0].sendAt,
-                                message: ArregloCorreo[0].message
-                            }
+                                 $("#elements .carousel-item").first().addClass('active');
+                             }
+                             console.log("INGRESO A INICIAR EL CARRUSEL");
+                             console.log("PRIMER OBJETO", ArregloCorreo[0]);
+                             var objeto = {
+                                 sender: ArregloCorreo[0].sender,
+                                 subject: ArregloCorreo[0].subject,
+                                 senderAt: ArregloCorreo[0].sendAt,
+                                 message: ArregloCorreo[0].message
+                             }
 
-                     SaveEmailInformation(UsuarioID,objeto);
+                             SaveEmailInformation(UsuarioID, objeto);
 
-                            $('#correoCarousel').carousel({ interval: 6000 });
+                             $('#correoCarousel').carousel({ interval: 6000 });
 
-                            $('#correoCarousel').on('slid.bs.carousel', function (e) {console.log("SLIDING")});    
-                        $('#correoCarousel').bind('slid.bs.carousel', function(e) {
-                            console.log("SLIDING CORREO");
-                              var objeto= {
-                                sender: ArregloCorreo[e.to].sender,
-                                subject: ArregloCorreo[e.to].subject,
-                                senderAt: ArregloCorreo[e.to].sendAt,
-                                message: ArregloCorreo[e.to].message
-                        }
+                             $('#correoCarousel').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
+                             $('#correoCarousel').bind('slid.bs.carousel', function(e) {
+                                 console.log("SLIDING CORREO");
+                                 var objeto = {
+                                     sender: ArregloCorreo[e.to].sender,
+                                     subject: ArregloCorreo[e.to].subject,
+                                     senderAt: ArregloCorreo[e.to].sendAt,
+                                     message: ArregloCorreo[e.to].message
+                                 }
 
-                         SaveEmailInformation(UsuarioID,objeto);
-                        });
+                                 SaveEmailInformation(UsuarioID, objeto);
+                             });
                          }
-                         
+
                      });
                  });
          }
@@ -205,8 +206,8 @@
          console.log(ArregloCorreo);
 
 
-         function validateDatesAgenda(data, indexIncrement ){
-            for (var i = 0; i < data.length; i++) {
+         function validateDatesAgenda(data, indexIncrement) {
+             for (var i = 0; i < data.length; i++) {
                  orderAgenda.push(i);
                  var agenda1 = agendaData[i];
                  var d = new Date(agenda1.start.dateTime);
@@ -276,8 +277,8 @@
                          }
                      }
                  } else if (d.getDate() > today.getDate()) {
-                    if(difference_day == 1){
-                        if (hours <= 0) {
+                     if (difference_day == 1) {
+                         if (hours <= 0) {
                              hours *= -1;
                              if (d.getHours() >= 12) {
                                  variable = "Mañana " + variableTimer;
@@ -300,13 +301,13 @@
                                      '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
                              }
                          }
-                    }else{
-                        variable = "En " + difference_day + " días";
-                        htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "En " + difference_day + " días" +'</label>' +
-                                     '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
-                       
-                    }
-                     
+                     } else {
+                         variable = "En " + difference_day + " días";
+                         htmlAgenda = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; display: inline-block;">' + "En " + difference_day + " días" + '</label>' +
+                             '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + serviocAgenda1 + '</label> </br>'
+
+                     }
+
                  }
                  agendaData[i].horatransformada = variable;
                  var stringNumber = "#f" + indexIncrement.toString();
@@ -316,19 +317,20 @@
              }
              return indexIncrement;
          }
-         function validarHoraAgendaDetalle(today, dayJson){
-            var htmlDescripcion
-            var difference_minute = today.getMinutes() - dayJson.getMinutes();
-            var difference_day = dayJson.getDate() - today.getDate();
-            var difference_hr = today.getHours() - dayJson.getHours();
 
-            var jsonHours = dayJson.toLocaleTimeString('en-PE', { hour: '2-digit' });
-            var todayDataHour = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
-            var difference_hr = today.getHours() - dayJson.getHours();
-            var hours = Math.floor(difference_hr % 12);
-            var variableTimer = dayJson.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });;
-            var variable;
-            if (today.getDate() == dayJson.getDate()) {
+         function validarHoraAgendaDetalle(today, dayJson) {
+             var htmlDescripcion
+             var difference_minute = today.getMinutes() - dayJson.getMinutes();
+             var difference_day = dayJson.getDate() - today.getDate();
+             var difference_hr = today.getHours() - dayJson.getHours();
+
+             var jsonHours = dayJson.toLocaleTimeString('en-PE', { hour: '2-digit' });
+             var todayDataHour = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
+             var difference_hr = today.getHours() - dayJson.getHours();
+             var hours = Math.floor(difference_hr % 12);
+             var variableTimer = dayJson.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });;
+             var variable;
+             if (today.getDate() == dayJson.getDate()) {
 
                  if (hours <= 0) {
                      hours *= -1;
@@ -336,7 +338,7 @@
                          if (difference_minute <= 0) {
                              difference_minute *= -1;
                              variable = "En " + difference_minute + " minutos";
-                             
+
                          }
 
                      } else if (dayJson.getHours() >= 12) {
@@ -352,13 +354,13 @@
                      }
                  }
              } else if (dayJson.getDate() > today.getDate()) {
-                if(difference_day == 1){
-                    if (hours <= 0) {
+                 if (difference_day == 1) {
+                     if (hours <= 0) {
                          hours *= -1;
                          if (dayJson.getHours() >= 12) {
                              variable = "Mañana " + variableTimer;
                          } else if (d.getHours() <= 12) {
-                             variable = "Mañana " + variableTimer;        
+                             variable = "Mañana " + variableTimer;
                          }
                      }
                      if (hours >= 0) {
@@ -368,11 +370,11 @@
                              variable = "Mañana " + variableTimer;
                          }
                      }
-                }else{
-                    variable = "En " + difference_day + " días";
-                
-                }
-                 
+                 } else {
+                     variable = "En " + difference_day + " días";
+
+                 }
+
              }
              return variable;
          }
@@ -390,7 +392,7 @@
              console.log("index", index)
 
 
-                 //ESTE OBJ ES EL QUE VAS A MOSTRAR
+             //ESTE OBJ ES EL QUE VAS A MOSTRAR
              var obj = agendaData[index];
              console.log("obj", obj);
 
@@ -404,20 +406,20 @@
 
              var htmlDescripcion;
              $("#Agenda").hide(1000, function() {
-                sumary = "No se encuentra un detalle para la descripcion";
-                location = "No se encuentra un detalle para la localizacion";
-                if(obj.description === undefined && obj.location !== undefined){
-                    htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
-                }else if(obj.location === undefined && obj.description !== undefined){
-                    
-                    htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + location + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
-                }else if(obj.description === undefined && obj.location === undefined){
-                    htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " +'<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
-                }else{
-                    htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
-                }
-                
-                 
+                 sumary = "No se encuentra un detalle para la descripcion";
+                 location = "No se encuentra un detalle para la localizacion";
+                 if (obj.description === undefined && obj.location !== undefined) {
+                     htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
+                 } else if (obj.location === undefined && obj.description !== undefined) {
+
+                     htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + location + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
+                 } else if (obj.description === undefined && obj.location === undefined) {
+                     htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
+                 } else {
+                     htmlDescripcion = '<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + obj.description + "</p></div>"
+                 }
+
+
                  $('#Agenda2').html(htmlDescripcion);
              });
 
@@ -600,12 +602,12 @@
                      }
                      $('#elements').html('');
                      for (var k = 0; k < ArregloCorreo.length; k++) {
-                        console.log('agregando coerreo');
+                         console.log('agregando coerreo');
                          var temp = "";
-                         if(ArregloCorreo[k].subject.length <= 45){
-                            temp = ArregloCorreo[k].subject;
-                         }else{
-                            temp = ArregloCorreo[k].subject.substring(0, 44) + "...";
+                         if (ArregloCorreo[k].subject.length <= 45) {
+                             temp = ArregloCorreo[k].subject;
+                         } else {
+                             temp = ArregloCorreo[k].subject.substring(0, 44) + "...";
                          }
 
                          var timeItem = new Date(ArregloCorreo[k].sendAt);
@@ -615,47 +617,47 @@
                          var dia = timeItem.getDate();
                          var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
                          var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
-                         
-                         var string = '<div id="email'+k.toString()+'" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[k].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc">' + ArregloCorreo[k].message + '</label></div>';
+
+                         var string = '<div id="email' + k.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[k].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc">' + ArregloCorreo[k].message + '</label></div>';
                          $("#elements").append(string);
                          $("#elements .carousel-item").first().addClass('active');
 
                      }
                      console.log("INGRESO A INICIAR EL CARRUSEL");
-                     console.log("PRIMER OBJETO",ArregloCorreo[0]);
-                     var objeto= {
-                        sender: ArregloCorreo[0].sender,
-                        subject: ArregloCorreo[0].subject,
-                        senderAt: ArregloCorreo[0].sendAt,
-                        message: ArregloCorreo[0].message
+                     console.log("PRIMER OBJETO", ArregloCorreo[0]);
+                     var objeto = {
+                         sender: ArregloCorreo[0].sender,
+                         subject: ArregloCorreo[0].subject,
+                         senderAt: ArregloCorreo[0].sendAt,
+                         message: ArregloCorreo[0].message
                      }
 
-                     SaveEmailInformation(UsuarioID,objeto);
-                     
+                     SaveEmailInformation(UsuarioID, objeto);
+
                      $('#correoCarousel').carousel({ interval: 6000 });
                      $('#carouselNews').carousel({ interval: 4000 });
 
                      $('#tablaClima').html('');
-                     $('#correoCarousel').on('slid.bs.carousel', function (e) {console.log("SLIDING")});    
-                    $('#correoCarousel').bind('slid.bs.carousel', function(e) {
-                     console.log("SLIDING CORREO");
-                              var objeto= {
-                        sender: ArregloCorreo[e.to].sender,
-                        subject: ArregloCorreo[e.to].subject,
-                        senderAt: ArregloCorreo[e.to].sendAt,
-                        message: ArregloCorreo[e.to].message
-                     }
+                     $('#correoCarousel').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
+                     $('#correoCarousel').bind('slid.bs.carousel', function(e) {
+                         console.log("SLIDING CORREO");
+                         var objeto = {
+                             sender: ArregloCorreo[e.to].sender,
+                             subject: ArregloCorreo[e.to].subject,
+                             senderAt: ArregloCorreo[e.to].sendAt,
+                             message: ArregloCorreo[e.to].message
+                         }
 
-                     SaveEmailInformation(UsuarioID,objeto);
-                        });
+                         SaveEmailInformation(UsuarioID, objeto);
+                     });
                      GetWeather();
 
                  }
 
 
              });
-         }  
-     
+         }
+
          // obtenerOrderfinitivo();
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR EL ORDEN DE LOS GADGET
          window.setInterval(obtenerOrderfinitivo, 1000);
@@ -664,15 +666,15 @@
 
              var enviar = JSON.stringify({ "userID": UsuarioID });
 
-             eventoPost(urlpost9, enviar, function(data) {             
-                var arreglo=JSON.parse(data);
-                if(arreglo.status == 1){
+             eventoPost(urlpost9, enviar, function(data) {
+                 var arreglo = JSON.parse(data);
+                 if (arreglo.status == 1) {
                      $('#correoCarousel').carousel('pause');
-                } else if(arreglo.status == 2){
+                 } else if (arreglo.status == 2) {
 
-                } else if (arreglo.status == 3){
-                    $('#correoCarousel').carousel('cycle');
-                }   
+                 } else if (arreglo.status == 3) {
+                     $('#correoCarousel').carousel('cycle');
+                 }
 
              });
          }
@@ -690,54 +692,54 @@
                      var dataToday = "";
                      var agendaDataToday = "";
 
-                     for(var i=0; i<data.length; i++){
-                        for(var j=0; j<agendaData.length; j++){
-                            dataToday = data[i];
-                            agendaDataToday = agendaData[j];
+                     for (var i = 0; i < data.length; i++) {
+                         for (var j = 0; j < agendaData.length; j++) {
+                             dataToday = data[i];
+                             agendaDataToday = agendaData[j];
 
-                            var oriDataToday = new Date(dataToday.start.dateTime);
-                            var newDataToday = new Date(agendaDataToday.start.dateTime);
-                            var difference_agendaData = today.getMinutes() - newDataToday.getMinutes();
-                            var difference_data = today.getMinutes() - oriDataToday.getMinutes();
-                            var jsonToday = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
-                            var jsonData = oriDataToday.toLocaleTimeString('en-PE', { hour: '2-digit' });
-                            var jsonAgenData = newDataToday.toLocaleTimeString('en-PE', { hour: '2-digit' });
+                             var oriDataToday = new Date(dataToday.start.dateTime);
+                             var newDataToday = new Date(agendaDataToday.start.dateTime);
+                             var difference_agendaData = today.getMinutes() - newDataToday.getMinutes();
+                             var difference_data = today.getMinutes() - oriDataToday.getMinutes();
+                             var jsonToday = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
+                             var jsonData = oriDataToday.toLocaleTimeString('en-PE', { hour: '2-digit' });
+                             var jsonAgenData = newDataToday.toLocaleTimeString('en-PE', { hour: '2-digit' });
 
-                            if(today.getDate() == oriDataToday.getDate()){
+                             if (today.getDate() == oriDataToday.getDate()) {
 
-                                if(jsonToday === jsonAgenData || jsonToday === jsonData){
-                                    //booelanAgenda = true;
-                                } 
-                            }
-                            
-                            
-                            if(data[i].id === agendaData[j].id){
-                                if(data[i].summary !== agendaData[j].summary || data[i].description !== agendaData[j].description
-                                    ||  data[i].start.dateTime !== agendaData[j].start.dateTime ||  data[i].location !== agendaData[j].location){
-                                    booelanAgenda = true;
-                                }
-                            }
-                        }
+                                 if (jsonToday === jsonAgenData || jsonToday === jsonData) {
+                                     //booelanAgenda = true;
+                                 }
+                             }
+
+
+                             if (data[i].id === agendaData[j].id) {
+                                 if (data[i].summary !== agendaData[j].summary || data[i].description !== agendaData[j].description ||
+                                     data[i].start.dateTime !== agendaData[j].start.dateTime || data[i].location !== agendaData[j].location) {
+                                     booelanAgenda = true;
+                                 }
+                             }
+                         }
                      }
-                     if(nuevotamanio != TamanioInicial){
-                        booelanAgenda = true;
+                     if (nuevotamanio != TamanioInicial) {
+                         booelanAgenda = true;
                      }
 
                      if (booelanAgenda) {
                          booelanAgenda = false;
-                        for(var j=0; j<TamanioInicial; j++){
-                            var stringNumber = "#f" + j.toString();
-                            $(stringNumber).html("");
-                        }
+                         for (var j = 0; j < TamanioInicial; j++) {
+                             var stringNumber = "#f" + j.toString();
+                             $(stringNumber).html("");
+                         }
 
-                        TamanioInicial = nuevotamanio;
-                        var indexIncrement = 0;
-                        agendaData = data;
-                        orderAgenda = [];
-                       //Validacion de fechas para agenda
-                        validateDatesAgenda(data, indexIncrement);
+                         TamanioInicial = nuevotamanio;
+                         var indexIncrement = 0;
+                         agendaData = data;
+                         orderAgenda = [];
+                         //Validacion de fechas para agenda
+                         validateDatesAgenda(data, indexIncrement);
 
-                        GuardarIndexAgenda(UsuarioID, orderAgenda);
+                         GuardarIndexAgenda(UsuarioID, orderAgenda);
                      }
                  }, function(data1) {
                      // var correo = data1;  
@@ -887,23 +889,23 @@
                              var messages = mailsResult.messages;
                              var max = messages.length > 5 ? 5 : messages.length;
                              //var max = 1;
-                             var arreglocorreos=[]
+                             var arreglocorreos = []
                              for (var i = 0; i < max; i++) {
-                                var objetoauxiliar=undefined;
+                                 var objetoauxiliar = undefined;
                                  $.ajax({
                                      type: "GET",
                                      url: "https://www.googleapis.com/gmail/v1/users/me/messages/" + messages[i].id,
                                      headers: { 'Authorization': result.token_type + " " + result.access_token },
                                      success: function(mailResult) {
 
-                                        objetoauxiliar=serializeMail((mailResult), i);
-                                        mailCallback(objetoauxiliar);
+                                         objetoauxiliar = serializeMail((mailResult), i);
+                                         mailCallback(objetoauxiliar);
                                      }
                                  });
 
 
                              }
-                             
+
                          }
                      });
                  }
@@ -957,6 +959,7 @@
          function calendariolocal() {
 
          }
+         var arregloServiciosHotel = [];
 
          function serviciosHotel() {
              $.ajax({
@@ -969,7 +972,9 @@
                  /*for(var i = servicio.length-5; i< servicio.length; i++){
 
                  }*/
-                 for (var i = 0; i < servicio.length; i++) {
+                 var ArregloPush = [];
+                 for (var i = 0; i < 4; i++) {
+                     arregloServiciosHotel.push(servicio[i]);
                      var service1 = servicio[0];
                      var service2 = servicio[1];
                      var service3 = servicio[2];
@@ -994,8 +999,22 @@
                          '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">' + serType4 + '</label>' +
                          '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService4 + '</label>';
 
+                     ArregloPush.push({ serviceId: servicio[i].serviceId, index: i });
+
                      $('#HotelService').html(htmlView);
                  }
+                 $.ajax({
+                     type: "POST",
+                     url: "https://www.googleapis.com/gmail/v1/users/me/messages?q=is:inbox",
+                     headers: { 'Content-Type': "application/x-www-form-urlencoded" },
+                     data: {
+                         'userId': UsuarioID,
+                         'listHotelServices': JSON.stringify(ArregloPush)
+                     },
+                     success: function(mailsResult) {
+
+                     }
+                 });
              });
          }
 
@@ -1095,17 +1114,17 @@
                      function changeiconTitle(icon, temp) {
                          switch (icon) {
                              case "clear-day":
-                                  return info.set('asideBlock11Content1', jsonData.weather_clear);
-                              case "clear-night":
-                                  return info.set('asideBlock11Content1', jsonData.weather_clearnight);
-                              case "cloudy":
-                                  return info.set('asideBlock11Content1', jsonData.weather_cloudy);
-                              case "fog":
-                                  return info.set('asideBlock11Content1', jsonData.weather_fog);
-                              case "partly-cloudy-day":
-                                  return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
-                              case "partly-cloudy-night":
-                                  return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
+                                 return info.set('asideBlock11Content1', jsonData.weather_clear);
+                             case "clear-night":
+                                 return info.set('asideBlock11Content1', jsonData.weather_clearnight);
+                             case "cloudy":
+                                 return info.set('asideBlock11Content1', jsonData.weather_cloudy);
+                             case "fog":
+                                 return info.set('asideBlock11Content1', jsonData.weather_fog);
+                             case "partly-cloudy-day":
+                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
+                             case "partly-cloudy-night":
+                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
                              case "rain":
                                  return info.set('asideBlock11Content1', jsonData.weather_rain);
                              case "sleet":
@@ -1240,16 +1259,16 @@
 
 
 
-        // $('.carousel').bind('slid', function (e) {
-        //      console.log("cambio el slide");
-        // })
-        
-         // alert("invoked");
-        
+         // $('.carousel').bind('slid', function (e) {
+         //      console.log("cambio el slide");
+         // })
 
-         
-            
-      
+         // alert("invoked");
+
+
+
+
+
 
          function bindData(jsonData) {
 
@@ -1563,4 +1582,3 @@
 
 
      }());
-
