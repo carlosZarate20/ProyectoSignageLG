@@ -72,7 +72,7 @@
 
          var urlpost9 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetEmailInformations2';
 
-
+         var urlpost11 = proxyurl +'http://smartmirror-api.azurewebsites.net/GetHotelServices'
          var UsuarioID = undefined;
          var RefreshToken = undefined;
 
@@ -802,6 +802,32 @@
              });
          }
          window.setInterval(obtenerDiaries, 1000);
+
+          function obtenerHotelServices() {
+
+             var enviar = JSON.stringify({ "userId": UsuarioID });
+
+             eventoPost(urlpost11, enviar, function(data) {
+                 // OBTENGO LA LISTA DE BOOLEANOS
+                 var arreglo = JSON.parse(data);
+
+                 if (arreglo.respuesta == 1) {
+                     $('#HotelService2').show();
+
+                     ontenerParametroHotel(arreglo.order);
+
+                 } else if (arreglo.respuesta == 2) {
+                     $('#HotelService2').hide();
+                     $('#HotelService').show();
+
+                 } else {
+
+                 }
+
+
+             });
+         }
+         window.setInterval(obtenerHotelServices, 1000);
          var clientId = "541429281292-8v02kma7fl8fhmiih66kdqnlh8b6opmn.apps.googleusercontent.com";
          var clientSecret = "XbyAoBAIlUlqBbS1Lal0GrAF";
 
