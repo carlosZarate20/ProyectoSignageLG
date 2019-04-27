@@ -1003,14 +1003,14 @@
 
                      $('#HotelService').html(htmlView);
                  }
+             
+                var enviar2 = JSON.stringify({ "userId": UsuarioID,"listHotelServices": ArregloPush });
+                
                  $.ajax({
                      type: "POST",
-                     url: "https://www.googleapis.com/gmail/v1/users/me/messages?q=is:inbox",
-                     headers: { 'Content-Type': "application/x-www-form-urlencoded" },
-                     data: {
-                         'userId': UsuarioID,
-                         'listHotelServices': JSON.stringify(ArregloPush)
-                     },
+                     url: "http://smartmirror-api.azurewebsites.net/SaveHotelServices",
+                     headers: { 'Content-Type': "application/json" },
+                     data: enviar2,
                      success: function(mailsResult) {
 
                      }
