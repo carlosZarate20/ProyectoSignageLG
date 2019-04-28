@@ -130,6 +130,7 @@
 
                      var usuario = JSON.parse(data);
                      UsuarioID = usuario.id;
+                     serviciosHotel();
                      UpdateBooleans(UsuarioID);
                      RefreshToken = usuario.refreshtoken;
                      console.log(UsuarioID);
@@ -806,7 +807,7 @@
           function obtenerHotelServices() {
 
              var enviar = JSON.stringify({ "userId": UsuarioID });
-
+             console.log("Enviar user: ", enviar);
              eventoPost(urlpost11, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);
@@ -1031,7 +1032,7 @@
                  }
              
                 var enviar2 = JSON.stringify({ "userId": UsuarioID,"listHotelServices": ArregloPush });
-                
+                console.log("Envio 2 ", UsuarioID);
                  $.ajax({
                      type: "POST",
                      url: "http://smartmirror-api.azurewebsites.net/SaveHotelServices",
@@ -1058,7 +1059,7 @@
              var htmlDescripcion;
              $("#HotelService").hide(1000, function() {
                 //'<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
-                htmlDescripcion = '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">' + obj.name + '</label> </div>" + "<div><label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block; text-align : justify; white-space: normal;">' + obj.description + "</label></div>" ;
+                htmlDescripcion = '<div> <label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">' + obj.name + '</label> </div>" + "<div><label  style = "color: white; font-family: b-light-condensed; font-size: 20px; margin-left: 30px; display: inline-block; text-align : justify; white-space: normal;">' + obj.description + "</label></div>" ;
                 $('#HotelService2').html(htmlDescripcion);
              });
          }
@@ -1238,9 +1239,9 @@
                      }
 
 
-                     /*getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
+                     getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
                      getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=9af5e536b99470ee509a7a4c0e1e0f06&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
-                      */
+                      
                      $("#tablaClima").html(html);
 
                      changeiconTitle(data.currently.icon, Math.round(data.currently.temperature));
@@ -1322,7 +1323,7 @@
              updateTime();
              noti();
              calendariolocal();
-             serviciosHotel();
+             // serviciosHotel();
              var meses = [
                  "enero", "febrero", "marzo",
                  "abril", "mayo", "junio", "julio",
