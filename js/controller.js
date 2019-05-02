@@ -54,7 +54,8 @@
              return xhr;
          }
 
-         var proxyurl = "https://cors-anywhere.herokuapp.com/";
+         //var proxyurl = "https://cors-anywhere.herokuapp.com/";
+         var proxyurl = "";
          var urlpost = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetGadgetStatusSmart';
 
          var urlpost2 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetUser';
@@ -1031,7 +1032,8 @@
                 console.log("Envio 2 ", UsuarioID);
                  $.ajax({
                      type: "POST",
-                     url: "http://edumoreno27-001-site2.etempurl.com/SaveHotelServices",
+                     //dataType: 'jsonp',
+                     url: proxyurl + "http://edumoreno27-001-site2.etempurl.com/SaveHotelServices",
                      headers: { 'Content-Type': "application/json" },
                      data: enviar2,
                      success: function(mailsResult) {
