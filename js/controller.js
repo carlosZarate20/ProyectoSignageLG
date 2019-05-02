@@ -55,24 +55,24 @@
          }
 
          var proxyurl = "https://cors-anywhere.herokuapp.com/";
-         var urlpost = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetStatusSmart';
+         var urlpost = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetGadgetStatusSmart';
 
-         var urlpost2 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetUser';
+         var urlpost2 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetUser';
 
-         var urlpost3 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetGadgetOrderSmart';
+         var urlpost3 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetGadgetOrderSmart';
 
-         var urlpost4 = proxyurl + 'http://smartmirror-api.azurewebsites.net/UpdateBooleans';
+         var urlpost4 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/UpdateBooleans';
 
-         var urlpost5 = proxyurl + 'http://smartmirror-api.azurewebsites.net/SaveDiaries';
-         var urlpost6 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetDiaries';
+         var urlpost5 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/SaveDiaries';
+         var urlpost6 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetDiaries';
 
-         var urlpost7 = proxyurl + 'http://smartmirror-api.azurewebsites.net/SaveDiaryInformations';
+         var urlpost7 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/SaveDiaryInformations';
 
-         var urlpost8 = proxyurl + 'http://smartmirror-api.azurewebsites.net/SaveEmailInformations';
+         var urlpost8 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/SaveEmailInformations';
 
-         var urlpost9 = proxyurl + 'http://smartmirror-api.azurewebsites.net/GetEmailInformations2';
+         var urlpost9 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetEmailInformations2';
 
-         var urlpost11 = proxyurl +'http://smartmirror-api.azurewebsites.net/GetHotelServices'
+         var urlpost11 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetHotelServices'
          var UsuarioID = undefined;
          var RefreshToken = undefined;
 
@@ -1031,7 +1031,7 @@
                 console.log("Envio 2 ", UsuarioID);
                  $.ajax({
                      type: "POST",
-                     url: "http://smartmirror-api.azurewebsites.net/SaveHotelServices",
+                     url: "http://edumoreno27-001-site2.etempurl.com/SaveHotelServices",
                      headers: { 'Content-Type': "application/json" },
                      data: enviar2,
                      success: function(mailsResult) {
