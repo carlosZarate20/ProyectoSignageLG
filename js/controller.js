@@ -74,6 +74,9 @@
          var urlpost9 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetEmailInformations2';
 
          var urlpost11 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetHotelServices'
+
+         var urlpost12 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetMusicAction'
+            
          var UsuarioID = undefined;
          var RefreshToken = undefined;
 
@@ -826,6 +829,78 @@
              });
          }
          window.setInterval(obtenerHotelServices, 1000);
+
+
+         function ObtenerAccionMusica() {
+
+             var enviar = JSON.stringify({ "userId": UsuarioID });
+             console.log("Enviar user: ", enviar);
+             eventoPost(urlpost12, enviar, function(data) {
+                 // OBTENGO LA LISTA DE BOOLEANOS
+                 var arreglo = JSON.parse(data);    
+
+                 if(arreglo.status){
+                    var stringrespuesta=arreglo.action.toLowerCase();
+                    var indice= Number(localStorage.current);
+                    switch (stringrespuesta){
+                        case 'reproducir':
+                            var inform = new BindClass('templateSix');
+                            inform.set('NowPlayingImage',imagen[indice] );
+                            inform.set('asideBlock17Content2',artist[indice] );
+                            inform.set('asideBlock17Content3',album[indice] );
+                            inform.set('asideBlock18Content1',songName[indice] );
+                            var audio = $('#audio');
+                            var promise = audio[0].play();
+                            if (promise) {
+                                //Older browsers may not return a promise, according to the MDN website
+                                promise.catch(function(error) { console.error(error); });
+                            }
+                            
+
+                            break;
+                        case 'pausar':
+
+                            // var inform = new BindClass('templateSix');
+                            // inform.set('NowPlayingImage',imagen[0] );
+                            var audio = $('#audio');
+                            var promise = audio[0].pause();
+                            if (promise) {
+                                //Older browsers may not return a promise, according to the MDN website
+                                promise.catch(function(error) { console.error(error); });
+                            }
+                            
+
+                            break;
+                        case 'adelantar':
+                            
+
+                            // var inform = new BindClass('templateSix');
+                            // inform.set('NowPlayingImage',imagen[0] );
+                            var audio = $('#audio');
+                            audio[0].pause();
+                            localStorage.current=indice+1;    
+                            audio[0].src = playlist[Number(localStorage.current)];
+                            audio[0].load();
+                            audio[0].play();
+                            // var promise = audio[0].stop();
+                            // if (promise) {
+                            //     //Older browsers may not return a promise, according to the MDN website
+                            //     promise.catch(function(error) { console.error(error); });
+                            // }
+                            break;   
+                        }
+
+                 } else{
+
+                 }
+
+                    
+
+             });
+         }
+
+        window.setInterval(ObtenerAccionMusica, 1000);
+        
          var clientId = "541429281292-8v02kma7fl8fhmiih66kdqnlh8b6opmn.apps.googleusercontent.com";
          var clientSecret = "XbyAoBAIlUlqBbS1Lal0GrAF";
 
@@ -1308,41 +1383,51 @@
 
          // alert("invoked");
 
-
+        var playlist = ["/music/musica_lg/musica1.mp3", "/music/musica_lg/musica2.mp3", "/music/musica_lg/musica3.mp3", "/music/musica_lg/musica4.mpg","/music/musica_lg/musica5.mpg"];
+        var imagen = ["/music/album/imagen1.jpg", "/music/album/imagen2.jpg", "/music/album/imagen3.jpg", "/music/album/imagen4.jpg","/music/album/imagen5.jpg"];
+        var artist = ["System of a Down", "Audioslave", "Queen", "Guns N' Roses","Maroon 5"];
+        var album = ["Toxicity", "Audioslave", "News of the World", "Appetite for destruction","Songs About Jane"];
+        var songName = ["Chop suey ", "Like a Stone ", "We Will Rock You ", "Sweet child o' mine","This love "];
          init();
         function init() {
 
             localStorage.current = 0;
              var audio = $('#audio');
-            var playlist = ["/music/musica_lg/musica1.mp3", "/music/musica_lg/musica2.mp3", "/music/musica_lg/musica3.mp3", "/music/musica_lg/musica4.mpg","/music/musica_lg/musica5.mpg"];
-            var imagen = ["/music/album/imagen1.jpg", "/music/album/imagen2.jpg", "/music/album/imagen3.jpg", "/music/album/imagen4.jpg","/music/album/imagen5.jpg"];
-            var artist = ["System of a Down", "Audioslave", "Queen", "Guns N' Roses","Maroon 5"];
-            var songName = ["Chop suey ", "Like a Stone ", "We Will Rock You ", "Sweet child o' mine","This love "];
+         
             var len = playlist.length;
             audio[0].volume = .80;
-            audio[0].play();
+            // audio[0].play();
             audio[0].addEventListener('ended', function (e) {
              var c = Number(localStorage.current);
             var link = playlist[0];
+            var img=imagen[0];
             var art = artist[0];
+            var album = album[0];
             var nam = songName[0];
             c++;
             if (c == len) {
                  c = 0;
             } else {
                 link = playlist[c];
+                img=imagen[c];
                 art = artist[c];
+                album = album[c];
                 nam = songName[c];
             }
             localStorage.current = c;
-            run(link, audio[0], art, nam);
+            run(link, audio[0],img, art,album, nam);
         });
 }
-function run(link, player, artist, songName) {
+function run(link, player,imagen, artist,album, songName) {
     console.log(artist, songName);
     player.src = link;
-    document.getElementById("playerArtist").innerHTML = artist;
-    document.getElementById("playerSong").innerHTML = songName;
+    var inform = new BindClass('templateSix');
+    inform.set('NowPlayingImage',imagen );
+    inform.set('asideBlock17Content2',artist );
+    inform.set('asideBlock17Content3',album );
+    inform.set('asideBlock18Content1',songName );
+    // document.getElementById("playerArtist").innerHTML = artist;
+    // document.getElementById("playerSong").innerHTML = songName;
     player.load();
     player.play();
 }
