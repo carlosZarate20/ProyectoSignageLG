@@ -76,6 +76,8 @@
          var urlpost11 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetHotelServices'
 
          var urlpost12 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetMusicAction'
+
+         var urlpost13 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetMusicActionWithoutUser'
             
          var UsuarioID = undefined;
          var RefreshToken = undefined;
@@ -134,6 +136,13 @@
 
                      var usuario = JSON.parse(data);
                      UsuarioID = usuario.id;
+                     if(UsuarioID == undefined){
+                            window.setInterval(ObtenerAccionMusica2, 1000);
+                                
+                        }else{
+                            console.log("Music");
+                            window.setInterval(ObtenerAccionMusica, 1000);
+                        }
                      serviciosHotel();
                      UpdateBooleans(UsuarioID);
                      RefreshToken = usuario.refreshtoken;
@@ -833,9 +842,100 @@
 
          function ObtenerAccionMusica() {
 
-             var enviar = JSON.stringify({ "userId": UsuarioID });
+             var enviar = JSON.stringify({ "mirrorId": 1, "userId": UsuarioID });
              console.log("Enviar user: ", enviar);
              eventoPost(urlpost12, enviar, function(data) {
+                 // OBTENGO LA LISTA DE BOOLEANOS
+                 var arreglo = JSON.parse(data);    
+
+                 if(arreglo.status){
+                    var stringrespuesta=arreglo.action.toLowerCase();
+                    var indice= Number(localStorage.current);
+                    switch (stringrespuesta){
+                        case 'reproducir':
+                            var inform = new BindClass('templateSix');
+                            inform.set('NowPlayingImage',imagen[indice] );
+                            inform.set('asideBlock17Content2',artist[indice] );
+                            inform.set('asideBlock17Content3',album[indice] );
+                            inform.set('asideBlock18Content1',songName[indice] );
+                            var audio = $('#audio');
+                            var promise = audio[0].play();
+                            if (promise) {
+                                //Older browsers may not return a promise, according to the MDN website
+                                promise.catch(function(error) { console.error(error); });
+                            }
+                            
+
+                            break;
+                        case 'pausar':
+
+                            // var inform = new BindClass('templateSix');
+                            // inform.set('NowPlayingImage',imagen[0] );
+                            var audio = $('#audio');
+                            var promise = audio[0].pause();
+                            if (promise) {
+                                //Older browsers may not return a promise, according to the MDN website
+                                promise.catch(function(error) { console.error(error); });
+                            }
+                            
+                            break;
+                        case 'adelantar':
+                            // var inform = new BindClass('templateSix');
+                            // inform.set('NowPlayingImage',imagen[0] );
+
+                            var audio = $('#audio');
+                            audio[0].pause();
+                            localStorage.current=indice+1;    
+                            var indice2 = localStorage.current;
+                            audio[0].src = playlist[Number(localStorage.current)];
+                            audio[0].load();
+                            var inform = new BindClass('templateSix');
+                            inform.set('NowPlayingImage',imagen[indice2] );
+                            inform.set('asideBlock17Content2',artist[indice2] );
+                            inform.set('asideBlock17Content3',album[indice2] );
+                            inform.set('asideBlock18Content1',songName[indice2] );
+                            audio[0].play();
+                            // var promise = audio[0].stop();
+                            // if (promise) {
+                            //     //Older browsers may not return a promise, according to the MDN website
+                            //     promise.catch(function(error) { console.error(error); });
+                            // }
+                            break;  
+                        case 'retroceder':
+                            // var inform = new BindClass('templateSix');
+                            // inform.set('NowPlayingImage',imagen[0] );
+
+                            var audio = $('#audio');
+                            audio[0].pause();
+                            localStorage.current=indice-1;    
+                            var indice2 = localStorage.current;
+                            audio[0].src = playlist[Number(localStorage.current)];
+                            audio[0].load();
+                            var inform = new BindClass('templateSix');
+                            inform.set('NowPlayingImage',imagen[indice2] );
+                            inform.set('asideBlock17Content2',artist[indice2] );
+                            inform.set('asideBlock17Content3',album[indice2] );
+                            inform.set('asideBlock18Content1',songName[indice2] );
+                            audio[0].play();
+                            // var promise = audio[0].stop();
+                            // if (promise) {
+                            //     //Older browsers may not return a promise, according to the MDN website
+                            //     promise.catch(function(error) { console.error(error); });
+                            // }
+                            break; 
+                        }
+
+                 } else{
+
+                 } 
+
+             });
+         }
+         function ObtenerAccionMusica2() {
+
+             var enviar = JSON.stringify({ "mirrorId": 1 });
+             console.log("Enviar user: ", enviar);
+             eventoPost(urlpost13, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);    
 
@@ -872,34 +972,62 @@
 
                             break;
                         case 'adelantar':
-                            
-
                             // var inform = new BindClass('templateSix');
                             // inform.set('NowPlayingImage',imagen[0] );
+
                             var audio = $('#audio');
                             audio[0].pause();
                             localStorage.current=indice+1;    
+                            var indice2 = localStorage.current;
                             audio[0].src = playlist[Number(localStorage.current)];
                             audio[0].load();
+                            var inform = new BindClass('templateSix');
+                            inform.set('NowPlayingImage',imagen[indice2] );
+                            inform.set('asideBlock17Content2',artist[indice2] );
+                            inform.set('asideBlock17Content3',album[indice2] );
+                            inform.set('asideBlock18Content1',songName[indice2] );
                             audio[0].play();
                             // var promise = audio[0].stop();
                             // if (promise) {
                             //     //Older browsers may not return a promise, according to the MDN website
                             //     promise.catch(function(error) { console.error(error); });
                             // }
-                            break;   
+                            break;  
+                        case 'retroceder':
+                            
+
+                            // var inform = new BindClass('templateSix');
+                            // inform.set('NowPlayingImage',imagen[0] );
+
+                            var audio = $('#audio');
+                            audio[0].pause();
+                            localStorage.current=indice-1;    
+                            var indice2 = localStorage.current;
+                            audio[0].src = playlist[Number(localStorage.current)];
+                            audio[0].load();
+                            var inform = new BindClass('templateSix');
+                            inform.set('NowPlayingImage',imagen[indice2] );
+                            inform.set('asideBlock17Content2',artist[indice2] );
+                            inform.set('asideBlock17Content3',album[indice2] );
+                            inform.set('asideBlock18Content1',songName[indice2] );
+                            audio[0].play();
+                            // var promise = audio[0].stop();
+                            // if (promise) {
+                            //     //Older browsers may not return a promise, according to the MDN website
+                            //     promise.catch(function(error) { console.error(error); });
+                            // }
+                            break; 
                         }
 
                  } else{
 
                  }
 
-                    
-
              });
          }
-
-        window.setInterval(ObtenerAccionMusica, 1000);
+        
+        
+        //window.setInterval(ObtenerAccionMusica2, 1000);
         
          var clientId = "541429281292-8v02kma7fl8fhmiih66kdqnlh8b6opmn.apps.googleusercontent.com";
          var clientSecret = "XbyAoBAIlUlqBbS1Lal0GrAF";
@@ -1383,7 +1511,7 @@
 
          // alert("invoked");
 
-        var playlist = ["/music/musica_lg/musica1.mp3", "/music/musica_lg/musica2.mp3", "/music/musica_lg/musica3.mp3", "/music/musica_lg/musica4.mpg","/music/musica_lg/musica5.mpg"];
+        var playlist = ["/music/musica_lg/musica1.mp3", "/music/musica_lg/musica2.mp3", "/music/musica_lg/musica3.mp3", "/music/musica_lg/musica4.mp3","/music/musica_lg/musica5.mp3"];
         var imagen = ["/music/album/imagen1.jpg", "/music/album/imagen2.jpg", "/music/album/imagen3.jpg", "/music/album/imagen4.jpg","/music/album/imagen5.jpg"];
         var artist = ["System of a Down", "Audioslave", "Queen", "Guns N' Roses","Maroon 5"];
         var album = ["Toxicity", "Audioslave", "News of the World", "Appetite for destruction","Songs About Jane"];
