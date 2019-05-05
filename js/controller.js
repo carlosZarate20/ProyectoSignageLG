@@ -78,6 +78,8 @@
          var urlpost12 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetMusicAction'
 
          var urlpost13 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetMusicActionWithoutUser'
+
+         var urlpost14 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetHotelServicesNoUser'
             
          var UsuarioID = undefined;
          var RefreshToken = undefined;
@@ -138,81 +140,86 @@
                      UsuarioID = usuario.id;
                      if(UsuarioID == undefined){
                             window.setInterval(ObtenerAccionMusica2, 1000);
+                            window.setInterval(obtenerHotelServices2, 1000);
+                            serviciosHotel();
+                     //UpdateBooleans(UsuarioID);
                                 
                         }else{
-                            console.log("Music");
+                            window.setInterval(obtenerHotelServices, 1000);
                             window.setInterval(ObtenerAccionMusica, 1000);
-                        }
-                     serviciosHotel();
-                     UpdateBooleans(UsuarioID);
-                     RefreshToken = usuario.refreshtoken;
-                     console.log(UsuarioID);
-                     console.log(RefreshToken);
-                     getGoogleData(RefreshToken, function(data) {
-                         var indexIncrement = 0
-                         console.log("Agenda: ", data);
-                         agendaData = data;
-                         orderAgenda = [];
-                         //for(var i = data.length-5; i< data.length; i++){
-                         //Validacion de fechas para agenda
-                         validateDatesAgenda(data, indexIncrement);
-                         TamanioInicial = orderAgenda.length;
-                         GuardarIndexAgenda(UsuarioID, orderAgenda);
-                     }, function(data1) {
+                             RefreshToken = usuario.refreshtoken;
+                             serviciosHotel();
+                         UpdateBooleans(UsuarioID);
+                         console.log(UsuarioID);
+                         console.log(RefreshToken);
+                         getGoogleData(RefreshToken, function(data) {
+                             var indexIncrement = 0
+                             console.log("Agenda: ", data);
+                             agendaData = data;
+                             orderAgenda = [];
+                             //for(var i = data.length-5; i< data.length; i++){
+                             //Validacion de fechas para agenda
+                             validateDatesAgenda(data, indexIncrement);
+                             TamanioInicial = orderAgenda.length;
+                             GuardarIndexAgenda(UsuarioID, orderAgenda);
+                         }, function(data1) {
 
-                         var correo = data1;
+                             var correo = data1;
 
-                         ArregloCorreo.push(correo);
-                         console.log("tamanio", ArregloCorreo.length);
-                         //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
-                         if (ArregloCorreo.length == 5) {
-                             for (var j = 0; j < ArregloCorreo.length; j++) {
-                                 var temp = "";
-                                 if (ArregloCorreo[j].subject.length <= 45) {
-                                     temp = ArregloCorreo[j].subject;
-                                 } else {
-                                     temp = ArregloCorreo[j].subject.substring(0, 44) + "...";
+                             ArregloCorreo.push(correo);
+                             console.log("tamanio", ArregloCorreo.length);
+                             //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
+                             if (ArregloCorreo.length == 5) {
+                                 for (var j = 0; j < ArregloCorreo.length; j++) {
+                                     var temp = "";
+                                     if (ArregloCorreo[j].subject.length <= 45) {
+                                         temp = ArregloCorreo[j].subject;
+                                     } else {
+                                         temp = ArregloCorreo[j].subject.substring(0, 44) + "...";
+                                     }
+
+                                     var timeItem = new Date(ArregloCorreo[j].sendAt);
+                                     var correoTime = ArregloCorreo[j].sendAt;
+
+                                     var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
+                                     var dia = timeItem.getDate();
+                                     var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
+                                     var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
+                                     var string = '<div id="email' + j.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
+                                     $("#elements").append(string);
+                                     $("#elements .carousel-item").first().addClass('active');
                                  }
-
-                                 var timeItem = new Date(ArregloCorreo[j].sendAt);
-                                 var correoTime = ArregloCorreo[j].sendAt;
-
-                                 var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
-                                 var dia = timeItem.getDate();
-                                 var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
-                                 var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
-                                 var string = '<div id="email' + j.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
-                                 $("#elements").append(string);
-                                 $("#elements .carousel-item").first().addClass('active');
-                             }
-                             console.log("INGRESO A INICIAR EL CARRUSEL");
-                             console.log("PRIMER OBJETO", ArregloCorreo[0]);
-                             var objeto = {
-                                 sender: ArregloCorreo[0].sender,
-                                 subject: ArregloCorreo[0].subject,
-                                 senderAt: ArregloCorreo[0].sendAt,
-                                 message: ArregloCorreo[0].message
-                             }
-
-                             SaveEmailInformation(UsuarioID, objeto);
-
-                             $('#correoCarousel').carousel({ interval: 6000 });
-
-                             $('#correoCarousel').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
-                             $('#correoCarousel').bind('slid.bs.carousel', function(e) {
-                                 console.log("SLIDING CORREO");
+                                 console.log("INGRESO A INICIAR EL CARRUSEL");
+                                 console.log("PRIMER OBJETO", ArregloCorreo[0]);
                                  var objeto = {
-                                     sender: ArregloCorreo[e.to].sender,
-                                     subject: ArregloCorreo[e.to].subject,
-                                     senderAt: ArregloCorreo[e.to].sendAt,
-                                     message: ArregloCorreo[e.to].message
+                                     sender: ArregloCorreo[0].sender,
+                                     subject: ArregloCorreo[0].subject,
+                                     senderAt: ArregloCorreo[0].sendAt,
+                                     message: ArregloCorreo[0].message
                                  }
 
                                  SaveEmailInformation(UsuarioID, objeto);
-                             });
-                         }
 
-                     });
+                                 $('#correoCarousel').carousel({ interval: 6000 });
+
+                                 $('#correoCarousel').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
+                                 $('#correoCarousel').bind('slid.bs.carousel', function(e) {
+                                     console.log("SLIDING CORREO");
+                                     var objeto = {
+                                         sender: ArregloCorreo[e.to].sender,
+                                         subject: ArregloCorreo[e.to].subject,
+                                         senderAt: ArregloCorreo[e.to].sendAt,
+                                         message: ArregloCorreo[e.to].message
+                                     }
+
+                                     SaveEmailInformation(UsuarioID, objeto);
+                                 });
+                             }
+
+                         });
+                        }
+                     
+                    
                  });
          }
 
@@ -837,13 +844,36 @@
 
              });
          }
-         window.setInterval(obtenerHotelServices, 1000);
+         function obtenerHotelServices2() {
+
+             var enviar = JSON.stringify({ "mirrorId": 1 });
+             console.log("Enviar user: ", enviar);
+             eventoPost(urlpost14, enviar, function(data) {
+                 // OBTENGO LA LISTA DE BOOLEANOS
+                 var arreglo = JSON.parse(data);
+
+                 if (arreglo.respuesta == 1) {
+                     $('#HotelService2').show();
+
+                     ontenerParametroHotel(arreglo.order);
+
+                 } else if (arreglo.respuesta == 2) {
+                     $('#HotelService2').hide();
+                     $('#HotelService').show();
+
+                 } else {
+
+                 }
+
+
+             });
+         }
+         // window.setInterval(obtenerHotelServices, 1000);
 
 
          function ObtenerAccionMusica() {
 
              var enviar = JSON.stringify({ "mirrorId": 1, "userId": UsuarioID });
-             console.log("Enviar user: ", enviar);
              eventoPost(urlpost12, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);    
@@ -859,13 +889,12 @@
                             inform.set('asideBlock17Content3',album[indice] );
                             inform.set('asideBlock18Content1',songName[indice] );
                             var audio = $('#audio');
+                            console.log(audio);
                             var promise = audio[0].play();
                             if (promise) {
                                 //Older browsers may not return a promise, according to the MDN website
                                 promise.catch(function(error) { console.error(error); });
                             }
-                            
-
                             break;
                         case 'pausar':
 
@@ -884,6 +913,7 @@
                             // inform.set('NowPlayingImage',imagen[0] );
 
                             var audio = $('#audio');
+                            console.log(audio);
                             audio[0].pause();
                             localStorage.current=indice+1;    
                             var indice2 = localStorage.current;
@@ -934,7 +964,6 @@
          function ObtenerAccionMusica2() {
 
              var enviar = JSON.stringify({ "mirrorId": 1 });
-             console.log("Enviar user: ", enviar);
              eventoPost(urlpost13, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);    
@@ -1226,12 +1255,12 @@
                          '<label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">' + serType4 + '</label>' +
                          '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + nameService4 + '</label>';
 
-                     ArregloPush.push({ serviceId: servicio[i].serviceId, index: i });
+                     ArregloPush.push({ serviceId: servicio[i].serviceId, index: i, "mirrorId": 1 });
 
                      $('#HotelService').html(htmlView);
                  }
              
-                var enviar2 = JSON.stringify({ "userId": UsuarioID,"listHotelServices": ArregloPush });
+                var enviar2 = JSON.stringify({ "userId": UsuarioID,"listHotelServices": ArregloPush ,"mirrorId": 1});
                 console.log("Envio 2 ", UsuarioID);
                  $.ajax({
                      type: "POST",
@@ -1240,7 +1269,6 @@
                      headers: { 'Content-Type': "application/json" },
                      data: enviar2,
                      success: function(mailsResult) {
-                        //ontenerParametroHotel(arregloServiciosHotel.index);
                      }
                  });
              });
@@ -1698,9 +1726,9 @@ function run(link, player,imagen, artist,album, songName) {
                      }
 
 
-                     /*getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
+                     getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
                      getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
-                       */
+                    
                      $("#tablaClima").html(html);
 
                      changeiconTitle(data.currently.icon, Math.round(data.currently.temperature));
