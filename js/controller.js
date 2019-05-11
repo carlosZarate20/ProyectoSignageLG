@@ -98,6 +98,8 @@
          var TamanioInicial = 0;
          var TamanioInicialCorreo = 0;
          var agendaData;
+         var booleanUserServer = true;
+         var booleanUserServer2 = true;
 
          function UpdateBooleans(idesito) {
              var enviar2 = JSON.stringify({ "id": idesito });
@@ -158,26 +160,54 @@
          var orderAgenda = [];
          var orderCorreos = [];
 
-         function obtenerUsuario() {
 
+         function getAgendaUser(){
             
-  
+            var enviar = JSON.stringify({ "mirrorId": 1 });
+            eventoPost(urlpost2, enviar,
+                 function(data) {
 
-             var enviar = JSON.stringify({ "mirrorId": 1 });
+                     var usuario = JSON.parse(data);
+                     UsuarioID = usuario.id;
+
+                     if (usuario.status === false) {
+                        console.log("user");
+                        $("#Agenda4").hide();
+                        $("#Agenda3").hide();
+                        $("#Agenda").hide();
+                        $("#Correo").hide();
+                     }else{
+                        obtenerUsuario();
+                     }
+                
+                 });
+
+         }
+
+         function obtenerUsuario() {
+            if( booleanUserServer){
+                
+            var enviar = JSON.stringify({ "mirrorId": 1 });
 
              eventoPost(urlpost2, enviar,
                  function(data) {
 
                      var usuario = JSON.parse(data);
                      UsuarioID = usuario.id;
-                     if(UsuarioID == undefined){
+
+                     if(UsuarioID === undefined){
+                            // booleanUserServer2 = false;
                             window.setInterval(ObtenerAccionMusica2, 1000);
                             window.setInterval(obtenerHotelServices2, 1000);
                             serviciosHotel();
                      //UpdateBooleans(UsuarioID);
                                 
                         }else{
+                            booleanUserServer = false;
                             $("#Agenda4").show();
+
+                            $("#Agenda").show();
+                            $("#Correo").show();
                             window.setInterval(obtenerHotelServices, 1000);
                             window.setInterval(ObtenerAccionMusica, 1000);
                              RefreshToken = usuario.refreshtoken;
@@ -190,7 +220,6 @@
                              console.log("Agenda: ", data);
                              agendaData = data;
                              orderAgenda = [];
-                             //for(var i = data.length-5; i< data.length; i++){
                              //Validacion de fechas para agenda
                              validateDatesAgenda(data, indexIncrement);
                              TamanioInicial = orderAgenda.length;
@@ -255,7 +284,8 @@
                     loadDoc('GET', 'data/data.json');
                  });
 
-            
+            }
+                
          }
 
         obtenerUsuario();
@@ -510,8 +540,10 @@
                      var horabooelan = arreglo[2].isActive;
                      if (horabooelan == true) {
                          document.getElementById('Agenda').style.display = 'block';
+                         document.getElementById('Agenda4').style.display = 'block';
                      } else {
                          document.getElementById('Agenda').style.display = 'none';
+                         document.getElementById('Agenda4').style.display = 'none';
                      }
 
                      var noticiabooelan = arreglo[3].isActive;
@@ -775,7 +807,7 @@
 
          function updateDiariesInfinite() {
              if (RefreshToken != undefined && TamanioInicial != 0) {
-
+                console.log("RefreshToken2", RefreshToken)
                  getGoogleData(RefreshToken, function(data) {
                      var nuevotamanio = data.length;
                      var booelanAgenda = false;
@@ -1152,6 +1184,7 @@
 
          function getGoogleData(refreshToken, calendarCallback, mailCallback) {
              var mails = [];
+             console.log(refreshToken);
              $.ajax({
                  type: "POST",
                  url: "https://www.googleapis.com/oauth2/v4/token",
@@ -1738,7 +1771,7 @@ function run(link, player,imagen, artist,album, songName) {
              window.setInterval(updateTime, 1800000);
              window.setInterval(calendariolocal, 10000);
              window.setInterval(serviciosHotel, 100000);
-             //window.setInterval(obtenerUsuario, 10000);
+             window.setInterval(getAgendaUser, 1000);
 
              $.ajax({
                      method: "GET",
