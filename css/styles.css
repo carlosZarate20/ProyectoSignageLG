@@ -172,6 +172,9 @@
 .block-side4{
     height: 45px;
 }
+.block-side5{
+    height: 55px;
+}
 .block-side2 {
     border: 1px solid transparent;
     height: 258px;
@@ -223,7 +226,23 @@
     width: 462px;
     position: absolute;
 }
+.sideLeftMicrofone {
+    left: 480px;
+    top: 19px;
+    bottom : 19px ;
+    height: 1032px;
+    width: 200px;
+    position: absolute;
+}
 
+.sideRightMicrofone {
+    left: 1280px;
+    top: 19px;
+    bottom : 19px ;
+    height: 1032px;
+    width: 200px;
+    position: absolute;
+}
 
 /* Commomn Block */
 .asideBlock {
