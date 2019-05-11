@@ -54,6 +54,8 @@
              return xhr;
          }
 
+
+         var MirrorId=1;
          //var proxyurl = "https://cors-anywhere.herokuapp.com/";
          var proxyurl = "";
          var urlpost = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetGadgetStatusSmart';
@@ -71,7 +73,15 @@
 
          var urlpost8 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/SaveEmailInformations';
 
+         var urlpost15 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/SaveNewsInformation';
+
+         var urlpost16 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/SaveNewsNoUserInformation';
+
          var urlpost9 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetEmailInformations2';
+
+         var urlpost17 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetNewsInformations2';
+
+         var urlpost18 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetNewsNoUserInformations2';
 
          var urlpost11 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetHotelServices'
 
@@ -116,6 +126,24 @@
              });
          }
 
+            function SaveNewsInfo(description,tittle,idesito) {
+             var enviar2 = JSON.stringify({ "userId": idesito, "description": description,"tittle":tittle });
+
+             eventoPost(urlpost15, enviar2, function(data) {
+
+             });
+         }
+
+           function SaveNewsInfoNoUser(description,tittle,idesito) {
+             var enviar2 = JSON.stringify({ "mirrorId": idesito, "description": description,"tittle":tittle });
+
+             eventoPost(urlpost16, enviar2, function(data) {
+
+             });
+         }
+
+
+
          function GuardarIndexAgenda(parametro1, parametro2) {
 
              var enviar3 = JSON.stringify({ "userId": parametro1, "list": parametro2 });
@@ -131,6 +159,10 @@
          var orderCorreos = [];
 
          function obtenerUsuario() {
+
+            
+  
+
              var enviar = JSON.stringify({ "mirrorId": 1 });
 
              eventoPost(urlpost2, enviar,
@@ -202,10 +234,10 @@
 
                                  $('#correoCarousel').carousel({ interval: 6000 });
 
-                                 $('#correoCarousel').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
+                                 $('#correoCarousel').on('slid.bs.carousel', function(e) {  });
                                  $('#correoCarousel').bind('slid.bs.carousel', function(e) {
-                                     console.log("SLIDING CORREO");
-                                     var objeto = {
+                                     
+                                     var objeto = { 
                                          sender: ArregloCorreo[e.to].sender,
                                          subject: ArregloCorreo[e.to].subject,
                                          senderAt: ArregloCorreo[e.to].sendAt,
@@ -219,11 +251,14 @@
                          });
                         }
                      
-                    
+                    loadDoc('GET', 'data/data.json');
                  });
+
+            
          }
 
-         obtenerUsuario();
+        obtenerUsuario();
+         
          console.log(ArregloCorreo);
 
 
@@ -652,7 +687,7 @@
                      SaveEmailInformation(UsuarioID, objeto);
 
                      $('#correoCarousel').carousel({ interval: 6000 });
-                     $('#carouselNews').carousel({ interval: 4000 });
+                     $('#carouselNews').carousel({ interval: 6000 });
 
                      $('#tablaClima').html('');
                      $('#correoCarousel').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
@@ -697,6 +732,45 @@
          }
 
          window.setInterval(obtenerEmailInformationDefinitivo, 1000);
+
+        function obtenerNoticiasInformationDefinitivo() {
+
+             var enviar = JSON.stringify({ "userID": UsuarioID });
+
+             eventoPost(urlpost17, enviar, function(data) {
+                 var arreglo = JSON.parse(data);
+                 if (arreglo.status == 1) {
+                     $('#carouselNews').carousel('pause');
+                 } else if (arreglo.status == 2) {
+
+                 } else if (arreglo.status == 3) {
+                     $('#carouselNews').carousel('cycle');
+                 }
+
+             });
+         }
+
+         window.setInterval(obtenerNoticiasInformationDefinitivo, 1000);
+
+
+        function obtenerNoticiasNoUserInformationDefinitivo() {
+
+             var enviar = JSON.stringify({ "mirrorId": MirrorId });
+
+             eventoPost(urlpost18, enviar, function(data) {
+                 var arreglo = JSON.parse(data);
+                 if (arreglo.status == 1) {
+                     $('#carouselNews').carousel('pause');
+                 } else if (arreglo.status == 2) {
+
+                 } else if (arreglo.status == 3) {
+                     $('#carouselNews').carousel('cycle');
+                 }
+
+             });
+         }
+
+         window.setInterval(obtenerNoticiasNoUserInformationDefinitivo, 1000);
 
          function updateDiariesInfinite() {
              if (RefreshToken != undefined && TamanioInicial != 0) {
@@ -1293,6 +1367,7 @@
              });
          }
 
+         var noticias=[];
          function noti() {
              $.ajax({
                      method: "GET",
@@ -1304,8 +1379,9 @@
                  .done(function(data) {
 
                      var full = "";
-                     var noticias = data.items;
-
+                     noticias = data.items;
+                     console.log("noticias",noticias);
+                     console.log("USUARIO ID",UsuarioID);
                      for (var i = 0; i < noticias.length; i++) {
                          var efect = "";
                          var temp = "";
@@ -1313,6 +1389,8 @@
                          var title = noti.title;
                          var foto = noti.enclosure.link;
                          var desc = noti.description;
+                         var noticiaid=noti.guid;
+                         console.log("NOTICIA ID",noticiaid)
                          if (title.length <= 67) {
                              temp = title;
                          } else {
@@ -1323,17 +1401,33 @@
 
                          if (i == 0) {
                              //full = full + '<div class="carousel-item active"> <img src="'+ foto +'" style="height: 250px; width:220px; float:left;" /> <label style ="color: white;display:table;font-size: 20px;margin-left: 234px;margin-top:-6px;font-family: &quot;b-medium&quot;height: 87px; word-wrap:break-word;"> ' + title +' </label> <label style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 234px;margin-top:-7px; height: 100px;">'+ desc+' </label> </div>';
-                             full = full + '<div class="carousel-item active"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;float:left; text-align : justify;">' + desc + '</div></div>';
+                             full = full + '<div class="carousel-item active"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div id="'+noticiaid+'" style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;float:left; text-align : justify;">' + desc + '</div></div>';
                          } else {
                              //full = full + '<div class="carousel-item"> <img src="'+ foto +'" style="height: 250px; width:220px; float:left;" /> <label style ="color: white;display:table;font-size: 20px;margin-left: 234px;margin-top:-6px;font-family: &quot;b-medium&quot; height: 87px; word-wrap:break-word;"> ' + title +' </label> <label style = "display:block; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 234px;margin-top:-7px; height: 100px; word-wrap:break-word;">'+ desc+' </label> </div>';
-                             full = full + '<div class="carousel-item"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;float:left; text-align : justify;">' + desc + '</div></div>';
+                             full = full + '<div class="carousel-item"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div id="'+noticiaid+'" style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;float:left; text-align : justify;">' + desc + '</div></div>';
 
                          }
 
 
                      }
+                     
+
                      $("#333").html('<div id="carouselNews" style="margin-left: 25px;" class="carousel slide" data-ride="carousel"> <div class="carousel-inner">' + full + '</div> <a class="hidden carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span"> <span class="sr-only">Previous</span> </a> <a class="hidden carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div>')
-                     $('#carouselNews').carousel({ interval: 4000 });
+                     $('#carouselNews').carousel({ interval: 6000 });
+                     var texto=$('#'+noticias[0].guid).text();
+                     console.log('descripcion',texto);
+                     SaveNewsInfo($('#'+noticias[0].guid).text(),noticias[0].title,UsuarioID);
+                     SaveNewsInfoNoUser($('#'+noticias[0].guid).text(),noticias[0].title,MirrorId);
+
+                    $('#carouselNews').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
+                        $('#carouselNews').bind('slid.bs.carousel', function(e) {
+                            console.log("SLIDING NOTICIAS");
+                            let description=$('#'+noticias[e.to].guid).text();
+                            let tittle=noticias[e.to].title;     
+
+                            SaveNewsInfo(description,tittle,UsuarioID);
+                            SaveNewsInfoNoUser(description,tittle,MirrorId);
+                    });
                  });
 
          }
@@ -1575,7 +1669,7 @@
         });
 }
 function run(link, player,imagen, artist,album, songName) {
-    console.log(artist, songName);
+    // console.log(artist, songName);
     player.src = link;
     var inform = new BindClass('templateSix');
     inform.set('NowPlayingImage',imagen );
@@ -1888,8 +1982,10 @@ function run(link, player,imagen, artist,album, songName) {
              var req = new XMLHttpRequest();
              req.open(method, url, true);
              req.onload = function() {
-                 dataSet = JSON.parse(req.responseText);
-                 bindData(dataSet);
+                
+                dataSet = JSON.parse(req.responseText);
+                bindData(dataSet);                  
+                 
              };
              req.onerror = function() {
                  throw 'Cannot load file ' + url;
@@ -1897,7 +1993,7 @@ function run(link, player,imagen, artist,album, songName) {
              req.send();
          }
          /** @function */
-         loadDoc('GET', 'data/data.json');
+         
 
 
 
