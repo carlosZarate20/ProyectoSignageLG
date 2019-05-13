@@ -45,8 +45,13 @@
          function eventoPost(url, data, success) {
              var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
              xhr.open('POST', url);
+
              xhr.onreadystatechange = function() {
+
                  if (xhr.readyState > 3 && xhr.status == 200) { success(xhr.responseText); }
+                 if (xhr.status == 500) { success({
+                        status: false
+                 }); }
              };
 
              xhr.setRequestHeader("Content-Type", "application/json");
@@ -100,6 +105,10 @@
          var agendaData;
          var booleanUserServer = true;
          var booleanUserServer2 = true;
+         var booleanShowMirror = true;
+         var otroError = true;
+         var booleanError = true;
+         var otroBoolean = true;
 
          function UpdateBooleans(idesito) {
              var enviar2 = JSON.stringify({ "id": idesito });
@@ -177,6 +186,15 @@
                         $("#Agenda").hide();
                         $("#Correo").hide();
                         $("#Correo1").hide();
+
+                        if(otroError == false){
+                            console.log("Ingreso error");
+                            if(otroBoolean){
+                                actualizarOrder();
+                                console.log("¿Donde esta Jose?");
+                                otroBoolean = false;
+                            }
+                        }
                      }else{
                         obtenerUsuario();
                      }
@@ -201,6 +219,13 @@
                             window.setInterval(ObtenerAccionMusica2, 1000);
                             window.setInterval(obtenerHotelServices2, 1000);
                             serviciosHotel();
+                            if(booleanShowMirror){
+                            $('#MostrarMirror').show();
+                            booleanShowMirror = false;
+                            
+                          
+                            //actualizarOrder();
+                     }
                      //UpdateBooleans(UsuarioID);
                                 
                         }else{
@@ -214,9 +239,9 @@
                             window.setInterval(ObtenerAccionMusica, 1000);
                              RefreshToken = usuario.refreshtoken;
                              serviciosHotel();
-                         UpdateBooleans(UsuarioID);
-                         console.log(UsuarioID);
-                         console.log(RefreshToken);
+                            UpdateBooleans(UsuarioID);
+                            console.log("UpdateBooleans");
+
                          getGoogleData(RefreshToken, function(data) {
                              var indexIncrement = 0
                              console.log("Agenda: ", data);
@@ -516,9 +541,17 @@
          function obtenerEstadodefinitivo() {
 
              var enviar = JSON.stringify({ "id": UsuarioID });
+             if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
+             $.ajax({
+                type: 'POST',
+                url: urlpost,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(arreglo){
 
-             eventoPost(urlpost, enviar, function(data) {
-                 var arreglo = JSON.parse(data);
+                 console.log("statusCode", arreglo);
                  if (arreglo.status) {
 
                  } else {
@@ -542,10 +575,8 @@
                      var horabooelan = arreglo[2].isActive;
                      if (horabooelan == true) {
                          document.getElementById('Agenda').style.display = 'block';
-                         document.getElementById('Agenda4').style.display = 'block';
                      } else {
                          document.getElementById('Agenda').style.display = 'none';
-                         document.getElementById('Agenda4').style.display = 'none';
                      }
 
                      var noticiabooelan = arreglo[3].isActive;
@@ -584,20 +615,135 @@
                          document.getElementById('NoticiasContenedor').style.display = 'none';
                      }
                  }
+                },
+                error: function(errorArreglo){
+                    if(booleanError){
+                        console.log("errorArreglo2", errorArreglo);
+                        booleanError = false;
+                        otroError = false;
+                    }
+                    
+                }
+             })
+             // eventoPost(urlpost, enviar, function(data) {
+                 
 
 
 
-             });
+             // });
          }
 
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR LOS ESTADOS DE LOS GADGETS
          window.setInterval(obtenerEstadodefinitivo, 1000);
 
+         function actualizarOrder(){
+                    var bolsahtml = undefined;
+                    var climahtml = undefined;
+                    var horahtml = undefined;
+                    var noticiashtml = undefined;
+                    var agendahtml = undefined;
+                    var correohtml = undefined;
+                    var musicahtml = undefined;
+                    var servicioshtml = undefined;
+                    var cuadroClimaHtml = undefined;
+                     var cuadroRelojHtml = undefined;
+                     var cuadroAgendaHtml = undefined;
+                     var cuadroCorreoHtml = undefined;
+                     var cuadroBolsaHtml = undefined;
+                     var cuadroHotelHtml = undefined;
+                     var cuadroMusicaHtml = undefined;
+                     var cuadroNoticiaHtml = undefined;
+                    for (var a = 1; a < 9; a++) {
+                         var element = '#Order' + a;
+                         var elementCuadro = '#C' + a;
+                         //Gadget
+                         if ($(element).children()[0].id == 'Bolsa') {
+                             bolsahtml = $(element).html();
 
+                         } else if ($(element).children()[0].id == 'Clima') {
+                             climahtml = $(element).html();
+
+                         } else if ($(element).children()[0].id == 'Hora') {
+                             horahtml = $(element).html();
+
+                         } else if ($(element).children()[0].id == 'NoticiasContenedor') {
+                             noticiashtml = $(element).html();
+
+                         } else if ($(element).children()[0].id == 'Agenda') {
+                             agendahtml = $(element).html();
+
+                         } else if ($(element).children()[0].id == 'Correo') {
+                             correohtml = $(element).html();
+
+                         } else if ($(element).children()[0].id == 'Musica') {
+                             musicahtml = $(element).html();
+
+                         } else if ($(element).children()[0].id == 'HotelServiceContenedor') {
+                             servicioshtml = $(element).html();
+                         }  
+
+                        if ($(elementCuadro).children()[0].id == 'Cuadro5') {
+                             cuadroBolsaHtml = $(elementCuadro).html();
+
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro1') {
+                             cuadroClimaHtml = $(elementCuadro).html();
+
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro2') {
+                             cuadroRelojHtml = $(elementCuadro).html();
+
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro8') {
+                             cuadroNoticiaHtml = $(elementCuadro).html();
+
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro3') {
+                             cuadroAgendaHtml = $(elementCuadro).html();
+
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro4') {
+                             cuadroCorreoHtml = $(elementCuadro).html();
+
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro7') {
+                             cuadroMusicaHtml = $(elementCuadro).html();
+
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro6') {
+                             cuadroHotelHtml = $(elementCuadro).html();
+                         }   
+                     }
+                     for (var j = 1; j < 9; j++) {
+                        if(j == 1){
+                            $('#Order1').html(climahtml);
+                            $('#C1').html(cuadroClimaHtml);
+                        }else if(j == 2){
+                            $('#Order2').html(horahtml);
+                            $('#C2').html(cuadroRelojHtml);
+                        } else if(j == 3){
+                            $('#Order3').html(agendahtml);
+                            $('#C3').html(cuadroAgendaHtml);
+                        } else if(j == 4){
+                            $('#Order4').html(correohtml);
+                            $('#C4').html(cuadroCorreoHtml);
+                        } else if(j == 5){
+                            $('#Order5').html(bolsahtml);
+                            $('#C5').html(cuadroBolsaHtml);
+                        } else if(j == 6){
+                            $('#Order6').html(servicioshtml);
+                            $('#C6').html(cuadroHotelHtml);
+                        } else if(j == 7){
+                            $('#Order7').html(musicahtml);
+                            $('#C7').html(cuadroMusicaHtml);
+                        } else if(j == 8){
+                            $('#Order8').html(noticiashtml);
+                            $('#C8').html(cuadroNoticiaHtml);
+                        }
+
+                     }
+                     GetWeather();
+         }
 
          function obtenerOrderfinitivo() {
 
              var enviar = JSON.stringify({ "id": UsuarioID });
+             if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
 
              eventoPost(urlpost3, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
@@ -607,7 +753,7 @@
                  if (arreglo.order) {
 
                  } else {
-
+                    console.log("Ingreso Cambio Order");
                      //OBTENIENDO HTML DE CADA GADGET
                      var bolsahtml = undefined;
                      var climahtml = undefined;
@@ -770,6 +916,10 @@
                          SaveEmailInformation(UsuarioID, objeto);
                      });
                      GetWeather();
+                     if(booleanShowMirror){
+                        $('#MostrarMirror').show();
+                        booleanShowMirror = false;
+                     }
 
                  }
 
@@ -784,7 +934,9 @@
          function obtenerEmailInformationDefinitivo() {
 
              var enviar = JSON.stringify({ "userID": UsuarioID });
-
+            if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
              eventoPost(urlpost9, enviar, function(data) {
                  var arreglo = JSON.parse(data);
                  if (arreglo.status == 1) {
@@ -803,7 +955,9 @@
         function obtenerNoticiasInformationDefinitivo() {
 
              var enviar = JSON.stringify({ "userID": UsuarioID });
-
+            if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
              eventoPost(urlpost17, enviar, function(data) {
                  var arreglo = JSON.parse(data);
                  if (arreglo.status == 1) {
@@ -929,7 +1083,9 @@
          function obtenerDiaries() {
 
              var enviar = JSON.stringify({ "userId": UsuarioID });
-
+            if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
              eventoPost(urlpost6, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);
@@ -1549,42 +1705,41 @@
 
 
          function GetWeather() {
+            var infoWeather = new BindClass('templateSix');
+
              $.ajax({
                      method: "GET",
                      url: "https://api.darksky.net/forecast/7af51a01e29c8ddb7a548fad3cf35a05/-12.193731,-76.708493?units=si",
                      crossDomain: true,
                      dataType: 'jsonp',
-
-                 })
-                 .done(function(data) {
-
-                     info.set('asideBlock11Content2', "↑" + changeicon2(data.daily.data[0].icon, Math.round(data.daily.data[0].temperatureMax)));
-                     info.set('asideBlock11Content3', "↓" + changeicon2(data.daily.data[0].icon, Math.round(data.daily.data[0].temperatureMin)));
+                     success: function(data){
+                    infoWeather.set('asideBlock11Content2', "↑" + changeicon2(data.daily.data[0].icon, Math.round(data.daily.data[0].temperatureMax)));
+                     infoWeather.set('asideBlock11Content3', "↓" + changeicon2(data.daily.data[0].icon, Math.round(data.daily.data[0].temperatureMin)));
 
                      function changeiconTitle(icon, temp) {
                          switch (icon) {
                              case "clear-day":
-                                 return info.set('asideBlock11Content1', jsonData.weather_clear);
+                                 return infoWeather.set('asideBlock11Content1', "res/images/weather_clear.png");
                              case "clear-night":
-                                 return info.set('asideBlock11Content1', jsonData.weather_clearnight);
+                                 return infoWeather.set('asideBlock11Content1', "res/images/weather_clearnight.png");
                              case "cloudy":
-                                 return info.set('asideBlock11Content1', jsonData.weather_cloudy);
+                                 return infoWeather.set('asideBlock11Content1', "res/images/weather_cloudy.png");
                              case "fog":
-                                 return info.set('asideBlock11Content1', jsonData.weather_fog);
+                                 return infoWeather.set('asideBlock11Content1', "res/images/weather_fog.png");
                              case "partly-cloudy-day":
-                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudy);
+                                 return infoWeather.set('asideBlock11Content1', "res/images/weather_partlycloudy.png");
                              case "partly-cloudy-night":
-                                 return info.set('asideBlock11Content1', jsonData.weather_partlycloudynight);
+                                 return infoWeather.set('asideBlock11Content1', "res/images/weather_partlycloudynight.png");
                              case "rain":
-                                 return info.set('asideBlock11Content1', jsonData.weather_rain);
+                                 return infoWeather.set('asideBlock11Content1', "res/images/weather_rain.png");
                              case "sleet":
-                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                                 return infoWeather.set('asideBlock11Content1', "res/images/weather_sleet.png");
                              case "snow":
-                                 return info.set('asideBlock11Content1', jsonData.weather_snow);
+                                 return infoWeather.set('asideBlock11Content1', "res/images/weather_snow.png");
                              case "sunny":
-                                 return info.set('asideBlock11Content1', jsonData.weather_sunny);
+                                 return infoWeather.set('asideBlock11Content1', "res/images/weather_sunny.png");
                              case "wind":
-                                 return info.set('asideBlock11Content1', jsonData.weather_sleet);
+                                 return infoWeather.set('asideBlock11Content1', "res/images/weather_wind.png");
                          }
                      }
 
@@ -1655,8 +1810,17 @@
 
 
                      $("#logoClima").html(html2);
+                     },
+                     error: function(errorData){
+                        console.log("errorDataClima", errorData);
+                     }
 
                  });
+                 // .done(function(data) {
+
+                    
+
+                 // });
 
          }
 
