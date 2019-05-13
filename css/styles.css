@@ -218,7 +218,7 @@
     position: absolute;
 }
 .sideLeft {
-    left: 15px;
+    left: 30px;
     top: 19px;
     bottom : 19px ;
     height: 1032px;
@@ -235,7 +235,7 @@
 }
 
 .sideRightMicrofone {
-    left: 1240px;
+    left: 1040px;
     top: 19px;
     bottom : 19px ;
     height: 1032px;
@@ -243,7 +243,7 @@
     position: absolute;
 }
 .sideCenterMicrofone {
-    left: 870px;
+    left: 920px;
     top: 10px;
     bottom : 19px ;
     height: 1032px;

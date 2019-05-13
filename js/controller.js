@@ -904,8 +904,8 @@
 
                  if (arreglo.respuesta == 1) {
                      $('#Agenda2').show();
-                     $('#Agenda3').show();
-                     $('#Agenda4').hide();
+                     $('#Cuadro3').show();
+                     // $('#Agenda4').hide();
                      var objeto1 = agendaData[arreglo.order];
                      var objetoenviar = {
                          summary: objeto1.summary,
