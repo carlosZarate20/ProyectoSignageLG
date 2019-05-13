@@ -617,73 +617,105 @@
                      var correohtml = undefined;
                      var musicahtml = undefined;
                      var servicioshtml = undefined;
+
+                     var cuadroClimaHtml = undefined;
+                     var cuadroRelojHtml = undefined;
+                     var cuadroAgendaHtml = undefined;
+                     var cuadroCorreoHtml = undefined;
+                     var cuadroBolsaHtml = undefined;
+                     var cuadroHotelHtml = undefined;
+                     var cuadroMusicaHtml = undefined;
+                     var cuadroNoticiaHtml = undefined;
+
                      for (var a = 1; a < 9; a++) {
                          var element = '#Order' + a;
-
+                         var elementCuadro = '#C' + a;
+                         //Gadget
                          if ($(element).children()[0].id == 'Bolsa') {
-
                              bolsahtml = $(element).html();
 
                          } else if ($(element).children()[0].id == 'Clima') {
-
                              climahtml = $(element).html();
-                             console.log(climahtml);
 
                          } else if ($(element).children()[0].id == 'Hora') {
-
                              horahtml = $(element).html();
 
                          } else if ($(element).children()[0].id == 'NoticiasContenedor') {
-
                              noticiashtml = $(element).html();
 
                          } else if ($(element).children()[0].id == 'Agenda') {
-
                              agendahtml = $(element).html();
 
                          } else if ($(element).children()[0].id == 'Correo') {
-
                              correohtml = $(element).html();
 
                          } else if ($(element).children()[0].id == 'Musica') {
-
                              musicahtml = $(element).html();
+
                          } else if ($(element).children()[0].id == 'HotelServiceContenedor') {
-
                              servicioshtml = $(element).html();
+                         }  
+                         //Cuadro
+                         if ($(elementCuadro).children()[0].id == 'Cuadro5') {
+                             cuadroBolsaHtml = $(elementCuadro).html();
+                             console.log(cuadroBolsaHtml);
 
-                         }
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro1') {
+                             cuadroClimaHtml = $(elementCuadro).html();
 
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro2') {
+                             cuadroRelojHtml = $(elementCuadro).html();
 
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro8') {
+                             cuadroNoticiaHtml = $(elementCuadro).html();
+
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro3') {
+                             cuadroAgendaHtml = $(elementCuadro).html();
+
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro4') {
+                             cuadroCorreoHtml = $(elementCuadro).html();
+
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro7') {
+                             cuadroMusicaHtml = $(elementCuadro).html();
+
+                         } else if ($(elementCuadro).children()[0].id == 'Cuadro6') {
+                             cuadroHotelHtml = $(elementCuadro).html();
+                         }   
 
                      }
-
-
 
                      for (var j = 0; j < arreglo.length; j++) {
                          if (arreglo[j].contentHtml == 'Clima') {
                              $('#Order' + arreglo[j].order).html(climahtml);
+                             $('#C' + arreglo[j].order).html(cuadroClimaHtml);
                          }
                          if (arreglo[j].contentHtml == 'Bolsa') {
                              $('#Order' + arreglo[j].order).html(bolsahtml);
+                             $('#C' + arreglo[j].order).html(cuadroBolsaHtml);
                          }
                          if (arreglo[j].contentHtml == 'Hora') {
                              $('#Order' + arreglo[j].order).html(horahtml);
+                             $('#C' + arreglo[j].order).html(cuadroRelojHtml);
                          }
                          if (arreglo[j].contentHtml == 'NoticiasContenedor') {
                              $('#Order' + arreglo[j].order).html(noticiashtml);
+                             $('#C' + arreglo[j].order).html(cuadroNoticiaHtml);
                          }
                          if (arreglo[j].contentHtml == 'Agenda') {
                              $('#Order' + arreglo[j].order).html(agendahtml);
+                             $('#C' + arreglo[j].order).html(cuadroAgendaHtml);
                          }
                          if (arreglo[j].contentHtml == 'Correo') {
                              $('#Order' + arreglo[j].order).html(correohtml);
+                             $('#C' + arreglo[j].order).html(cuadroCorreoHtml);
                          }
                          if (arreglo[j].contentHtml == 'Musica') {
                              $('#Order' + arreglo[j].order).html(musicahtml);
+                             $('#C' + arreglo[j].order).html(cuadroMusicaHtml);
                          }
                          if (arreglo[j].contentHtml == 'HotelServiceContenedor') {
                              $('#Order' + arreglo[j].order).html(servicioshtml);
+                             $('#C' + arreglo[j].order).html(cuadroHotelHtml);
                          }
 
                      }
