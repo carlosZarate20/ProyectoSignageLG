@@ -243,6 +243,14 @@
     width: 200px;
     position: absolute;
 }
+.sideCenterMicrofone {
+    left: 870px;
+    top: 10px;
+    bottom : 19px ;
+    height: 1032px;
+    width: 200px;
+    position: absolute;
+}
 
 /* Commomn Block */
 .asideBlock {
@@ -862,16 +870,23 @@
   opacity: 0;
   transition: visibility 0s 2s, opacity 2s linear;
 }
-/*.pulse-button {
+
+.container {
+  width: 200px;
+  height: 100%;
+  margin: 0 auto 0;
+}
+
+.pulse-button {
 
   position: relative;
   width: 100px;
   height: 100px;
-  border: none;
-  box-shadow: 0 0 0 0 rgba(232, 76, 61, 0.7);
+  border: 0.5 px solid white;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
   border-radius: 50%;
-  background-color: #e84c3d;
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/173024/jonathanlarradet_copy.png);
+  background-color: white;
+  background-image: url(https://image.flaticon.com/icons/png/512/52/52836.png);
   background-size:cover;
   background-repeat: no-repeat;
   cursor: pointer;
@@ -880,7 +895,7 @@
   -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
   animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
 }
-.pulse-button:hover 
+.pulse-button:active 
 {
   -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
 }
@@ -889,4 +904,3 @@
 @-moz-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
 @-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
 @keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
-  */
