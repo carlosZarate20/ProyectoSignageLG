@@ -235,8 +235,17 @@
                             $("#Agenda").show();
                             $("#Correo").show();
                             $("#Correo1").show();
+
+                            if(UsuarioID === undefined || UsuarioID === null){
+                                return false;
+                             }
+                            window.setInterval(obtenerEstadodefinitivo, 1000);
+                            window.setInterval(obtenerOrderfinitivo, 1000);
                             window.setInterval(obtenerHotelServices, 1000);
                             window.setInterval(ObtenerAccionMusica, 1000);
+                            window.setInterval(obtenerDiaries, 1000);
+                            window.setInterval(obtenerEmailInformationDefinitivo, 1000);
+
                              RefreshToken = usuario.refreshtoken;
                              serviciosHotel();
                             UpdateBooleans(UsuarioID);
@@ -634,7 +643,7 @@
          }
 
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR LOS ESTADOS DE LOS GADGETS
-         window.setInterval(obtenerEstadodefinitivo, 1000);
+         // window.setInterval(obtenerEstadodefinitivo, 1000);
 
          function actualizarOrder(){
                     var bolsahtml = undefined;
@@ -905,7 +914,7 @@
                      $('#tablaClima').html('');
                      $('#correoCarousel').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
                      $('#correoCarousel').bind('slid.bs.carousel', function(e) {
-                         console.log("SLIDING CORREO");
+                         console.log(e.to);
                          var objeto = {
                              sender: ArregloCorreo[e.to].sender,
                              subject: ArregloCorreo[e.to].subject,
@@ -929,7 +938,7 @@
 
          // obtenerOrderfinitivo();
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR EL ORDEN DE LOS GADGET
-         window.setInterval(obtenerOrderfinitivo, 1000);
+         // window.setInterval(obtenerOrderfinitivo, 1000);
 
          function obtenerEmailInformationDefinitivo() {
 
@@ -950,7 +959,7 @@
              });
          }
 
-         window.setInterval(obtenerEmailInformationDefinitivo, 1000);
+         // window.setInterval(obtenerEmailInformationDefinitivo, 1000);
 
         function obtenerNoticiasInformationDefinitivo() {
 
@@ -994,6 +1003,9 @@
          window.setInterval(obtenerNoticiasNoUserInformationDefinitivo, 1000);
 
          function updateDiariesInfinite() {
+            if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
              if (RefreshToken != undefined && TamanioInicial != 0) {
                 console.log("RefreshToken2", RefreshToken)
                  getGoogleData(RefreshToken, function(data) {
@@ -1119,12 +1131,14 @@
 
              });
          }
-         window.setInterval(obtenerDiaries, 1000);
+         // window.setInterval(obtenerDiaries, 1000);
 
           function obtenerHotelServices() {
 
              var enviar = JSON.stringify({ "userId": UsuarioID });
-             console.log("Enviar user: ", enviar);
+             if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
              eventoPost(urlpost11, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);
@@ -1181,6 +1195,9 @@
          function ObtenerAccionMusica() {
 
              var enviar = JSON.stringify({ "mirrorId": 1, "userId": UsuarioID });
+             if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
              eventoPost(urlpost12, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);    
