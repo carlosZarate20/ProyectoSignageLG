@@ -109,74 +109,189 @@
          var otroError = true;
          var booleanError = true;
          var otroBoolean = true;
+         var booleanEstadoDefinito= true;
 
+         var booleanUpdateBooleans=true;
          function UpdateBooleans(idesito) {
              var enviar2 = JSON.stringify({ "id": idesito });
 
-             eventoPost(urlpost4, enviar2, function(data) {
-
+            if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
+             if(booleanUpdateBooleans){
+                booleanUpdateBooleans=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost4,
+                data: enviar2,
+                headers: { 'Content-Type': "application/json" },
+                success: function(arreglo){                  
+                    booleanUpdateBooleans=true;
+                },
+                error: function(errorArreglo){
+                    booleanUpdateBooleans=true;
+                        
+                }
              });
+
+             }
+  
+          
          }
 
-
+         var booleanSaveDiaryInformation=true;
          function SaveDiaryInformation(idesito, objeto) {
              var enviar2 = JSON.stringify({ "userId": idesito, "objectReference": objeto });
+             if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
 
-             eventoPost(urlpost7, enviar2, function(data) {
-
+            if(booleanSaveDiaryInformation){
+                booleanSaveDiaryInformation=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost7,
+                data: enviar2,
+                headers: { 'Content-Type': "application/json" },
+                success: function(arreglo){                  
+                    booleanSaveDiaryInformation=true;
+                },
+                error: function(errorArreglo){
+                    booleanSaveDiaryInformation=true;
+                        
+                }
              });
+
+             }     
          }
 
 
-
+         var booleanSaveEmailInformation=true;
          function SaveEmailInformation(idesito, objeto) {
              var enviar2 = JSON.stringify({ "userId": idesito, "objectReference": objeto });
-
-             eventoPost(urlpost8, enviar2, function(data) {
-
+             if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
+                if(booleanSaveEmailInformation){
+                booleanSaveEmailInformation=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost8,
+                data: enviar2,
+                headers: { 'Content-Type': "application/json" },
+                success: function(arreglo){                  
+                    booleanSaveEmailInformation=true;
+                },
+                error: function(errorArreglo){
+                    booleanSaveEmailInformation=true;
+                        
+                }
              });
-         }
 
+             }     
+
+   
+         }
+         var booleanSaveNewsInfo=true;
             function SaveNewsInfo(description,tittle,idesito) {
              var enviar2 = JSON.stringify({ "userId": idesito, "description": description,"tittle":tittle });
+            if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
 
-             eventoPost(urlpost15, enviar2, function(data) {
-
+              if(booleanSaveNewsInfo){
+                booleanSaveNewsInfo=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost15,
+                data: enviar2,
+                headers: { 'Content-Type': "application/json" },
+                success: function(arreglo){                  
+                    booleanSaveNewsInfo=true;
+                },
+                error: function(errorArreglo){
+                    booleanSaveNewsInfo=true;
+                        
+                }
              });
+
+             }     
+
          }
 
+         var booleanSaveNewsInfoNoUser=true;
            function SaveNewsInfoNoUser(description,tittle,idesito) {
              var enviar2 = JSON.stringify({ "mirrorId": idesito, "description": description,"tittle":tittle });
 
-             eventoPost(urlpost16, enviar2, function(data) {
 
+            if(booleanSaveNewsInfoNoUser){
+                booleanSaveNewsInfoNoUser=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost16,
+                data: enviar2,
+                headers: { 'Content-Type': "application/json" },
+                success: function(arreglo){                  
+                    booleanSaveNewsInfoNoUser=true;
+                },
+                error: function(errorArreglo){
+                    booleanSaveNewsInfoNoUser=true;
+                        
+                }
              });
+
+             }   
+         
          }
 
 
-
+         var booleanGuardarIndexAgenda=true;
          function GuardarIndexAgenda(parametro1, parametro2) {
 
              var enviar3 = JSON.stringify({ "userId": parametro1, "list": parametro2 });
+            if(UsuarioID === undefined || UsuarioID === null){
+                return false;
+             }
 
-             eventoPost(urlpost5, enviar3, function(data) {
-                 // var arreglo = JSON.parse(data);
 
-
+            if(booleanGuardarIndexAgenda){
+                booleanGuardarIndexAgenda=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost5,
+                data: enviar3,
+                headers: { 'Content-Type': "application/json" },
+                success: function(arreglo){                  
+                    booleanGuardarIndexAgenda=true;
+                },
+                error: function(errorArreglo){
+                    booleanGuardarIndexAgenda=true;
+                        
+                }
              });
+
+             }  
+
+            
          }
 
          var orderAgenda = [];
          var orderCorreos = [];
 
-
+        var   booleangetAgendaUser=true;
          function getAgendaUser(){
             
             var enviar = JSON.stringify({ "mirrorId": 1 });
-            eventoPost(urlpost2, enviar,
-                 function(data) {
-
-                     var usuario = JSON.parse(data);
+            if(booleangetAgendaUser){
+                booleangetAgendaUser=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost2,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(data){                  
+                    
+                        var usuario = data;
                      UsuarioID = usuario.id;
 
                      if (usuario.status === false) {
@@ -199,20 +314,34 @@
                      }else{
                         obtenerUsuario();
                      }
-                
-                 });
+                     booleangetAgendaUser=true;
+                },
+                error: function(errorArreglo){
+                    booleangetAgendaUser=true;
+                        
+                }
+             });
+
+             }   
 
          }
 
+        var booleanObtenerUsuario=true;
          function obtenerUsuario() {
             if( booleanUserServer){
                 
             var enviar = JSON.stringify({ "mirrorId": 1 });
 
-             eventoPost(urlpost2, enviar,
-                 function(data) {
-
-                     var usuario = JSON.parse(data);
+                    if(booleanObtenerUsuario){
+                booleanObtenerUsuario=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost2,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(data){                  
+                    
+                     var usuario = data;
                      UsuarioID = usuario.id;
 
                      if(UsuarioID === undefined){
@@ -224,10 +353,7 @@
                             if(booleanShowMirror){
                             $('#MostrarMirror').show();
                             booleanShowMirror = false;
-                            
-                          
-                            //actualizarOrder();
-                     }
+                        }
                      //UpdateBooleans(UsuarioID);
                                 
                         }else{
@@ -242,10 +368,10 @@
                             $("#Correo").show();
                             $("#Correo1").show();
 
-                            if(UsuarioID === undefined || UsuarioID === null){
-                                return false;
-                             }
-                     
+                            // if(UsuarioID === undefined || UsuarioID === null){
+                            //     return false;
+                            //  }
+                    
 
                              RefreshToken = usuario.refreshtoken;
                              serviciosHotel();
@@ -288,8 +414,8 @@
                                      $("#elements").append(string);
                                      $("#elements .carousel-item").first().addClass('active');
                                  }
-                                 console.log("INGRESO A INICIAR EL CARRUSEL");
-                                 console.log("PRIMER OBJETO", ArregloCorreo[0]);
+                                
+                       
                                  var objeto = {
                                      sender: ArregloCorreo[0].sender,
                                      subject: ArregloCorreo[0].subject,
@@ -319,9 +445,20 @@
                         }
                      
                     loadDoc('GET', 'data/data.json');
-                 });
+
+                     booleanObtenerUsuario=true;
+                },
+                error: function(errorArreglo){
+                    booleanObtenerUsuario=true;
+                        
+                }
+             });
+
+             }   
+
 
             }
+
                 
          }
 
@@ -554,13 +691,15 @@
              if(UsuarioID === undefined || UsuarioID === null){
                 return false;
              }
-             $.ajax({
+             if (booleanEstadoDefinito) {
+                booleanEstadoDefinito = false;
+                $.ajax({
                 type: 'POST',
                 url: urlpost,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(arreglo){
-
+                    booleanEstadoDefinito = true;
                  console.log("statusCode", arreglo);
                  if (arreglo.status) {
 
@@ -625,8 +764,10 @@
                          document.getElementById('NoticiasContenedor').style.display = 'none';
                      }
                  }
+            
                 },
                 error: function(errorArreglo){
+                    booleanEstadoDefinito = true;
                     if(booleanError){
                         console.log("errorArreglo2", errorArreglo);
                         booleanError = false;
@@ -634,17 +775,14 @@
                     }
                     
                 }
-             })
-             // eventoPost(urlpost, enviar, function(data) {
-                 
+             });
 
-
-
-             // });
+             };             
+     
          }
 
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR LOS ESTADOS DE LOS GADGETS
-         // window.setInterval(obtenerEstadodefinitivo, 1000);
+
 
          function actualizarOrder(){
 
@@ -770,7 +908,7 @@
                      }
                      GetWeather();
          }
-
+         var booleanobtenerOrderfinitivo=true;
          function obtenerOrderfinitivo() {
 
              var enviar = JSON.stringify({ "id": UsuarioID });
@@ -778,9 +916,15 @@
                 return false;
              }
 
-             eventoPost(urlpost3, enviar, function(data) {
-                 // OBTENGO LA LISTA DE BOOLEANOS
-                 var arreglo = JSON.parse(data);
+              if(booleanobtenerOrderfinitivo){
+                booleanobtenerOrderfinitivo=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost3,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(data){                  
+                    var arreglo = data;
 
 
                  if (arreglo.order) {
@@ -921,8 +1065,7 @@
                          $("#elements .carousel-item").first().addClass('active');
 
                      }
-                     console.log("INGRESO A INICIAR EL CARRUSEL");
-                     console.log("PRIMER OBJETO", ArregloCorreo[0]);
+            
                      var objeto = {
                          sender: ArregloCorreo[0].sender,
                          subject: ArregloCorreo[0].subject,
@@ -956,22 +1099,37 @@
 
                  }
 
-
+                    booleanobtenerOrderfinitivo=true;
+                },
+                error: function(errorArreglo){
+                    booleanobtenerOrderfinitivo=true;
+                        
+                }
              });
+
+             }   
+
          }
 
          // obtenerOrderfinitivo();
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR EL ORDEN DE LOS GADGET
-         // window.setInterval(obtenerOrderfinitivo, 1000);
 
+         var booleanobtenerEmailInformationDefinitivo=true;
          function obtenerEmailInformationDefinitivo() {
 
              var enviar = JSON.stringify({ "userID": UsuarioID });
             if(UsuarioID === undefined || UsuarioID === null){
                 return false;
              }
-             eventoPost(urlpost9, enviar, function(data) {
-                 var arreglo = JSON.parse(data);
+             if(booleanobtenerEmailInformationDefinitivo){
+                booleanobtenerEmailInformationDefinitivo=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost9,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(arreglo){                  
+                      var arreglo = arreglo;
                  if (arreglo.status == 1) {
                      $('#correoCarousel').carousel('pause');
                  } else if (arreglo.status == 2) {
@@ -979,40 +1137,68 @@
                  } else if (arreglo.status == 3) {
                      $('#correoCarousel').carousel('cycle');
                  }
-
+                    booleanobtenerEmailInformationDefinitivo=true;
+                },
+                error: function(errorArreglo){
+                    booleanobtenerEmailInformationDefinitivo=true;
+                        
+                }
              });
+
+             }  
          }
 
-         // window.setInterval(obtenerEmailInformationDefinitivo, 1000);
-
+         var booleanobtenerNoticiasInformationDefinitivo=true;
         function obtenerNoticiasInformationDefinitivo() {
 
              var enviar = JSON.stringify({ "userID": UsuarioID });
             if(UsuarioID === undefined || UsuarioID === null){
                 return false;
              }
-             eventoPost(urlpost17, enviar, function(data) {
-                 var arreglo = JSON.parse(data);
+
+            if(booleanobtenerNoticiasInformationDefinitivo){
+                booleanobtenerNoticiasInformationDefinitivo=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost17,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(data){                
+                var arreglo = data;
                  if (arreglo.status == 1) {
                      $('#carouselNews').carousel('pause');
                  } else if (arreglo.status == 2) {
 
                  } else if (arreglo.status == 3) {
                      $('#carouselNews').carousel('cycle');
-                 }
-
+                 }  
+                    booleanobtenerNoticiasInformationDefinitivo=true;
+                },
+                error: function(errorArreglo){
+                    booleanobtenerNoticiasInformationDefinitivo=true;
+                        
+                }
              });
+
+             }
+
          }
 
-         window.setInterval(obtenerNoticiasInformationDefinitivo, 1000);
 
-
+         var booleanobtenerNoticiasNoUserInformationDefinitivo=true;
         function obtenerNoticiasNoUserInformationDefinitivo() {
 
              var enviar = JSON.stringify({ "mirrorId": MirrorId });
 
-             eventoPost(urlpost18, enviar, function(data) {
-                 var arreglo = JSON.parse(data);
+               if(booleanobtenerNoticiasNoUserInformationDefinitivo){
+                booleanobtenerNoticiasNoUserInformationDefinitivo=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost18,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(data){                
+                       var arreglo = data;
                  if (arreglo.status == 1) {
                      $('#carouselNews').carousel('pause');
                  } else if (arreglo.status == 2) {
@@ -1021,10 +1207,19 @@
                      $('#carouselNews').carousel('cycle');
                  }
 
+                    booleanobtenerNoticiasNoUserInformationDefinitivo=true;
+                },
+                error: function(errorArreglo){
+                    booleanobtenerNoticiasNoUserInformationDefinitivo=true;
+                        
+                }
              });
+
+             }
+
          }
 
-         window.setInterval(obtenerNoticiasNoUserInformationDefinitivo, 1000);
+         
 
          function updateDiariesInfinite() {
             if(UsuarioID === undefined || UsuarioID === null){
@@ -1116,15 +1311,23 @@
 
          window.setInterval(updateDiariesInfinite, 2000);
 
+         var booleanobtenerDiaries=true;
          function obtenerDiaries() {
 
              var enviar = JSON.stringify({ "userId": UsuarioID });
             if(UsuarioID === undefined || UsuarioID === null){
                 return false;
              }
-             eventoPost(urlpost6, enviar, function(data) {
-                 // OBTENGO LA LISTA DE BOOLEANOS
-                 var arreglo = JSON.parse(data);
+
+                 if(booleanobtenerDiaries){
+                booleanobtenerDiaries=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost6,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(data){                
+                var arreglo = data;
 
                  if (arreglo.respuesta == 1) {
                      $('#Agenda2').show();
@@ -1153,19 +1356,35 @@
                  }
 
 
+                    booleanobtenerDiaries=true;
+                },
+                error: function(errorArreglo){
+                    booleanobtenerDiaries=true;
+                        
+                }
              });
-         }
-         // window.setInterval(obtenerDiaries, 1000);
 
+             }
+          
+         }
+
+         var booleanobtenerHotelServices=true;
           function obtenerHotelServices() {
 
              var enviar = JSON.stringify({ "userId": UsuarioID });
              if(UsuarioID === undefined || UsuarioID === null){
                 return false;
              }
-             eventoPost(urlpost11, enviar, function(data) {
-                 // OBTENGO LA LISTA DE BOOLEANOS
-                 var arreglo = JSON.parse(data);
+
+                  if(booleanobtenerHotelServices){
+                booleanobtenerHotelServices=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost11,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(data){                
+                 var arreglo = data;
 
                  if (arreglo.respuesta == 1) {
                      $('#HotelService2').show();
@@ -1183,16 +1402,32 @@
 
                  }
 
-
+                    booleanobtenerHotelServices=true;
+                },
+                error: function(errorArreglo){
+                    booleanobtenerHotelServices=true;
+                        
+                }
              });
+
+             }
          }
+
+         var booleanobtenerHotelServices2=true;
          function obtenerHotelServices2() {
 
              var enviar = JSON.stringify({ "mirrorId": 1 });
              
-             eventoPost(urlpost14, enviar, function(data) {
-                 // OBTENGO LA LISTA DE BOOLEANOS
-                 var arreglo = JSON.parse(data);
+
+                if(booleanobtenerHotelServices2){
+                booleanobtenerHotelServices2=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost14,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(data){                
+                     var arreglo = data;
 
                  if (arreglo.respuesta == 1) {
                      $('#HotelService2').show();
@@ -1209,22 +1444,38 @@
                  } else {
 
                  }
-
-
+                    booleanobtenerHotelServices2=true;
+                },
+                error: function(errorArreglo){
+                    booleanobtenerHotelServices2=true;
+                        
+                }
              });
+
+             }
+
          }
-         // window.setInterval(obtenerHotelServices, 1000);
 
 
+
+         var booleanObtenerAccionMusica=true;
          function ObtenerAccionMusica() {
 
              var enviar = JSON.stringify({ "mirrorId": 1, "userId": UsuarioID });
              if(UsuarioID === undefined || UsuarioID === null){
                 return false;
              }
-             eventoPost(urlpost12, enviar, function(data) {
-                 // OBTENGO LA LISTA DE BOOLEANOS
-                 var arreglo = JSON.parse(data);    
+
+
+                if(booleanObtenerAccionMusica){
+                booleanObtenerAccionMusica=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost12,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(data){                
+                    var arreglo = data;    
 
                  if(arreglo.status){
                     var stringrespuesta=arreglo.action.toLowerCase();
@@ -1308,15 +1559,34 @@
                  } else{
 
                  } 
-
+                    booleanObtenerAccionMusica=true;
+                },
+                error: function(errorArreglo){
+                    booleanObtenerAccionMusica=true;
+                        
+                }
              });
+
+             }
+
+
          }
+
+         var booleanObtenerAccionMusica2=true;
          function ObtenerAccionMusica2() {
 
              var enviar = JSON.stringify({ "mirrorId": 1 });
-             eventoPost(urlpost13, enviar, function(data) {
-                 // OBTENGO LA LISTA DE BOOLEANOS
-                 var arreglo = JSON.parse(data);    
+
+
+                if(booleanObtenerAccionMusica2){
+                booleanObtenerAccionMusica2=false;
+                $.ajax({
+                type: 'POST',
+                url: urlpost13,
+                data: enviar,
+                headers: { 'Content-Type': "application/json" },
+                success: function(data){                
+                 var arreglo = data;    
 
                  if(arreglo.status){
                     var stringrespuesta=arreglo.action.toLowerCase();
@@ -1403,12 +1673,20 @@
                  } else{
 
                  }
-
+                    booleanObtenerAccionMusica2=true;
+                },
+                error: function(errorArreglo){
+                    booleanObtenerAccionMusica2=true;
+                        
+                }
              });
+
+             }
+        
          }
         
         
-        //window.setInterval(ObtenerAccionMusica2, 1000);
+
         
          var clientId = "541429281292-8v02kma7fl8fhmiih66kdqnlh8b6opmn.apps.googleusercontent.com";
          var clientSecret = "XbyAoBAIlUlqBbS1Lal0GrAF";
@@ -1973,7 +2251,7 @@ function run(link, player,imagen, artist,album, songName) {
 
          function bindData(jsonData) {
 
-
+              console.log("bindata");
              info = new BindClass('templateSix');
 
              updateTime();
@@ -2006,19 +2284,8 @@ function run(link, player,imagen, artist,album, songName) {
 
              //  info.set('asideBlock1Content3', jsonData.asideBlock1Content3);
 
-             window.setInterval(updateTime, 60000);
-             window.setInterval(updateTime, 1800000);
-             window.setInterval(calendariolocal, 10000);
-             window.setInterval(serviciosHotel, 100000);
-             window.setInterval(getAgendaUser, 1000);
-            window.setInterval(obtenerEstadodefinitivo, 1000);
-            window.setInterval(obtenerOrderfinitivo, 1000);
-            window.setInterval(obtenerHotelServices, 1000);
-            window.setInterval(ObtenerAccionMusica, 1000);
-            window.setInterval(obtenerDiaries, 1000);
-            window.setInterval(obtenerEmailInformationDefinitivo, 1000);
-            window.setInterval(ObtenerAccionMusica2, 1000);
-            window.setInterval(obtenerHotelServices2, 1000);
+
+
                          
 
              $.ajax({
@@ -2278,7 +2545,7 @@ function run(link, player,imagen, artist,album, songName) {
              var req = new XMLHttpRequest();
              req.open(method, url, true);
              req.onload = function() {
-                
+             
                 dataSet = JSON.parse(req.responseText);
                 bindData(dataSet);                  
                  
@@ -2289,7 +2556,21 @@ function run(link, player,imagen, artist,album, songName) {
              req.send();
          }
          /** @function */
-         
+                     setInterval(updateTime, 60000);
+                     setInterval(updateTime, 1800000);
+                     setInterval(calendariolocal, 10000);
+                     setInterval(serviciosHotel, 100000);
+                     setInterval(getAgendaUser, 1000);
+                     setInterval(function(){obtenerEstadodefinitivo()} , 1000);
+                     setInterval(obtenerOrderfinitivo, 1000);
+                     setInterval(obtenerHotelServices, 1000);
+                     setInterval(ObtenerAccionMusica, 1000);
+                     setInterval(obtenerDiaries, 1000);
+                     setInterval(obtenerEmailInformationDefinitivo, 1000);
+                     setInterval(ObtenerAccionMusica2, 1000);
+                     setInterval(obtenerHotelServices2, 1000);
+                     setInterval(obtenerNoticiasInformationDefinitivo, 1000);
+                     setInterval(obtenerNoticiasNoUserInformationDefinitivo, 1000);
 
 
 
