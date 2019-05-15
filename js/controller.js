@@ -219,14 +219,7 @@
                             // booleanUserServer2 = false;
 
                             console.log("ME DESLOGEE PERRO");
-                            window.setInterval(ObtenerAccionMusica2, 1000);
-                            window.setInterval(obtenerHotelServices2, 1000);
-                            window.clearInterval(obtenerEstadodefinitivo);
-                            window.clearInterval(obtenerOrderfinitivo);
-                            window.clearInterval(obtenerHotelServices);
-                            window.clearInterval(ObtenerAccionMusica);
-                            window.clearInterval(obtenerDiaries);
-                            window.clearInterval(obtenerEmailInformationDefinitivo);
+                  
                             serviciosHotel();
                             if(booleanShowMirror){
                             $('#MostrarMirror').show();
@@ -252,12 +245,7 @@
                             if(UsuarioID === undefined || UsuarioID === null){
                                 return false;
                              }
-                            window.setInterval(obtenerEstadodefinitivo, 1000);
-                            window.setInterval(obtenerOrderfinitivo, 1000);
-                            window.setInterval(obtenerHotelServices, 1000);
-                            window.setInterval(ObtenerAccionMusica, 1000);
-                            window.setInterval(obtenerDiaries, 1000);
-                            window.setInterval(obtenerEmailInformationDefinitivo, 1000);
+                     
 
                              RefreshToken = usuario.refreshtoken;
                              serviciosHotel();
@@ -659,6 +647,29 @@
          // window.setInterval(obtenerEstadodefinitivo, 1000);
 
          function actualizarOrder(){
+
+                    
+                    document.getElementById('Clima').style.display = 'block';
+                     document.getElementById('Hora').style.display = 'block';
+                     document.getElementById('Agenda').style.display = 'block';
+                     document.getElementById('Correo').style.display = 'block';
+                     document.getElementById('Bolsa').style.display = 'block';
+                     document.getElementById('HotelServiceContenedor').style.display = 'block';
+                     document.getElementById('Musica').style.display = 'block';
+                     document.getElementById('NoticiasContenedor').style.display = 'block';
+
+                     
+                        $('#Cuadro1').show();
+                        $('#Cuadro2').show();
+                        $('#Cuadro3').show();
+                        $('#Cuadro4').show();
+                        $('#Cuadro5').show();
+                        $('#Cuadro6').show();
+                        $('#Cuadro7').show();
+                        $('#Cuadro8').show();
+                      
+                    
+
                     var bolsahtml = undefined;
                     var climahtml = undefined;
                     var horahtml = undefined;
@@ -2000,6 +2011,15 @@ function run(link, player,imagen, artist,album, songName) {
              window.setInterval(calendariolocal, 10000);
              window.setInterval(serviciosHotel, 100000);
              window.setInterval(getAgendaUser, 1000);
+            window.setInterval(obtenerEstadodefinitivo, 1000);
+            window.setInterval(obtenerOrderfinitivo, 1000);
+            window.setInterval(obtenerHotelServices, 1000);
+            window.setInterval(ObtenerAccionMusica, 1000);
+            window.setInterval(obtenerDiaries, 1000);
+            window.setInterval(obtenerEmailInformationDefinitivo, 1000);
+            window.setInterval(ObtenerAccionMusica2, 1000);
+            window.setInterval(obtenerHotelServices2, 1000);
+                         
 
              $.ajax({
                      method: "GET",
