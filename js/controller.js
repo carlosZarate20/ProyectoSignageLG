@@ -410,33 +410,55 @@
                                      var dia = timeItem.getDate();
                                      var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
                                      var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
-                                     var string = '<div id="email' + j.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
+                                     //var string = '<div id="email' + j.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
+                                     var string = '<div id="email' + j.toString() +'" class="carousel-item"> <label class="carrouselAsunto" style="color: white;font-family: b-medium;font-size: 20px;line-height: 26px;"> '+temp+' </label> <div style="position: relative;display: inline-block;width: 100%;"> <div style="display: inline;"> <div class="carrouselFrom" style="overflow: hidden;width: 65%;max-height: 56px;text-overflow: ellipsis;float: left;">' + ArregloCorreo[j].sender + '</div></div><div style="display: inline-block;width: 35%;float: right;"> <label class="carrouselDate">' + fecha_formateada + '</label> </div> </div> <div> <label class="carrouselDesc">' + ArregloCorreo[j].message + '</label> </div> </div>';
                                      $("#elements").append(string);
                                      $("#elements .carousel-item").first().addClass('active');
                                  }
                                 
                        
-                                 var objeto = {
-                                     sender: ArregloCorreo[0].sender,
-                                     subject: ArregloCorreo[0].subject,
-                                     senderAt: ArregloCorreo[0].sendAt,
-                                     message: ArregloCorreo[0].message
-                                 }
+                                 if (ArregloCorreo[0].sender !== undefined) {
+                                        var objeto = {
+                                             sender: ArregloCorreo[0].sender,
+                                             subject: ArregloCorreo[0].subject,
+                                             senderAt: ArregloCorreo[0].sendAt,
+                                             message: ArregloCorreo[0].message
+                                         }                                         
 
-                                 SaveEmailInformation(UsuarioID, objeto);
+                                     }else{
+                                            var objeto = {
+                                             sender: '',
+                                             subject: ArregloCorreo[0].subject,
+                                             senderAt: ArregloCorreo[0].sendAt,
+                                             message: ArregloCorreo[0].message
+                                         }
+
+                                     }
+                                     SaveEmailInformation(UsuarioID, objeto);
+
 
                                  $('#correoCarousel').carousel({ interval: 6000 });
 
                                  $('#correoCarousel').on('slid.bs.carousel', function(e) {  });
                                  $('#correoCarousel').bind('slid.bs.carousel', function(e) {
                                      
-                                     var objeto = { 
-                                         sender: ArregloCorreo[e.to].sender,
-                                         subject: ArregloCorreo[e.to].subject,
-                                         senderAt: ArregloCorreo[e.to].sendAt,
-                                         message: ArregloCorreo[e.to].message
-                                     }
+                                    if (ArregloCorreo[0].sender !== undefined) {
+                                        var objeto = {
+                                             sender: ArregloCorreo[0].sender,
+                                             subject: ArregloCorreo[0].subject,
+                                             senderAt: ArregloCorreo[0].sendAt,
+                                             message: ArregloCorreo[0].message
+                                         }                                         
 
+                                     }else{
+                                            var objeto = {
+                                             sender: '',
+                                             subject: ArregloCorreo[0].subject,
+                                             senderAt: ArregloCorreo[0].sendAt,
+                                             message: ArregloCorreo[0].message
+                                         }
+
+                                     }
                                      SaveEmailInformation(UsuarioID, objeto);
                                  });
                              }
@@ -1045,12 +1067,12 @@
                      $('#elements').html('');
                      for (var k = 0; k < ArregloCorreo.length; k++) {
                          console.log('agregando coerreo');
-                         var temp = "";
-                         if (ArregloCorreo[k].subject.length <= 45) {
-                             temp = ArregloCorreo[k].subject;
-                         } else {
-                             temp = ArregloCorreo[k].subject.substring(0, 44) + "...";
-                         }
+                         // var temp = "";
+                         // if (ArregloCorreo[k].subject.length <= 45) {
+                         //     temp = ArregloCorreo[k].subject;
+                         // } else {
+                         //     temp = ArregloCorreo[k].subject.substring(0, 44) + "...";
+                         // }
 
                          var timeItem = new Date(ArregloCorreo[k].sendAt);
                          var correoTime = ArregloCorreo[k].sendAt;
@@ -1060,36 +1082,57 @@
                          var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
                          var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
 
-                         var string = '<div id="email' + k.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[k].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc">' + ArregloCorreo[k].message + '</label></div>';
+                         //var string = '<div id="email' + k.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[k].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc">' + ArregloCorreo[k].message + '</label></div>';
+                         var string = '<div id="email' + k.toString() +'" class="carousel-item"> <label class="carrouselAsunto" style="color: white;font-family: b-medium;font-size: 20px;line-height: 26px;"> '+ArregloCorreo[k].subject+' </label> <div style="position: relative;display: inline-block;width: 100%;"> <div style="display: inline; "> <div class="carrouselFrom" style="overflow: hidden;width: 65%; max-height: 50px;;text-overflow: ellipsis;float: left;">' + ArregloCorreo[k].sender + '</div></div><div style="display: inline-block;float: right;"> <label class="carrouselDate">' + fecha_formateada + '</label> </div> </div> <div> <label class="carrouselDesc">' + ArregloCorreo[k].message + '</label> </div> </div>';
                          $("#elements").append(string);
                          $("#elements .carousel-item").first().addClass('active');
 
                      }
             
-                     var objeto = {
-                         sender: ArregloCorreo[0].sender,
-                         subject: ArregloCorreo[0].subject,
-                         senderAt: ArregloCorreo[0].sendAt,
-                         message: ArregloCorreo[0].message
-                     }
+                            if (ArregloCorreo[0] !== undefined) {
+                                        var objeto = {
+                                             sender: ArregloCorreo[0].sender,
+                                             subject: ArregloCorreo[0].subject,
+                                             senderAt: ArregloCorreo[0].sendAt,
+                                             message: ArregloCorreo[0].message
+                                         }                                         
 
-                     SaveEmailInformation(UsuarioID, objeto);
+                                     }else{
+                                            var objeto = {
+                                             sender: '',
+                                             subject: ArregloCorreo[0].subject,
+                                             senderAt: ArregloCorreo[0].sendAt,
+                                             message: ArregloCorreo[0].message
+                                         }
 
-                     $('#correoCarousel').carousel({ interval: 6000 });
+                                     }
+                        SaveEmailInformation(UsuarioID, objeto);
+
+                     $('#correoCarousel').carousel({ interval: 0 });
                      $('#carouselNews').carousel({ interval: 6000 });
 
                      $('#tablaClima').html('');
                      $('#correoCarousel').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
                      $('#correoCarousel').bind('slid.bs.carousel', function(e) {
                          console.log(e.to);
-                         var objeto = {
-                             sender: ArregloCorreo[e.to].sender,
-                             subject: ArregloCorreo[e.to].subject,
-                             senderAt: ArregloCorreo[e.to].sendAt,
-                             message: ArregloCorreo[e.to].message
-                         }
+                               if (ArregloCorreo[0].sender !== undefined) {
+                                        var objeto = {
+                                             sender: ArregloCorreo[0].sender,
+                                             subject: ArregloCorreo[0].subject,
+                                             senderAt: ArregloCorreo[0].sendAt,
+                                             message: ArregloCorreo[0].message
+                                         }                                         
 
-                         SaveEmailInformation(UsuarioID, objeto);
+                                     }else{
+                                            var objeto = {
+                                             sender: '',
+                                             subject: ArregloCorreo[0].subject,
+                                             senderAt: ArregloCorreo[0].sendAt,
+                                             message: ArregloCorreo[0].message
+                                         }
+
+                                     }
+                               SaveEmailInformation(UsuarioID, objeto);
                      });
                      GetWeather();
                      if(booleanShowMirror){
@@ -1458,7 +1501,7 @@
 
 
 
-         var booleanObtenerAccionMusica=true;
+          var booleanObtenerAccionMusica=true;
          function ObtenerAccionMusica() {
 
              var enviar = JSON.stringify({ "mirrorId": 1, "userId": UsuarioID });
@@ -1509,28 +1552,37 @@
                             }
                             
                             break;
-                        case 'adelantar':
-                            // var inform = new BindClass('templateSix');
-                            // inform.set('NowPlayingImage',imagen[0] );
-
+                       case 'adelantar':
                             var audio = $('#audio');
                             console.log(audio);
                             audio[0].pause();
                             localStorage.current=indice+1;    
                             var indice2 = localStorage.current;
-                            audio[0].src = playlist[Number(localStorage.current)];
-                            audio[0].load();
-                            var inform = new BindClass('templateSix');
-                            inform.set('NowPlayingImage',imagen[indice2] );
-                            inform.set('asideBlock17Content2',artist[indice2] );
-                            inform.set('asideBlock17Content3',album[indice2] );
-                            inform.set('asideBlock18Content1',songName[indice2] );
-                            audio[0].play();
-                            // var promise = audio[0].stop();
-                            // if (promise) {
-                            //     //Older browsers may not return a promise, according to the MDN website
-                            //     promise.catch(function(error) { console.error(error); });
-                            // }
+
+                            if(indice2 == 5){
+                                indice2=0;
+                                localStorage.current=0;
+                                audio[0].src = playlist[Number(localStorage.current)];
+                                audio[0].load();
+                                var inform = new BindClass('templateSix');
+                                inform.set('NowPlayingImage',imagen[indice2] );
+                                inform.set('asideBlock17Content2',artist[indice2] );
+                                inform.set('asideBlock17Content3',album[indice2] );
+                                inform.set('asideBlock18Content1',songName[indice2] );
+                                audio[0].play();
+                            } else{
+                                audio[0].src = playlist[Number(localStorage.current)];
+                                audio[0].load();
+                                var inform = new BindClass('templateSix');
+                                inform.set('NowPlayingImage',imagen[indice2] );
+                                inform.set('asideBlock17Content2',artist[indice2] );
+                                inform.set('asideBlock17Content3',album[indice2] );
+                                inform.set('asideBlock18Content1',songName[indice2] );
+                                audio[0].play();
+                            }
+
+                          
+                            
                             break;  
                         case 'retroceder':
                             // var inform = new BindClass('templateSix');
@@ -1540,14 +1592,30 @@
                             audio[0].pause();
                             localStorage.current=indice-1;    
                             var indice2 = localStorage.current;
-                            audio[0].src = playlist[Number(localStorage.current)];
-                            audio[0].load();
-                            var inform = new BindClass('templateSix');
-                            inform.set('NowPlayingImage',imagen[indice2] );
-                            inform.set('asideBlock17Content2',artist[indice2] );
-                            inform.set('asideBlock17Content3',album[indice2] );
-                            inform.set('asideBlock18Content1',songName[indice2] );
-                            audio[0].play();
+
+                              if(indice2 == -1){
+                                indice2=4;
+                                localStorage.current=4;
+                                audio[0].src = playlist[Number(localStorage.current)];
+                                audio[0].load();
+                                var inform = new BindClass('templateSix');
+                                inform.set('NowPlayingImage',imagen[indice2] );
+                                inform.set('asideBlock17Content2',artist[indice2] );
+                                inform.set('asideBlock17Content3',album[indice2] );
+                                inform.set('asideBlock18Content1',songName[indice2] );
+                                audio[0].play();
+                            } else{
+                                audio[0].src = playlist[Number(localStorage.current)];
+                                audio[0].load();
+                                var inform = new BindClass('templateSix');
+                                inform.set('NowPlayingImage',imagen[indice2] );
+                                inform.set('asideBlock17Content2',artist[indice2] );
+                                inform.set('asideBlock17Content3',album[indice2] );
+                                inform.set('asideBlock18Content1',songName[indice2] );
+                                audio[0].play();
+                            }
+
+                   
                             // var promise = audio[0].stop();
                             // if (promise) {
                             //     //Older browsers may not return a promise, according to the MDN website
@@ -1630,14 +1698,29 @@
                             audio[0].pause();
                             localStorage.current=indice+1;    
                             var indice2 = localStorage.current;
-                            audio[0].src = playlist[Number(localStorage.current)];
-                            audio[0].load();
-                            var inform = new BindClass('templateSix');
-                            inform.set('NowPlayingImage',imagen[indice2] );
-                            inform.set('asideBlock17Content2',artist[indice2] );
-                            inform.set('asideBlock17Content3',album[indice2] );
-                            inform.set('asideBlock18Content1',songName[indice2] );
-                            audio[0].play();
+                            
+                            if(indice2 == 5){
+                                indice2=0;
+                                localStorage.current=0;
+                                audio[0].src = playlist[Number(localStorage.current)];
+                                audio[0].load();
+                                var inform = new BindClass('templateSix');
+                                inform.set('NowPlayingImage',imagen[indice2] );
+                                inform.set('asideBlock17Content2',artist[indice2] );
+                                inform.set('asideBlock17Content3',album[indice2] );
+                                inform.set('asideBlock18Content1',songName[indice2] );
+                                audio[0].play();
+                            } else{
+                                audio[0].src = playlist[Number(localStorage.current)];
+                                audio[0].load();
+                                var inform = new BindClass('templateSix');
+                                inform.set('NowPlayingImage',imagen[indice2] );
+                                inform.set('asideBlock17Content2',artist[indice2] );
+                                inform.set('asideBlock17Content3',album[indice2] );
+                                inform.set('asideBlock18Content1',songName[indice2] );
+                                audio[0].play();
+                            }
+
                             // var promise = audio[0].stop();
                             // if (promise) {
                             //     //Older browsers may not return a promise, according to the MDN website
@@ -1654,14 +1737,29 @@
                             audio[0].pause();
                             localStorage.current=indice-1;    
                             var indice2 = localStorage.current;
-                            audio[0].src = playlist[Number(localStorage.current)];
-                            audio[0].load();
-                            var inform = new BindClass('templateSix');
-                            inform.set('NowPlayingImage',imagen[indice2] );
-                            inform.set('asideBlock17Content2',artist[indice2] );
-                            inform.set('asideBlock17Content3',album[indice2] );
-                            inform.set('asideBlock18Content1',songName[indice2] );
-                            audio[0].play();
+                            
+                              if(indice2 == -1){
+                                indice2=4;
+                                localStorage.current=4;
+                                audio[0].src = playlist[Number(localStorage.current)];
+                                audio[0].load();
+                                var inform = new BindClass('templateSix');
+                                inform.set('NowPlayingImage',imagen[indice2] );
+                                inform.set('asideBlock17Content2',artist[indice2] );
+                                inform.set('asideBlock17Content3',album[indice2] );
+                                inform.set('asideBlock18Content1',songName[indice2] );
+                                audio[0].play();
+                            } else{
+                                audio[0].src = playlist[Number(localStorage.current)];
+                                audio[0].load();
+                                var inform = new BindClass('templateSix');
+                                inform.set('NowPlayingImage',imagen[indice2] );
+                                inform.set('asideBlock17Content2',artist[indice2] );
+                                inform.set('asideBlock17Content3',album[indice2] );
+                                inform.set('asideBlock18Content1',songName[indice2] );
+                                audio[0].play();
+                            }
+
                             // var promise = audio[0].stop();
                             // if (promise) {
                             //     //Older browsers may not return a promise, according to the MDN website
