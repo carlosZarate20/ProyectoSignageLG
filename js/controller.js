@@ -61,8 +61,8 @@
 
 
          var MirrorId=1;
-         //var proxyurl = "https://cors-anywhere.herokuapp.com/";
-         var proxyurl = "";
+         var proxyurl = "https://cors-anywhere.herokuapp.com/";
+         // var proxyurl = "";
          var urlpost = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetGadgetStatusSmart';
 
          var urlpost2 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetUser';
@@ -180,6 +180,7 @@
                      UsuarioID = usuario.id;
 
                      if (usuario.status === false) {
+                        booleanUserServer=true;
                         console.log("user");
                         $("#Agenda4").hide();
                         $("#Agenda3").hide();
@@ -216,8 +217,16 @@
 
                      if(UsuarioID === undefined){
                             // booleanUserServer2 = false;
+
+                            console.log("ME DESLOGEE PERRO");
                             window.setInterval(ObtenerAccionMusica2, 1000);
                             window.setInterval(obtenerHotelServices2, 1000);
+                            window.clearInterval(obtenerEstadodefinitivo);
+                            window.clearInterval(obtenerOrderfinitivo);
+                            window.clearInterval(obtenerHotelServices);
+                            window.clearInterval(ObtenerAccionMusica);
+                            window.clearInterval(obtenerDiaries);
+                            window.clearInterval(obtenerEmailInformationDefinitivo);
                             serviciosHotel();
                             if(booleanShowMirror){
                             $('#MostrarMirror').show();
@@ -229,7 +238,11 @@
                      //UpdateBooleans(UsuarioID);
                                 
                         }else{
+                            otroBoolean=true;
+                            otroError=true;
+                            booleanError=true;
                             booleanUserServer = false;
+                            console.log(otroBoolean,otroError,booleanError);
                             $("#Agenda4").show();
 
                             $("#Agenda").show();
@@ -1165,7 +1178,7 @@
          function obtenerHotelServices2() {
 
              var enviar = JSON.stringify({ "mirrorId": 1 });
-             console.log("Enviar user: ", enviar);
+             
              eventoPost(urlpost14, enviar, function(data) {
                  // OBTENGO LA LISTA DE BOOLEANOS
                  var arreglo = JSON.parse(data);
