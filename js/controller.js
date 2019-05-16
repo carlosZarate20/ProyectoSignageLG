@@ -297,11 +297,11 @@
                      if (usuario.status === false) {
                         booleanUserServer=true;
                         console.log("user");
-                        $("#Agenda4").hide();
-                        $("#Agenda3").hide();
+                        $("#Cuadro3Modificar").hide();
+                        $("#Cuadro4").hide();
                         $("#Agenda").hide();
                         $("#Correo").hide();
-                        $("#Correo1").hide();
+                        
 
                         if(otroError == false){
                             console.log("Ingreso error");
@@ -346,9 +346,6 @@
 
                      if(UsuarioID === undefined){
                             // booleanUserServer2 = false;
-
-                            console.log("ME DESLOGEE PERRO");
-                  
                             serviciosHotel();
                             if(booleanShowMirror){
                             $('#MostrarMirror').show();
@@ -361,17 +358,11 @@
                             otroError=true;
                             booleanError=true;
                             booleanUserServer = false;
-                            console.log(otroBoolean,otroError,booleanError);
-                            $("#Agenda4").show();
-
+                            $("#Cuadro3Modificar").show();
+                            $("#Cuadro4").show();
                             $("#Agenda").show();
                             $("#Correo").show();
-                            $("#Correo1").show();
 
-                            // if(UsuarioID === undefined || UsuarioID === null){
-                            //     return false;
-                            //  }
-                    
 
                              RefreshToken = usuario.refreshtoken;
                              serviciosHotel();
@@ -397,8 +388,6 @@
                              if (ArregloCorreo.length == 5) {
                                  for (var j = 0; j < ArregloCorreo.length; j++) {
                                     
-
-
                                      var timeItem = new Date(ArregloCorreo[j].sendAt);
                                      var correoTime = ArregloCorreo[j].sendAt;
 
@@ -742,15 +731,19 @@
                      var horabooelan = arreglo[2].isActive;
                      if (horabooelan == true) {
                          document.getElementById('Agenda').style.display = 'block';
+                         document.getElementById('Cuadro3Modificar').style.display = 'block';
                      } else {
                          document.getElementById('Agenda').style.display = 'none';
+                         document.getElementById('Cuadro3Modificar').style.display = 'none';
                      }
 
                      var noticiabooelan = arreglo[3].isActive;
                      if (noticiabooelan == true) {
                          document.getElementById('Correo').style.display = 'block';
+                         document.getElementById('Cuadro4').style.display = 'block';
                      } else {
                          document.getElementById('Correo').style.display = 'none';
+                         document.getElementById('Cuadro4').style.display = 'none';
                      }
 
                      var agendabooelan = arreglo[4].isActive;
@@ -764,22 +757,28 @@
                      var correobooelan = arreglo[5].isActive;
                      if (correobooelan == true) {
                          document.getElementById('HotelServiceContenedor').style.display = 'block';
+                         document.getElementById('Cuadro6Modificar').style.display = 'block';
                      } else {
                          document.getElementById('HotelServiceContenedor').style.display = 'none';
+                         document.getElementById('Cuadro6Modificar').style.display = 'none';
                      }
 
                      var musicaboolean = arreglo[6].isActive;
                      if (musicaboolean == true) {
                          document.getElementById('Musica').style.display = 'block';
+                         document.getElementById('Cuadro7Modificar').style.display = 'block';
                      } else {
                          document.getElementById('Musica').style.display = 'none';
+                         document.getElementById('Cuadro7Modificar').style.display = 'none';
                      }
 
                      var serviciosboolean = arreglo[7].isActive;
                      if (serviciosboolean == true) {
                          document.getElementById('NoticiasContenedor').style.display = 'block';
+                         document.getElementById('Cuadro8').style.display = 'block';
                      } else {
                          document.getElementById('NoticiasContenedor').style.display = 'none';
+                         document.getElementById('Cuadro8').style.display = 'none';
                      }
                  }
             
@@ -2218,9 +2217,9 @@
                      }
 
 
-                     /*getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
+                     getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
                      getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
-                      */
+                      
                      $("#tablaClima").html(html);
 
                      changeiconTitle(data.currently.icon, Math.round(data.currently.temperature));
@@ -2483,9 +2482,9 @@ function run(link, player,imagen, artist,album, songName) {
                      }
 
 
-                     /*getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
+                     getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
                      getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
-                    */
+                    
                      $("#tablaClima").html(html);
 
                      changeiconTitle(data.currently.icon, Math.round(data.currently.temperature));
