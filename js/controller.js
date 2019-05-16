@@ -396,12 +396,8 @@
                              //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
                              if (ArregloCorreo.length == 5) {
                                  for (var j = 0; j < ArregloCorreo.length; j++) {
-                                     var temp = "";
-                                     if (ArregloCorreo[j].subject.length <= 45) {
-                                         temp = ArregloCorreo[j].subject;
-                                     } else {
-                                         temp = ArregloCorreo[j].subject.substring(0, 44) + "...";
-                                     }
+                                    
+
 
                                      var timeItem = new Date(ArregloCorreo[j].sendAt);
                                      var correoTime = ArregloCorreo[j].sendAt;
@@ -411,7 +407,7 @@
                                      var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
                                      var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
                                      //var string = '<div id="email' + j.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
-                                     var string = '<div id="email' + j.toString() +'" class="carousel-item"> <label class="carrouselAsunto" style="color: white;font-family: b-medium;font-size: 20px;line-height: 26px;"> '+temp+' </label> <div style="position: relative;display: inline-block;width: 100%;"> <div style="display: inline;"> <div class="carrouselFrom" style="overflow: hidden;width: 65%;max-height: 56px;text-overflow: ellipsis;float: left;">' + ArregloCorreo[j].sender + '</div></div><div style="display: inline-block;width: 35%;float: right;"> <label class="carrouselDate">' + fecha_formateada + '</label> </div> </div> <div> <label class="carrouselDesc">' + ArregloCorreo[j].message + '</label> </div> </div>';
+                                     var string = '<div id="email' + j.toString() +'" class="carousel-item"> <label style="color: white;font-family: b-medium;font-size: 20px;line-height: 26px;overflow: hidden;width: 100%;max-height: 50px;text-overflow: ellipsis;/* float: left; */text-align: justify;"> '+ArregloCorreo[j].subject+' </label> <div style="position: relative;display: inline-block;width: 100%;"> <div style="display: inline; "> <div class="carrouselFrom" style="overflow: hidden;width: 65%; max-height: 50px;;text-overflow: ellipsis;float: left;">' + ArregloCorreo[j].sender + '</div></div><div style="display: inline-block;float: right;"> <label class="carrouselDate">' + fecha_formateada + '</label> </div> </div> <div> <label class="carrouselDesc">' + ArregloCorreo[j].message + '</label> </div> </div>';
                                      $("#elements").append(string);
                                      $("#elements .carousel-item").first().addClass('active');
                                  }
@@ -428,9 +424,9 @@
                                      }else{
                                             var objeto = {
                                              sender: '',
-                                             subject: ArregloCorreo[0].subject,
-                                             senderAt: ArregloCorreo[0].sendAt,
-                                             message: ArregloCorreo[0].message
+                                             subject: '',
+                                             senderAt: '',
+                                             message: ''
                                          }
 
                                      }
@@ -453,9 +449,9 @@
                                      }else{
                                             var objeto = {
                                              sender: '',
-                                             subject: ArregloCorreo[0].subject,
-                                             senderAt: ArregloCorreo[0].sendAt,
-                                             message: ArregloCorreo[0].message
+                                             subject: '',
+                                             senderAt: '',
+                                             message: ''
                                          }
 
                                      }
@@ -722,7 +718,7 @@
                 headers: { 'Content-Type': "application/json" },
                 success: function(arreglo){
                     booleanEstadoDefinito = true;
-                 console.log("statusCode", arreglo);
+                 // console.log("statusCode", arreglo);
                  if (arreglo.status) {
 
                  } else {
@@ -1083,7 +1079,7 @@
                          var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
 
                          //var string = '<div id="email' + k.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[k].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc">' + ArregloCorreo[k].message + '</label></div>';
-                         var string = '<div id="email' + k.toString() +'" class="carousel-item"> <label class="carrouselAsunto" style="color: white;font-family: b-medium;font-size: 20px;line-height: 26px;"> '+ArregloCorreo[k].subject+' </label> <div style="position: relative;display: inline-block;width: 100%;"> <div style="display: inline; "> <div class="carrouselFrom" style="overflow: hidden;width: 65%; max-height: 50px;;text-overflow: ellipsis;float: left;">' + ArregloCorreo[k].sender + '</div></div><div style="display: inline-block;float: right;"> <label class="carrouselDate">' + fecha_formateada + '</label> </div> </div> <div> <label class="carrouselDesc">' + ArregloCorreo[k].message + '</label> </div> </div>';
+                         var string = '<div id="email' + k.toString() +'" class="carousel-item"> <label style="color: white;font-family: b-medium;font-size: 20px;line-height: 26px;overflow: hidden;width: 100%;max-height: 50px;text-overflow: ellipsis;/* float: left; */text-align: justify;"> '+ArregloCorreo[k].subject+' </label> <div style="position: relative;display: inline-block;width: 100%;"> <div style="display: inline; "> <div class="carrouselFrom" style="overflow: hidden;width: 65%; max-height: 50px;;text-overflow: ellipsis;float: left;">' + ArregloCorreo[k].sender + '</div></div><div style="display: inline-block;float: right;"> <label class="carrouselDate">' + fecha_formateada + '</label> </div> </div> <div> <label class="carrouselDesc">' + ArregloCorreo[k].message + '</label> </div> </div>';
                          $("#elements").append(string);
                          $("#elements .carousel-item").first().addClass('active');
 
@@ -1100,17 +1096,17 @@
                                      }else{
                                             var objeto = {
                                              sender: '',
-                                             subject: ArregloCorreo[0].subject,
-                                             senderAt: ArregloCorreo[0].sendAt,
-                                             message: ArregloCorreo[0].message
+                                             subject: '',
+                                             senderAt: '',
+                                             message: ''
                                          }
 
                                      }
                         SaveEmailInformation(UsuarioID, objeto);
 
-                     $('#correoCarousel').carousel({ interval: 0 });
+                     $('#correoCarousel').carousel({ interval: 6000 });
                      $('#carouselNews').carousel({ interval: 6000 });
-
+    
                      $('#tablaClima').html('');
                      $('#correoCarousel').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
                      $('#correoCarousel').bind('slid.bs.carousel', function(e) {
@@ -1126,9 +1122,9 @@
                                      }else{
                                             var objeto = {
                                              sender: '',
-                                             subject: ArregloCorreo[0].subject,
-                                             senderAt: ArregloCorreo[0].sendAt,
-                                             message: ArregloCorreo[0].message
+                                             subject: '',
+                                             senderAt: '',
+                                             message: ''
                                          }
 
                                      }
@@ -1307,9 +1303,12 @@
                              }
                          }
                      }
-                     if (nuevotamanio != TamanioInicial) {
+                     if ((nuevotamanio != TamanioInicial) || (nuevotamanio == 1) ) {
+                        console.log('tamaño inicial :'+TamanioInicial.toString());
+                        console.log('tamaño inicial :'+nuevotamanio.toString());
                          booelanAgenda = true;
                      }
+
 
                      if (booelanAgenda) {
                          booelanAgenda = false;
@@ -1374,7 +1373,7 @@
 
                  if (arreglo.respuesta == 1) {
                      $('#Agenda2').show();
-                     $('#Cuadro3').show();
+                     $('#C3').show();
                      // $('#Agenda4').hide();
                      var objeto1 = agendaData[arreglo.order];
                      var objetoenviar = {
@@ -1386,13 +1385,14 @@
                      console.log("SE GUARDO");
                      SaveDiaryInformation(UsuarioID, objetoenviar)
                      ontenerParametroAgenda(arreglo.order);
+                     $('#Cuadro3Modificar').html('<label style="display:block;color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Cerrar Agenda"</label><label style="color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Leer Agenda"</label>');   
 
                  } else if (arreglo.respuesta == 2) {
                      $('#Agenda2').hide();
                      $('#Agenda3').hide();
                      $('#Agenda4').show();
                      $('#Agenda').show();
-
+                     $('#Cuadro3Modificar').html('<label style="display:block;color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Ver Agenda"</label>')  
 
                  } else {
 
@@ -1434,12 +1434,14 @@
                      $('#Servicio2').show();
                      $('#Servicio1').hide();
                      ontenerParametroHotel(arreglo.order);
+                     $('#Cuadro6Modificar').html('<label style="color: white; font-family: b-medium; font-size: 17px; display: block;">"Cerrar servicio"</label>');
 
                  } else if (arreglo.respuesta == 2) {
                      $('#HotelService2').hide();
                      $('#HotelService').show();
                      $('#Servicio2').hide();
                      $('#Servicio1').show();
+                     $('#Cuadro6Modificar').html('<label style="color: white; font-family: b-medium; font-size: 17px; display: block;">"Ver detalle del servicio"</label><label style="color: white; font-family: b-medium; font-size: 17px; display: block;">"Reservar servicio"</label>');
 
                  } else {
 
@@ -1477,12 +1479,14 @@
                      $('#Servicio2').show();
                      $('#Servicio1').hide();
                      ontenerParametroHotel(arreglo.order);
+                     $('#Cuadro6Modificar').html('<label style="color: white; font-family: b-medium; font-size: 17px; display: block;">"Cerrar servicio"</label>');
 
                  } else if (arreglo.respuesta == 2) {
                      $('#HotelService2').hide();
                      $('#HotelService').show();
                     $('#Servicio2').hide();
                      $('#Servicio1').show();
+                     $('#Cuadro6Modificar').html('<label style="color: white; font-family: b-medium; font-size: 17px; display: block;">"Ver detalle del servicio"</label><label style="color: white; font-family: b-medium; font-size: 17px; display: block;">"Reservar servicio"</label>');
 
                  } else {
 
@@ -1525,6 +1529,7 @@
                     var indice= Number(localStorage.current);
                     switch (stringrespuesta){
                         case 'reproducir':
+                        $('#Cuadro7Modificar').html('<label style="display:block;color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Reproducir música"</label><label style="color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Pausar música"</label><label style="color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Adelantar música"</label><label style="color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Retroceder música"</label>');
                             var inform = new BindClass('templateSix');
                             inform.set('NowPlayingImage',imagen[indice] );
                             inform.set('asideBlock17Content2',artist[indice] );
@@ -1661,6 +1666,7 @@
                     var indice= Number(localStorage.current);
                     switch (stringrespuesta){
                         case 'reproducir':
+                            $('#Cuadro7Modificar').html('<label style="display:block;color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Reproducir música"</label><label style="color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Pausar música"</label><label style="color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Adelantar música"</label><label style="color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Retroceder música"</label>');
                             var inform = new BindClass('templateSix');
                             inform.set('NowPlayingImage',imagen[indice] );
                             inform.set('asideBlock17Content2',artist[indice] );
@@ -2044,22 +2050,18 @@
                          var title = noti.title;
                          var foto = noti.enclosure.link;
                          var desc = noti.description;
-                         var noticiaid=noti.guid;
-                         console.log("NOTICIA ID",noticiaid)
-                         if (title.length <= 67) {
-                             temp = title;
-                         } else {
-                             temp = noti.title.substring(0, 60) + "...";
-                             efect = "";
-                             // effect prueba
-                         }
+                         var noticiaid=noti.guid;                         
+                         var htmlCreated = desc;
+                         var div = document.createElement("div");
+                        div.innerHTML = htmlCreated;
+                        desc = div.textContent || div.innerText || "";
 
                          if (i == 0) {
                              //full = full + '<div class="carousel-item active"> <img src="'+ foto +'" style="height: 250px; width:220px; float:left;" /> <label style ="color: white;display:table;font-size: 20px;margin-left: 234px;margin-top:-6px;font-family: &quot;b-medium&quot;height: 87px; word-wrap:break-word;"> ' + title +' </label> <label style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 234px;margin-top:-7px; height: 100px;">'+ desc+' </label> </div>';
-                             full = full + '<div class="carousel-item active"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div id="'+noticiaid+'" style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;float:left; text-align : justify;">' + desc + '</div></div>';
+                             full = full + '<div class="carousel-item active"><div style="position: relative;"><div style="display: inline-block;width: 189px;height: 178px;float: left;"><img src="' + foto + '" style="text-align:justify;height: 100%;width: 100%;"></div><div style="display: table;max-width: -114px; width: 56%;"><div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right;display: inline-block;/* margin-left: 203px; *//* margin-top: -153px; *//* white-space: normal; *//* text-align : justify; */line-height: 26px;height: 80px;overflow: hidden;">'+title+'</div><div id="'+noticiaid+'" style="text-align:justify;color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;/* margin-left: 203px; *//* margin-top: -55px; *//* height: 63px; */float: right;height: 95px;">' + desc + '</div></div></div></div>';
                          } else {
                              //full = full + '<div class="carousel-item"> <img src="'+ foto +'" style="height: 250px; width:220px; float:left;" /> <label style ="color: white;display:table;font-size: 20px;margin-left: 234px;margin-top:-6px;font-family: &quot;b-medium&quot; height: 87px; word-wrap:break-word;"> ' + title +' </label> <label style = "display:block; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 234px;margin-top:-7px; height: 100px; word-wrap:break-word;">'+ desc+' </label> </div>';
-                             full = full + '<div class="carousel-item"> <div style="display: inline;"><img src="' + foto + '" style="height: 150px; width: 200px;" /></div>  <div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right; display: inline;margin-left: 203px;margin-top: -153px; white-space: normal; text-align : justify;"> <p  class=' + efect + '>' + temp + ' </p></div>       <div id="'+noticiaid+'" style="color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;margin-left: 203px;margin-top: -55px;height: 63px;float:left; text-align : justify;">' + desc + '</div></div>';
+                             full = full + '<div class="carousel-item"><div style="position: relative;"><div style="display: inline-block;width: 189px;height: 178px;float: left;"><img src="' + foto + '" style="text-align:justify;height: 100%;width: 100%;"></div><div style="display: table;max-width: -114px; width: 56%;"><div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right;display: inline-block;/* margin-left: 203px; *//* margin-top: -153px; *//* white-space: normal; *//* text-align : justify; */line-height: 26px;height: 80px;overflow: hidden;">'+title+'</div><div id="'+noticiaid+'" style="text-align:justify;color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;/* margin-left: 203px; *//* margin-top: -55px; *//* height: 63px; */float: right;height: 95px;">' + desc + '</div></div></div></div>';
 
                          }
 
