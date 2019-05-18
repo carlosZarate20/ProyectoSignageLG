@@ -803,27 +803,81 @@
 
          function actualizarOrder(){
 
-                    
-                    document.getElementById('Clima').style.display = 'block';
-                     document.getElementById('Hora').style.display = 'block';
-                     document.getElementById('Agenda').style.display = 'block';
-                     document.getElementById('Correo').style.display = 'block';
-                     document.getElementById('Bolsa').style.display = 'block';
-                     document.getElementById('HotelServiceContenedor').style.display = 'block';
-                     document.getElementById('Musica').style.display = 'block';
-                     document.getElementById('NoticiasContenedor').style.display = 'block';
+                     var correoVisible=$('#element').css('display') == 'none';
+                    var climaVisible=$('#element').css('display') == 'none';
+                    var horaVisible=$('#element').css('display') == 'none';
+                    var agendaVisible=$('#element').css('display') == 'none';
+                    var bolsaVisible=$('#element').css('display') == 'none';
+                    var hotelserveVisible=$('#element').css('display') == 'none';
+                    var musicaVisible=$('#element').css('display') == 'none';
+                    var noticiasVisible=$('#element').css('display') == 'none';
 
+                    if (correoVisible) {
+                        document.getElementById('Correo').style.display = 'block';
+                    } 
+                    if (climaVisible) {
+                        document.getElementById('Clima').style.display = 'block';
+                    } 
+                    if (horaVisible) {
+                        document.getElementById('Hora').style.display = 'block';
+                    } 
+                    if (agendaVisible){
+                        document.getElementById('Agenda').style.display = 'block';
+                    }
+                    if (bolsaVisible){
+                        document.getElementById('Bolsa').style.display = 'block';
+                    } 
+                    if (hotelserveVisible){
+                        document.getElementById('HotelServiceContenedor').style.display = 'block';
+                    } 
+                     if (musicaVisible){
+                        document.getElementById('Musica').style.display = 'block';
+                    } 
+                    if (noticiasVisible){
+                        document.getElementById('NoticiasContenedor').style.display = 'block';
+                    }     
                      
-                        $('#Cuadro1').show();
-                        $('#Cuadro2').show();
-                        $('#Cuadro3').show();
-                        $('#Cuadro4').show();
-                        $('#Cuadro5').show();
-                        $('#Cuadro6').show();
-                        $('#Cuadro7').show();
-                        $('#Cuadro8').show();
+                    var cuadro1Visible=$('#element').css('display') == 'none';
+                    var cuadro2Visible=$('#element').css('display') == 'none';
+                    var cuadro3Visible=$('#element').css('display') == 'none';
+                    var cuadro4Visible=$('#element').css('display') == 'none';
+                    var cuadro5Visible=$('#element').css('display') == 'none';
+                    var cuadro6Visible=$('#element').css('display') == 'none';
+                    var cuadro7Visible=$('#element').css('display') == 'none';
+                    var cuadro8Visible=$('#element').css('display') == 'none';                     
+                     
                       
-                    
+                    if (cuadro1Visible) {
+                        $('#Cuadro1').show();
+                    } 
+                       
+                    if (cuadro2Visible) {
+                        $('#Cuadro2').show();
+                    }
+
+                    if (cuadro3Visible) {
+                        $('#Cuadro3').show();
+                    }
+
+                    if (cuadro4Visible) {
+                        $('#Cuadro4').show();
+                    }
+
+                    if (cuadro5Visible) {
+                        $('#Cuadro5').show();
+                    }
+
+                    if (cuadro6Visible) {
+                        $('#Cuadro6').show();
+                    }
+
+                    if (cuadro7Visible) {
+                        $('#Cuadro7').show();
+                    }    
+
+                    if (cuadro8Visible) {
+                        $('#Cuadro8').show();
+                    }
 
                     var bolsahtml = undefined;
                     var climahtml = undefined;
