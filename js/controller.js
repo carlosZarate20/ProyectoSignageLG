@@ -623,7 +623,7 @@
                          hours *= -1;
                          if (dayJson.getHours() >= 12) {
                              variable = "Mañana " + variableTimer;
-                         } else if (d.getHours() <= 12) {
+                         } else if (dayJson.getHours() <= 12) {
                              variable = "Mañana " + variableTimer;
                          }
                      }
