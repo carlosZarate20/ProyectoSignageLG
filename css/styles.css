@@ -577,11 +577,6 @@
     height: 62px;
     width: 86px;
 }
-.Hora{
-    margin-top: -55px;    
-}
-
-
 .weatherMinTable {
     margin-left:-10px;    
     float: left;
@@ -676,20 +671,15 @@
 .clock {
     
     font-family: "b-bold-condensed";
-    font-size : 115px;
+    font-size : 110px;
     color: #FFFFFF;    
-    text-align: right; 
-    padding-top: 35px;  
 
 }
 
 .clockdate {   
     font-family: "b-light";
     font-size : 39px;
-    color: #FFFFFF; 
-    margin-top: -32px;   
-    margin-left: 1px;
-    text-align: right;
+    color: #FFFFFF;    
 }
 
 .Panel2Title {
