@@ -427,13 +427,13 @@
 
                                  $('#correoCarousel').on('slid.bs.carousel', function(e) {  });
                                  $('#correoCarousel').bind('slid.bs.carousel', function(e) {
-                                     
-                                    if (ArregloCorreo[0].sender !== undefined) {
+                                     console.log("e", e);
+                                    if (ArregloCorreo[e.to].sender !== undefined) {
                                         var objeto = {
-                                             sender: ArregloCorreo[0].sender,
-                                             subject: ArregloCorreo[0].subject,
-                                             senderAt: ArregloCorreo[0].sendAt,
-                                             message: ArregloCorreo[0].message
+                                             sender: ArregloCorreo[e.to].sender,
+                                             subject: ArregloCorreo[e.to].subject,
+                                             senderAt: ArregloCorreo[e.to].sendAt,
+                                             message: ArregloCorreo[e.to].message
                                          }                                         
 
                                      }else{
@@ -445,6 +445,8 @@
                                          }
 
                                      }
+                                     console.log("Lista", ArregloCorreo[e.to].sender);
+                                     console.log(objeto);
                                      SaveEmailInformation(UsuarioID, objeto);
                                  });
                              }
@@ -1165,12 +1167,12 @@
                      $('#correoCarousel').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
                      $('#correoCarousel').bind('slid.bs.carousel', function(e) {
                          console.log(e.to);
-                               if (ArregloCorreo[0].sender !== undefined) {
+                               if (ArregloCorreo[e.to].sender !== undefined) {
                                         var objeto = {
-                                             sender: ArregloCorreo[0].sender,
-                                             subject: ArregloCorreo[0].subject,
-                                             senderAt: ArregloCorreo[0].sendAt,
-                                             message: ArregloCorreo[0].message
+                                             sender: ArregloCorreo[e.to].sender,
+                                             subject: ArregloCorreo[e.to].subject,
+                                             senderAt: ArregloCorreo[e.to].sendAt,
+                                             message: ArregloCorreo[e.to].message
                                          }                                         
 
                                      }else{
@@ -1290,7 +1292,8 @@
                 url: urlpost18,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
-                success: function(data){                
+                success: function(data){   
+                console.log("Noticia", data);             
                        var arreglo = data;
                  if (arreglo.status == 1) {
                      $('#carouselNews').carousel('pause');
