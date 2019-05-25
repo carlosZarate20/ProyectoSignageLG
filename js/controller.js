@@ -2111,7 +2111,7 @@
          function noti() {
              $.ajax({
                      method: "GET",
-                     url: "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frpp.pe%2Ffeed%2Fperu%2Flima&api_key=pv54wn7elprq9yglfriyjj0efvh5sdtrrhmsjyjf",
+                     url: "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Flarepublica.pe%2Frss%2Ffeed",
                      crossDomain: true,
                      dataType: 'jsonp',
 
