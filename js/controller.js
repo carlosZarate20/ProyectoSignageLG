@@ -1186,6 +1186,17 @@
                                      }
                                SaveEmailInformation(UsuarioID, objeto);
                      });
+
+                    $('#carouselNews').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
+                        $('#carouselNews').bind('slid.bs.carousel', function(e) {
+                            console.log("SLIDING NOTICIAS");
+                            let description=$('#'+noticias[e.to].guid).text();
+                            let tittle=noticias[e.to].title;     
+
+                            SaveNewsInfo(description,tittle,UsuarioID);
+                            SaveNewsInfoNoUser(description,tittle,MirrorId);
+                    });
+
                      GetWeather();
                      if(booleanShowMirror){
                         $('#MostrarMirror').show();
