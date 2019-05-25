@@ -194,8 +194,8 @@
    
          }
          var booleanSaveNewsInfo=true;
-            function SaveNewsInfo(description,tittle,idesito) {
-             var enviar2 = JSON.stringify({ "userId": idesito, "description": description,"tittle":tittle });
+            function SaveNewsInfo(description,tittle,idesito,index) {
+             var enviar2 = JSON.stringify({ "userId": idesito, "description": description,"tittle":tittle,"index":index });
             if(UsuarioID === undefined || UsuarioID === null){
                 return false;
              }
@@ -221,8 +221,8 @@
          }
 
          var booleanSaveNewsInfoNoUser=true;
-           function SaveNewsInfoNoUser(description,tittle,idesito) {
-             var enviar2 = JSON.stringify({ "mirrorId": idesito, "description": description,"tittle":tittle });
+           function SaveNewsInfoNoUser(description,tittle,idesito,index) {
+             var enviar2 = JSON.stringify({ "mirrorId": idesito, "description": description,"tittle":tittle,"index":index });
 
 
             if(booleanSaveNewsInfoNoUser){
@@ -408,7 +408,8 @@
                                              sender: ArregloCorreo[0].sender,
                                              subject: ArregloCorreo[0].subject,
                                              senderAt: ArregloCorreo[0].sendAt,
-                                             message: ArregloCorreo[0].message
+                                             message: ArregloCorreo[0].message,
+                                             index:0
                                          }                                         
 
                                      }else{
@@ -416,7 +417,8 @@
                                              sender: '',
                                              subject: '',
                                              senderAt: '',
-                                             message: ''
+                                             message: '',
+                                             index:0
                                          }
 
                                      }
@@ -433,7 +435,8 @@
                                              sender: ArregloCorreo[e.to].sender,
                                              subject: ArregloCorreo[e.to].subject,
                                              senderAt: ArregloCorreo[e.to].sendAt,
-                                             message: ArregloCorreo[e.to].message
+                                             message: ArregloCorreo[e.to].message,
+                                             index:e.to
                                          }                                         
 
                                      }else{
@@ -441,7 +444,8 @@
                                              sender: '',
                                              subject: '',
                                              senderAt: '',
-                                             message: ''
+                                             message: '',
+                                             index:0
                                          }
 
                                      }
@@ -1146,7 +1150,8 @@
                                              sender: ArregloCorreo[0].sender,
                                              subject: ArregloCorreo[0].subject,
                                              senderAt: ArregloCorreo[0].sendAt,
-                                             message: ArregloCorreo[0].message
+                                             message: ArregloCorreo[0].message,
+                                             index:0
                                          }                                         
 
                                      }else{
@@ -1154,7 +1159,8 @@
                                              sender: '',
                                              subject: '',
                                              senderAt: '',
-                                             message: ''
+                                             message: '',
+                                             index:0
                                          }
 
                                      }
@@ -1172,7 +1178,8 @@
                                              sender: ArregloCorreo[e.to].sender,
                                              subject: ArregloCorreo[e.to].subject,
                                              senderAt: ArregloCorreo[e.to].sendAt,
-                                             message: ArregloCorreo[e.to].message
+                                             message: ArregloCorreo[e.to].message,
+                                             index:e.to
                                          }                                         
 
                                      }else{
@@ -1180,7 +1187,8 @@
                                              sender: '',
                                              subject: '',
                                              senderAt: '',
-                                             message: ''
+                                             message: '',
+                                             index:0
                                          }
 
                                      }
@@ -1193,8 +1201,8 @@
                             let description=$('#'+noticias[e.to].guid).text();
                             let tittle=noticias[e.to].title;     
 
-                            SaveNewsInfo(description,tittle,UsuarioID);
-                            SaveNewsInfoNoUser(description,tittle,MirrorId);
+                            SaveNewsInfo(description,tittle,UsuarioID,e.to);
+                            SaveNewsInfoNoUser(description,tittle,MirrorId,e.to);
                     });
 
                      GetWeather();
@@ -1237,6 +1245,7 @@
                 success: function(arreglo){                  
                       var arreglo = arreglo;
                  if (arreglo.status == 1) {
+                    $('#correoCarousel').carousel(arreglo.index);
                      $('#correoCarousel').carousel('pause');
                  } else if (arreglo.status == 2) {
 
@@ -1272,6 +1281,7 @@
                 success: function(data){                
                 var arreglo = data;
                  if (arreglo.status == 1) {
+                    $('#carouselNews').carousel(arreglo.index);
                      $('#carouselNews').carousel('pause');
                  } else if (arreglo.status == 2) {
 
@@ -1307,6 +1317,7 @@
                 console.log("Noticia", data);             
                        var arreglo = data;
                  if (arreglo.status == 1) {
+                        $('#carouselNews').carousel(arreglo.index);
                      $('#carouselNews').carousel('pause');
                  } else if (arreglo.status == 2) {
 
@@ -2141,8 +2152,8 @@
                      $('#carouselNews').carousel({ interval: 6000 });
                      var texto=$('#'+noticias[0].guid).text();
                      console.log('descripcion',texto);
-                     SaveNewsInfo($('#'+noticias[0].guid).text(),noticias[0].title,UsuarioID);
-                     SaveNewsInfoNoUser($('#'+noticias[0].guid).text(),noticias[0].title,MirrorId);
+                     SaveNewsInfo($('#'+noticias[0].guid).text(),noticias[0].title,UsuarioID,0);
+                     SaveNewsInfoNoUser($('#'+noticias[0].guid).text(),noticias[0].title,MirrorId,0);
 
                     $('#carouselNews').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
                         $('#carouselNews').bind('slid.bs.carousel', function(e) {
@@ -2150,8 +2161,8 @@
                             let description=$('#'+noticias[e.to].guid).text();
                             let tittle=noticias[e.to].title;     
 
-                            SaveNewsInfo(description,tittle,UsuarioID);
-                            SaveNewsInfoNoUser(description,tittle,MirrorId);
+                            SaveNewsInfo(description,tittle,UsuarioID,e.to);
+                            SaveNewsInfoNoUser(description,tittle,MirrorId,e.to);
                     });
                  });
 
