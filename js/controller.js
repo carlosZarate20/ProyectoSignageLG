@@ -59,42 +59,42 @@
              return xhr;
          }
 
-
+         var urlConection = 'http://edumoreno27-001-site2.etempurl.com'
          var MirrorId=1;
          var proxyurl = "https://cors-anywhere.herokuapp.com/";
          // var proxyurl = "";
-         var urlpost = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetGadgetStatusSmart';
+         var urlpost = proxyurl +  urlConection + '/GetGadgetStatusSmart';
 
-         var urlpost2 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetUser';
+         var urlpost2 = proxyurl + urlConection + '/GetUser';
 
-         var urlpost3 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetGadgetOrderSmart';
+         var urlpost3 = proxyurl + urlConection + '/GetGadgetOrderSmart';
 
-         var urlpost4 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/UpdateBooleans';
+         var urlpost4 = proxyurl + urlConection + '/UpdateBooleans';
 
-         var urlpost5 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/SaveDiaries';
-         var urlpost6 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetDiaries';
+         var urlpost5 = proxyurl + urlConection + '/SaveDiaries';
+         var urlpost6 = proxyurl + urlConection + '/GetDiaries';
 
-         var urlpost7 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/SaveDiaryInformations';
+         var urlpost7 = proxyurl + urlConection + '/SaveDiaryInformations';
 
-         var urlpost8 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/SaveEmailInformations';
+         var urlpost8 = proxyurl + urlConection + '/SaveEmailInformations';
 
-         var urlpost15 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/SaveNewsInformation';
+         var urlpost15 = proxyurl + urlConection + '/SaveNewsInformation';
 
-         var urlpost16 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/SaveNewsNoUserInformation';
+         var urlpost16 = proxyurl + urlConection + '/SaveNewsNoUserInformation';
 
-         var urlpost9 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetEmailInformations2';
+         var urlpost9 = proxyurl + urlConection + '/GetEmailInformations2';
 
-         var urlpost17 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetNewsInformations2';
+         var urlpost17 = proxyurl + urlConection + '/GetNewsInformations2';
 
-         var urlpost18 = proxyurl + 'http://edumoreno27-001-site2.etempurl.com/GetNewsNoUserInformations2';
+         var urlpost18 = proxyurl + urlConection + '/GetNewsNoUserInformations2';
 
-         var urlpost11 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetHotelServices'
+         var urlpost11 = proxyurl + urlConection + '/GetHotelServices'
 
-         var urlpost12 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetMusicAction'
+         var urlpost12 = proxyurl + urlConection + '/GetMusicAction'
 
-         var urlpost13 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetMusicActionWithoutUser'
+         var urlpost13 = proxyurl + urlConection + '/GetMusicActionWithoutUser'
 
-         var urlpost14 = proxyurl +'http://edumoreno27-001-site2.etempurl.com/GetHotelServicesNoUser'
+         var urlpost14 = proxyurl + urlConection + '/GetHotelServicesNoUser'
             
          var UsuarioID = undefined;
          var RefreshToken = undefined;
