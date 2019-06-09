@@ -61,40 +61,39 @@
 
          var urlConection = 'http://edumoreno27-001-site2.etempurl.com'
          var MirrorId=1;
-         var proxyurl = "https://cors-anywhere.herokuapp.com/";
-         // var proxyurl = "";
-         var urlpost = proxyurl +  urlConection + '/GetGadgetStatusSmart';
+         //var proxyurl = "https://cors-anywhere.herokuapp.com/";
+         var urlpost = urlConection + '/GetGadgetStatusSmart';
 
-         var urlpost2 = proxyurl + urlConection + '/GetUser';
+         var urlpost2 = urlConection + '/GetUser';
 
-         var urlpost3 = proxyurl + urlConection + '/GetGadgetOrderSmart';
+         var urlpost3 = urlConection + '/GetGadgetOrderSmart';
 
-         var urlpost4 = proxyurl + urlConection + '/UpdateBooleans';
+         var urlpost4 = urlConection + '/UpdateBooleans';
 
-         var urlpost5 = proxyurl + urlConection + '/SaveDiaries';
-         var urlpost6 = proxyurl + urlConection + '/GetDiaries';
+         var urlpost5 = urlConection + '/SaveDiaries';
+         var urlpost6 = urlConection + '/GetDiaries';
 
-         var urlpost7 = proxyurl + urlConection + '/SaveDiaryInformations';
+         var urlpost7 = urlConection + '/SaveDiaryInformations';
 
-         var urlpost8 = proxyurl + urlConection + '/SaveEmailInformations';
+         var urlpost8 = urlConection + '/SaveEmailInformations';
 
-         var urlpost15 = proxyurl + urlConection + '/SaveNewsInformation';
+         var urlpost15 = urlConection + '/SaveNewsInformation';
 
-         var urlpost16 = proxyurl + urlConection + '/SaveNewsNoUserInformation';
+         var urlpost16 = urlConection + '/SaveNewsNoUserInformation';
 
-         var urlpost9 = proxyurl + urlConection + '/GetEmailInformations2';
+         var urlpost9 = urlConection + '/GetEmailInformations2';
 
-         var urlpost17 = proxyurl + urlConection + '/GetNewsInformations2';
+         var urlpost17 = urlConection + '/GetNewsInformations2';
 
-         var urlpost18 = proxyurl + urlConection + '/GetNewsNoUserInformations2';
+         var urlpost18 = urlConection + '/GetNewsNoUserInformations2';
 
-         var urlpost11 = proxyurl + urlConection + '/GetHotelServices'
+         var urlpost11 = urlConection + '/GetHotelServices'
 
-         var urlpost12 = proxyurl + urlConection + '/GetMusicAction'
+         var urlpost12 = urlConection + '/GetMusicAction'
 
-         var urlpost13 = proxyurl + urlConection + '/GetMusicActionWithoutUser'
+         var urlpost13 = urlConection + '/GetMusicActionWithoutUser'
 
-         var urlpost14 = proxyurl + urlConection + '/GetHotelServicesNoUser'
+         var urlpost14 = urlConection + '/GetHotelServicesNoUser'
             
          var UsuarioID = undefined;
          var RefreshToken = undefined;
@@ -2078,7 +2077,7 @@
                  $.ajax({
                      type: "POST",
                      //dataType: 'jsonp',
-                     url: proxyurl + "http://edumoreno27-001-site2.etempurl.com/SaveHotelServices",
+                     url: "http://edumoreno27-001-site2.etempurl.com/SaveHotelServices",
                      headers: { 'Content-Type': "application/json" },
                      data: enviar2,
                      success: function(mailsResult) {
