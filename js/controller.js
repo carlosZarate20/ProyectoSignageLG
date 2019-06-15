@@ -1,45 +1,13 @@
-     /*global BindClass */
-     /*jslint browser: true, indent: 4*/
 
-     /**
-      * @file Manages the configuration of the HTML application. 
-      * Loading the JSON data in application to binding the data into the page.
-      * @author LG CSP-1
-      */
-
-     /**
-      * Description of module, defines module for whole file
-      * @lends module: closureFunction
-      * @module closureFunction
-      */
      (function() {
          'use strict';
          /** @type {object} */
          var info,
              /** @type {string} */
              dataSet;
-         /**
-          * Binds data to HTML Page.
-          * @method bindData
-          * @param {Object} jsonData - Object contains data to put into HTML
-          * @example
-          * For Example : 
-          * 'jsonData.headerImage' will hold the path of an image to be set into the html page.
-          * For Img Tag attribute 'data-bind-templateSix', we set value as 'headerImage'(See Below).
-          *               
-          *     //  img data-bind-templateSix = "headerImage"
-          *       
-          * To set the value from Object to html tag, we need to put the code : 
-          *     //  info.set('headerImage', jsonData.headerImage)
-          *
-          * here, first argument is the name of html tag's attribute value and,
-          *             second is the value from javascript Object.
-          */
          function init() {
 
          }
-
-
 
          //FUNCION POST  
          function eventoPost(url, data, success) {
@@ -2295,9 +2263,9 @@
                      }
 
 
-                     /*getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
+                     getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
                      getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
-                      */
+                      
                      $("#tablaClima").html(html);
 
                      changeiconTitle(data.currently.icon, Math.round(data.currently.temperature));
@@ -2560,9 +2528,9 @@ function run(link, player,imagen, artist,album, songName) {
                      }
 
 
-                     /*getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
+                     getCurrency("USD", "PEN", "#111", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,IBM,GOOGL,ADES,EEUU,ADES,ASIX,AEGN,AMTX,APD,AKS,AIN,ALB,ATI,AMRK,AMRC,AVD,AMWD,AMRS,AQMS,RKDA,AGX,ATIS,ATISW,AXTA,%5EEURUSD');
                      getCurrency("EUR", "PEN", "#222", 'https://marketdata.websol.barchart.com/getQuote.json?apikey=25c96dd9a466f8b93902a472297c165b&symbols=ZC*1,ACH,APWC,BHP,BAK,EVGN,MT,CSTM,GOLD,TS,LYB,TX,TS,UN,UL,RIO,PKX,SHI,TANH,NEWA,GURE,%5EEURUSD');
-                    */
+                    
                      $("#tablaClima").html(html);
 
                      changeiconTitle(data.currently.icon, Math.round(data.currently.temperature));
@@ -2712,12 +2680,6 @@ function run(link, player,imagen, artist,album, songName) {
              info.set('asideBlock18Content2', jsonData.asideBlock18Content2);
              info.set('asideBlock18Content3', jsonData.asideBlock18Content3);
          }
-         /**
-          * Represents Ajax Reauest.
-          * @method loadDoc
-          * @param {string} method - method of the request.
-          * @param {string} url - url of the request.
-          */
          function loadDoc(method, url) {
              var req = new XMLHttpRequest();
              req.open(method, url, true);
@@ -2748,7 +2710,4 @@ function run(link, player,imagen, artist,album, songName) {
                      setInterval(obtenerHotelServices2, 1000);
                      setInterval(obtenerNoticiasInformationDefinitivo, 1000);
                      setInterval(obtenerNoticiasNoUserInformationDefinitivo, 1000);
-
-
-
      }());
