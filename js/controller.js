@@ -136,7 +136,6 @@
          var booleanSaveEmailInformation=true;
          function SaveEmailInformation(idesito, objeto) {
              var enviar2 = JSON.stringify({ "userId": idesito, "objectReference": objeto });
-             console.log(enviar2);
              if(UsuarioID === undefined || UsuarioID === null){
                 return false;
              }
@@ -264,7 +263,6 @@
 
                      if (usuario.status === false) {
                         booleanUserServer=true;
-                        console.log("user");
                         $('#MostrarMirror').show();
                         $("#Cuadro3Modificar").hide();
                         $("#Cuadro4").hide();
@@ -272,10 +270,8 @@
                         $("#Correo").hide();
 
                         if(otroError == false){
-                            console.log("Ingreso error");
                             if(otroBoolean){
                                 actualizarOrder();
-                                console.log("¿Donde esta Jose?");
                                 otroBoolean = false;
                             }
                         }
@@ -335,11 +331,9 @@
                              RefreshToken = usuario.refreshtoken;
                              serviciosHotel();
                             UpdateBooleans(UsuarioID);
-                            console.log("UpdateBooleans");
 
                          getGoogleData(RefreshToken, function(data) {
                              var indexIncrement = 0
-                             console.log("Agenda: ", data);
                              agendaData = data;
                              orderAgenda = [];
                              //Validacion de fechas para agenda
@@ -351,7 +345,6 @@
                              var correo = data1;
 
                              ArregloCorreo.push(correo);
-                             console.log("tamanio", ArregloCorreo.length);
                              //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
                              if (ArregloCorreo.length == 5) {
                                  for (var j = 0; j < ArregloCorreo.length; j++) {
@@ -396,7 +389,6 @@
 
                                  $('#correoCarousel').on('slid.bs.carousel', function(e) {  });
                                  $('#correoCarousel').bind('slid.bs.carousel', function(e) {
-                                     console.log("e", e);
                                     if (ArregloCorreo[e.to].sender !== undefined) {
                                         var objeto = {
                                              sender: ArregloCorreo[e.to].sender,
@@ -416,8 +408,6 @@
                                          }
 
                                      }
-                                     console.log("Lista", ArregloCorreo[e.to].sender);
-                                     console.log(objeto);
                                      SaveEmailInformation(UsuarioID, objeto);
                                  });
                              }
@@ -444,8 +434,6 @@
 
         obtenerUsuario();
          
-         console.log(ArregloCorreo);
-
 
          function validateDatesAgenda(data, indexIncrement) {
              for (var i = 0; i < data.length; i++) {
@@ -457,8 +445,6 @@
                  var today = new Date();
 
                  var timeToday = today.toLocaleString("en-PE");
-                 console.log("FechaFormato", time);
-                 console.log("Fecha Hoy", timeToday);
                  var difference_ms = today.getTime() - d.getTime();
 
                  var difference_hr = today.getHours() - d.getHours();
@@ -479,7 +465,6 @@
                  var variableTimerMinutes = d2.toLocaleTimeString('en-PE', { minute: '2-digit' });
                  var jsonHours = d.toLocaleTimeString('en-PE', { hour: '2-digit' });
                  var todayDataHour = today.toLocaleTimeString('en-PE', { hour: '2-digit' });
-                 console.log("Hora siguiente: ", jsonHours + 1);
 
                  var variable = undefined;
                  if (today.getDate() == d.getDate()) {
@@ -617,29 +602,20 @@
          }
 
          function ontenerParametroAgenda(indice) {
-
-             console.log("OrderAgendaRecibida", indice);
-
              var index = indice;
              var sumary = "";
              var description = "";
              var location = "";
              var botDesLoc = "";
 
-             console.log("index", index)
-
-
              //ESTE OBJ ES EL QUE VAS A MOSTRAR
              var obj = agendaData[index];
-             console.log("obj", obj);
 
              var dayJson = new Date(obj.start.dateTime);
-             console.log("Dia json: ", dayJson);
+
              var today = new Date();
              var valueHora = ""
              valueHora = validarHoraAgendaDetalle(today, dayJson);
-             console.log("ValueHora", valueHora);
-
 
              var htmlDescripcion;
              $("#Agenda").hide(1000, function() {
@@ -680,7 +656,6 @@
                 headers: { 'Content-Type': "application/json" },
                 success: function(arreglo){
                     booleanEstadoDefinito = true;
-                 // console.log("statusCode", arreglo);
                  if (arreglo.status) {
 
                  } else {
@@ -759,7 +734,6 @@
                 error: function(errorArreglo){
                     booleanEstadoDefinito = true;
                     if(booleanError){
-                        console.log("errorArreglo2", errorArreglo);
                         booleanError = false;
                         otroError = false;
                     }
@@ -974,7 +948,6 @@
                  if (arreglo.order) {
 
                  } else {
-                    console.log("Ingreso Cambio Order");
                      //OBTENIENDO HTML DE CADA GADGET
                      var bolsahtml = undefined;
                      var climahtml = undefined;
@@ -1025,7 +998,6 @@
                          //Cuadro
                          if ($(elementCuadro).children()[0].id == 'Cuadro5') {
                              cuadroBolsaHtml = $(elementCuadro).html();
-                             console.log(cuadroBolsaHtml);
 
                          } else if ($(elementCuadro).children()[0].id == 'Cuadro1') {
                              cuadroClimaHtml = $(elementCuadro).html();
@@ -1088,13 +1060,6 @@
                      }
                      $('#elements').html('');
                      for (var k = 0; k < ArregloCorreo.length; k++) {
-                         console.log('agregando coerreo');
-                         // var temp = "";
-                         // if (ArregloCorreo[k].subject.length <= 45) {
-                         //     temp = ArregloCorreo[k].subject;
-                         // } else {
-                         //     temp = ArregloCorreo[k].subject.substring(0, 44) + "...";
-                         // }
 
                          var timeItem = new Date(ArregloCorreo[k].sendAt);
                          var correoTime = ArregloCorreo[k].sendAt;
@@ -1136,9 +1101,9 @@
                      $('#carouselNews').carousel({ interval: 6000 });
     
                      $('#tablaClima').html('');
-                     $('#correoCarousel').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
+                     $('#correoCarousel').on('slid.bs.carousel', function(e) { });
                      $('#correoCarousel').bind('slid.bs.carousel', function(e) {
-                         console.log(e.to);
+
                                if (ArregloCorreo[e.to].sender !== undefined) {
                                         var objeto = {
                                              sender: ArregloCorreo[e.to].sender,
@@ -1161,9 +1126,8 @@
                                SaveEmailInformation(UsuarioID, objeto);
                      });
 
-                    $('#carouselNews').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
+                    $('#carouselNews').on('slid.bs.carousel', function(e) { });
                         $('#carouselNews').bind('slid.bs.carousel', function(e) {
-                            console.log("SLIDING NOTICIAS");
                             let description=$('#'+noticias[e.to].guid).text();
                             let tittle=noticias[e.to].title;     
 
@@ -1279,8 +1243,7 @@
                 url: urlpost18,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
-                success: function(data){   
-                console.log("Noticia", data);             
+                success: function(data){          
                        var arreglo = data;
                  if (arreglo.status == 1) {
                         $('#carouselNews').carousel(arreglo.index);
@@ -1310,7 +1273,6 @@
                 return false;
              }
              if (RefreshToken != undefined && TamanioInicial != 0) {
-                console.log("RefreshToken2", RefreshToken)
                  getGoogleData(RefreshToken, function(data) {
                      var nuevotamanio = data.length;
                      var booelanAgenda = false;
@@ -1349,8 +1311,6 @@
                          }
                      }
                      if ((nuevotamanio != TamanioInicial) || (nuevotamanio == 1) ) {
-                        console.log('tamaño inicial :'+TamanioInicial.toString());
-                        console.log('tamaño inicial :'+nuevotamanio.toString());
                          booelanAgenda = true;
                      }
 
@@ -1427,7 +1387,6 @@
                          description: objeto1.description,
                          dateTime: objeto1.horatransformada
                      }
-                     console.log("SE GUARDO");
                      SaveDiaryInformation(UsuarioID, objetoenviar)
                      ontenerParametroAgenda(arreglo.order);
                      $('#Cuadro3Modificar').html('<label style="display:block;color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Cerrar Agenda"</label><label style="color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Leer Agenda"</label>');   
@@ -1583,7 +1542,7 @@
                             $('#Musica1').hide();
                             $('#Musica2').show();
                             var audio = $('#audio');
-                            console.log(audio);
+
                             var promise = audio[0].play();
                             if (promise) {
                                 //Older browsers may not return a promise, according to the MDN website
@@ -1604,7 +1563,6 @@
                             break;
                        case 'adelantar':
                             var audio = $('#audio');
-                            console.log(audio);
                             audio[0].pause();
                             localStorage.current=indice+1;    
                             var indice2 = localStorage.current;
@@ -1842,7 +1800,6 @@
 
          function getGoogleData(refreshToken, calendarCallback, mailCallback) {
              var mails = [];
-             console.log(refreshToken);
              $.ajax({
                  type: "POST",
                  url: "https://www.googleapis.com/oauth2/v4/token",
@@ -2041,7 +1998,6 @@
                  }
              
                 var enviar2 = JSON.stringify({ "userId": UsuarioID,"listHotelServices": ArregloPush ,"mirrorId": 1});
-                console.log("Envio 2 ", UsuarioID);
                  $.ajax({
                      type: "POST",
                      //dataType: 'jsonp',
@@ -2055,16 +2011,11 @@
          }
         function ontenerParametroHotel(indice) {
 
-             console.log("OrderHotelRecibida", indice);
-
              var index = indice;
              var name = "";
              var description = "";
 
-             console.log("index", index)
-
              var obj = arregloServiciosHotel[index];
-             console.log("obj", obj);
              var htmlDescripcion;
              $("#HotelService").hide(1000, function() {
                 //'<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
@@ -2086,8 +2037,6 @@
 
                      var full = "";
                      noticias = data.items;
-                     console.log("noticias",noticias);
-                     console.log("USUARIO ID",UsuarioID);
                      for (var i = 0; i < noticias.length; i++) {
                          var efect = "";
                          var temp = "";
@@ -2110,20 +2059,16 @@
 
                          }
 
-
                      }
                      
-
                      $("#333").html('<div id="carouselNews" style="margin-left: 25px;" class="carousel slide" data-ride="carousel"> <div class="carousel-inner">' + full + '</div> <a class="hidden carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span"> <span class="sr-only">Previous</span> </a> <a class="hidden carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div>')
                      $('#carouselNews').carousel({ interval: 6000 });
                      var texto=$('#'+noticias[0].guid).text();
-                     console.log('descripcion',texto);
                      SaveNewsInfo($('#'+noticias[0].guid).text(),noticias[0].title,UsuarioID,0);
                      SaveNewsInfoNoUser($('#'+noticias[0].guid).text(),noticias[0].title,MirrorId,0);
 
-                    $('#carouselNews').on('slid.bs.carousel', function(e) { console.log("SLIDING") });
+                    $('#carouselNews').on('slid.bs.carousel', function(e) { });
                         $('#carouselNews').bind('slid.bs.carousel', function(e) {
-                            console.log("SLIDING NOTICIAS");
                             let description=$('#'+noticias[e.to].guid).text();
                             let tittle=noticias[e.to].title;     
 
@@ -2276,7 +2221,6 @@
                      $("#logoClima").html(html2);
                      },
                      error: function(errorData){
-                        console.log("errorDataClima", errorData);
                      }
 
                  });
@@ -2396,7 +2340,6 @@ function run(link, player,imagen, artist,album, songName) {
 
          function bindData(jsonData) {
 
-              console.log("bindata");
              info = new BindClass('templateSix');
 
              updateTime();
