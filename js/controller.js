@@ -277,14 +277,14 @@
                         }
                      }else{
                         obtenerUsuario();
-                        $("#Clima").show();
+                        /*$("#Clima").show();
                         $("#Hora").show();
-                        $('#Cuadro3Modificar').hide();
-                        $('#Cuadro4').hide();
+                        // $('#Cuadro3Modificar').hide();
+                        // $('#Cuadro4').hide();
                         $('#Bolsa').show();
                         $('#Cuadro6Modificar').show();
                         $('#Cuadro7Modificar').show();
-                        $('#Cuadro8').show();
+                        $('#Cuadro8').show();*/
                      }
                      booleangetAgendaUser=true;
                 },
