@@ -1434,9 +1434,9 @@
 
                  } else if (arreglo.respuesta == 2) {
                      $('#Agenda2').hide();
-                     $('#Agenda3').hide();
+                     // $('#Agenda3').hide();
                      $('#Agenda4').show();
-                     //$('#Agenda').show();
+                     $('#Agenda').show();
                      $('#Cuadro3Modificar').html('<label style="display:block;color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Ver Agenda"</label>')  
 
                  } else {
