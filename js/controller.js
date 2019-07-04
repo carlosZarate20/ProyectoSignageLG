@@ -32,36 +32,36 @@
          //var proxyurl = "https://cors-anywhere.herokuapp.com/";
          var urlpost = urlConection + '/GetGadgetStatusSmart';
 
-         var urlpost2 = urlConection + '/GetUser';
+         var urlGetUser = urlConection + '/GetUser';
 
-         var urlpost3 = urlConection + '/GetGadgetOrderSmart';
+         var urlGetGadgetOrder = urlConection + '/GetGadgetOrderSmart';
 
-         var urlpost4 = urlConection + '/UpdateBooleans';
+         var urlUpdateBooleans = urlConection + '/UpdateBooleans';
 
-         var urlpost5 = urlConection + '/SaveDiaries';
-         var urlpost6 = urlConection + '/GetDiaries';
+         var urlSaveDiaries = urlConection + '/SaveDiaries';
+         var urlGetDiaries = urlConection + '/GetDiaries';
 
-         var urlpost7 = urlConection + '/SaveDiaryInformations';
+         var urlSaveDiaryInformations = urlConection + '/SaveDiaryInformations';
 
-         var urlpost8 = urlConection + '/SaveEmailInformations';
+         var urlSaveEmailInformations = urlConection + '/SaveEmailInformations';
 
-         var urlpost15 = urlConection + '/SaveNewsInformation';
+         var urlSaveNewsInfo = urlConection + '/SaveNewsInformation';
 
-         var urlpost16 = urlConection + '/SaveNewsNoUserInformation';
+         var urlSaveNewsNoUserInfo = urlConection + '/SaveNewsNoUserInformation';
 
-         var urlpost9 = urlConection + '/GetEmailInformations2';
+         var urlGetEmailInfo = urlConection + '/GetEmailInformations2';
 
-         var urlpost17 = urlConection + '/GetNewsInformations2';
+         var urlGetNewsInfo = urlConection + '/GetNewsInformations2';
 
-         var urlpost18 = urlConection + '/GetNewsNoUserInformations2';
+         var urlGetNewsNoUserInfo = urlConection + '/GetNewsNoUserInformations2';
 
-         var urlpost11 = urlConection + '/GetHotelServices'
+         var urlGetHotelServices = urlConection + '/GetHotelServices'
 
-         var urlpost12 = urlConection + '/GetMusicAction'
+         var urlGetMusicAction = urlConection + '/GetMusicAction'
 
-         var urlpost13 = urlConection + '/GetMusicActionWithoutUser'
+         var urlGetMusicActionWithoutUser = urlConection + '/GetMusicActionWithoutUser'
 
-         var urlpost14 = urlConection + '/GetHotelServicesNoUser'
+         var urlGetHotelServicesWithoutUser = urlConection + '/GetHotelServicesNoUser'
             
          var UsuarioID = undefined;
          var RefreshToken = undefined;
@@ -89,7 +89,7 @@
                 booleanUpdateBooleans=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost4,
+                url: urlUpdateBooleans,
                 data: enviar2,
                 headers: { 'Content-Type': "application/json" },
                 success: function(arreglo){                  
@@ -117,7 +117,7 @@
                 booleanSaveDiaryInformation=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost7,
+                url: urlSaveDiaryInformations,
                 data: enviar2,
                 headers: { 'Content-Type': "application/json" },
                 success: function(arreglo){                  
@@ -143,7 +143,7 @@
                 booleanSaveEmailInformation=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost8,
+                url: urlSaveEmailInformations,
                 data: enviar2,
                 headers: { 'Content-Type': "application/json" },
                 success: function(arreglo){                  
@@ -170,7 +170,7 @@
                 booleanSaveNewsInfo=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost15,
+                url: urlSaveNewsInfo,
                 data: enviar2,
                 headers: { 'Content-Type': "application/json" },
                 success: function(arreglo){                  
@@ -195,7 +195,7 @@
                 booleanSaveNewsInfoNoUser=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost16,
+                url: urlSaveNewsNoUserInfo,
                 data: enviar2,
                 headers: { 'Content-Type': "application/json" },
                 success: function(arreglo){                  
@@ -225,7 +225,7 @@
                 booleanGuardarIndexAgenda=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost5,
+                url: urlSaveDiaries,
                 data: enviar3,
                 headers: { 'Content-Type': "application/json" },
                 success: function(arreglo){                  
@@ -253,7 +253,7 @@
                 booleangetAgendaUser=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost2,
+                url: urlGetUser,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(data){                  
@@ -277,14 +277,6 @@
                         }
                      }else{
                         obtenerUsuario();
-                        /*$("#Clima").show();
-                        $("#Hora").show();
-                        // $('#Cuadro3Modificar').hide();
-                        // $('#Cuadro4').hide();
-                        $('#Bolsa').show();
-                        $('#Cuadro6Modificar').show();
-                        $('#Cuadro7Modificar').show();
-                        $('#Cuadro8').show();*/
                      }
                      booleangetAgendaUser=true;
                 },
@@ -308,7 +300,7 @@
                 booleanObtenerUsuario=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost2,
+                url: urlGetUser,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(data){                  
@@ -317,13 +309,11 @@
                      UsuarioID = usuario.id;
 
                      if(UsuarioID === undefined){
-                            // booleanUserServer2 = false;
                             serviciosHotel();
                             if(booleanShowMirror){
                             $('#MostrarMirror').show();
                             booleanShowMirror = false;
                         }
-                     //UpdateBooleans(UsuarioID);
                                 
                         }else{
                             otroBoolean=true;
@@ -344,7 +334,6 @@
                              var indexIncrement = 0
                              agendaData = data;
                              orderAgenda = [];
-                             //Validacion de fechas para agenda
                              validateDatesAgenda(data, indexIncrement);
                              TamanioInicial = orderAgenda.length;
                              GuardarIndexAgenda(UsuarioID, orderAgenda);
@@ -353,7 +342,6 @@
                              var correo = data1;
 
                              ArregloCorreo.push(correo);
-                             //var string = '<div class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">'+ temp +'</label> <label class="carrouselFrom" style="word-break: break-word; float: left; display: inline-block; margin-left: 5px;">'+ correo.sender +'</label><label class="carrouselDate">'+ fecha_formateada +'</label><label class="carrouselDesc" >'+ correo.message +'</label></div>';
                              if (ArregloCorreo.length == 5) {
                                  for (var j = 0; j < ArregloCorreo.length; j++) {
                                     
@@ -364,7 +352,7 @@
                                      var dia = timeItem.getDate();
                                      var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
                                      var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
-                                     //var string = '<div id="email' + j.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style="word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[j].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc" >' + ArregloCorreo[j].message + '</label></div>';
+                                     
                                      var string = '<div id="email' + j.toString() +'" class="carousel-item"> <label style="color: white;font-family: b-medium;font-size: 20px;line-height: 26px;overflow: hidden;width: 100%;max-height: 50px;text-overflow: ellipsis;/* float: left; */text-align: justify;"> '+ArregloCorreo[j].subject+' </label> <div style="position: relative;display: inline-block;width: 100%;"> <div style="display: inline; "> <div class="carrouselFrom" style="overflow: hidden;width: 65%; max-height: 50px;;text-overflow: ellipsis;float: left;">' + ArregloCorreo[j].sender + '</div></div><div style="display: inline-block;float: right;"> <label class="carrouselDate">' + fecha_formateada + '</label> </div> </div> <div> <label class="carrouselDesc">' + ArregloCorreo[j].message + '</label> </div> </div>';
                                      $("#elements").append(string);
                                      $("#elements .carousel-item").first().addClass('active');
@@ -946,7 +934,7 @@
                 booleanobtenerOrderfinitivo=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost3,
+                url: urlGetGadgetOrder,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(data){                  
@@ -1077,7 +1065,6 @@
                          var formatedTime = timeItem.toLocaleTimeString('en-PE', { hour: '2-digit', minute: '2-digit', hour12: true });
                          var fecha_formateada = dias[timeItem.getUTCDay()] + ', ' + formatedTime;
 
-                         //var string = '<div id="email' + k.toString() + '" class="carousel-item"><label class="carrouselAsunto" style = "color: white; font-family: b-medium; font-size: 20px;">' + temp + '</label> <label class="carrouselFrom" style"word-break: break-all; float: left; display: inline-block; margin-left: 5px;">' + ArregloCorreo[k].sender + '</label><label class="carrouselDate">' + fecha_formateada + '</label><label class="carrouselDesc">' + ArregloCorreo[k].message + '</label></div>';
                          var string = '<div id="email' + k.toString() +'" class="carousel-item"> <label style="color: white;font-family: b-medium;font-size: 20px;line-height: 26px;overflow: hidden;width: 100%;max-height: 50px;text-overflow: ellipsis;/* float: left; */text-align: justify;"> '+ArregloCorreo[k].subject+' </label> <div style="position: relative;display: inline-block;width: 100%;"> <div style="display: inline; "> <div class="carrouselFrom" style="overflow: hidden;width: 65%; max-height: 50px;;text-overflow: ellipsis;float: left;">' + ArregloCorreo[k].sender + '</div></div><div style="display: inline-block;float: right;"> <label class="carrouselDate">' + fecha_formateada + '</label> </div> </div> <div> <label class="carrouselDesc">' + ArregloCorreo[k].message + '</label> </div> </div>';
                          $("#elements").append(string);
                          $("#elements .carousel-item").first().addClass('active');
@@ -1163,7 +1150,6 @@
 
          }
 
-         // obtenerOrderfinitivo();
          //EJECUTO CADA SEGUNDO LA FUNCION PARA ACTUALIZAR EL ORDEN DE LOS GADGET
 
          var booleanobtenerEmailInformationDefinitivo=true;
@@ -1177,7 +1163,7 @@
                 booleanobtenerEmailInformationDefinitivo=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost9,
+                url: urlGetEmailInfo,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(arreglo){                  
@@ -1213,7 +1199,7 @@
                 booleanobtenerNoticiasInformationDefinitivo=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost17,
+                url: urlGetNewsInfo,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(data){                
@@ -1248,7 +1234,7 @@
                 booleanobtenerNoticiasNoUserInformationDefinitivo=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost18,
+                url: urlGetNewsNoUserInfo,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(data){          
@@ -1378,7 +1364,7 @@
                 booleanobtenerDiaries=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost6,
+                url: urlGetDiaries,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(data){                
@@ -1387,7 +1373,6 @@
                  if (arreglo.respuesta == 1) {
                      $('#Agenda2').show();
                      $('#C3').show();
-                     // $('#Agenda4').hide();
                      var objeto1 = agendaData[arreglo.order];
                      var objetoenviar = {
                          summary: objeto1.summary,
@@ -1401,7 +1386,6 @@
 
                  } else if (arreglo.respuesta == 2) {
                      $('#Agenda2').hide();
-                     // $('#Agenda3').hide();
                      $('#Agenda4').show();
                      $('#Agenda').show();
                      $('#Cuadro3Modificar').html('<label style="display:block;color: white; font-family: b-medium; font-size: 17px; display: inline-block;">"Ver Agenda"</label>')  
@@ -1409,8 +1393,6 @@
                  } else {
 
                  }
-
-
                     booleanobtenerDiaries=true;
                 },
                 error: function(errorArreglo){
@@ -1431,11 +1413,11 @@
                 return false;
              }
 
-                  if(booleanobtenerHotelServices){
+                if(booleanobtenerHotelServices){
                 booleanobtenerHotelServices=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost11,
+                url: urlGetHotelServices,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(data){                
@@ -1480,7 +1462,7 @@
                 booleanobtenerHotelServices2=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost14,
+                url: urlGetHotelServicesWithoutUser,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(data){                
@@ -1530,7 +1512,7 @@
                 booleanObtenerAccionMusica=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost12,
+                url: urlGetMusicAction,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(data){                
@@ -1558,9 +1540,6 @@
                             }
                             break;
                         case 'pausar':
-
-                            // var inform = new BindClass('templateSix');
-                            // inform.set('NowPlayingImage',imagen[0] );
                             var audio = $('#audio');
                             var promise = audio[0].pause();
                             if (promise) {
@@ -1596,14 +1575,9 @@
                                 inform.set('asideBlock18Content1',songName[indice2] );
                                 audio[0].play();
                             }
-
-                          
                             
                             break;  
                         case 'retroceder':
-                            // var inform = new BindClass('templateSix');
-                            // inform.set('NowPlayingImage',imagen[0] );
-
                             var audio = $('#audio');
                             audio[0].pause();
                             localStorage.current=indice-1;    
@@ -1631,12 +1605,6 @@
                                 audio[0].play();
                             }
 
-                   
-                            // var promise = audio[0].stop();
-                            // if (promise) {
-                            //     //Older browsers may not return a promise, according to the MDN website
-                            //     promise.catch(function(error) { console.error(error); });
-                            // }
                             break; 
                         }
 
@@ -1660,13 +1628,11 @@
          function ObtenerAccionMusica2() {
 
              var enviar = JSON.stringify({ "mirrorId": 1 });
-
-
                 if(booleanObtenerAccionMusica2){
                 booleanObtenerAccionMusica2=false;
                 $.ajax({
                 type: 'POST',
-                url: urlpost13,
+                url: urlGetMusicActionWithoutUser,
                 data: enviar,
                 headers: { 'Content-Type': "application/json" },
                 success: function(data){                
@@ -1695,9 +1661,6 @@
 
                             break;
                         case 'pausar':
-
-                            // var inform = new BindClass('templateSix');
-                            // inform.set('NowPlayingImage',imagen[0] );
                             var audio = $('#audio');
                             var promise = audio[0].pause();
                             if (promise) {
@@ -1708,9 +1671,6 @@
 
                             break;
                         case 'adelantar':
-                            // var inform = new BindClass('templateSix');
-                            // inform.set('NowPlayingImage',imagen[0] );
-
                             var audio = $('#audio');
                             audio[0].pause();
                             localStorage.current=indice+1;    
@@ -1737,19 +1697,8 @@
                                 inform.set('asideBlock18Content1',songName[indice2] );
                                 audio[0].play();
                             }
-
-                            // var promise = audio[0].stop();
-                            // if (promise) {
-                            //     //Older browsers may not return a promise, according to the MDN website
-                            //     promise.catch(function(error) { console.error(error); });
-                            // }
                             break;  
                         case 'retroceder':
-                            
-
-                            // var inform = new BindClass('templateSix');
-                            // inform.set('NowPlayingImage',imagen[0] );
-
                             var audio = $('#audio');
                             audio[0].pause();
                             localStorage.current=indice-1;    
@@ -1777,11 +1726,6 @@
                                 audio[0].play();
                             }
 
-                            // var promise = audio[0].stop();
-                            // if (promise) {
-                            //     //Older browsers may not return a promise, according to the MDN website
-                            //     promise.catch(function(error) { console.error(error); });
-                            // }
                             break; 
                         }
 
@@ -1799,9 +1743,6 @@
              }
         
          }
-        
-        
-
         
          var clientId = "541429281292-8v02kma7fl8fhmiih66kdqnlh8b6opmn.apps.googleusercontent.com";
          var clientSecret = "XbyAoBAIlUlqBbS1Lal0GrAF";
@@ -1876,8 +1817,6 @@
                                  }
                              }
                              constArray = listaArrayCorrect.sort((a, b) => new Date(a.start.dateTime) - new Date(b.start.dateTime));
-                             //var constArray = _.orderBy(listaArrayCorrect, ['start.dateTime']);
-                             //var constArray = listaArrayCorrect.sort((a, b) => a['start.dateTime'] - b['start.dateTime']);
                              calendarCallback(constArray);
 
                          }
@@ -1889,7 +1828,6 @@
                          success: function(mailsResult) {
                              var messages = mailsResult.messages;
                              var max = messages.length > 5 ? 5 : messages.length;
-                             //var max = 1;
                              var arreglocorreos = []
                              for (var i = 0; i < max; i++) {
                                  var objetoauxiliar = undefined;
@@ -1915,8 +1853,6 @@
          }
 
          function serializeMail(result, id) {
-             // console.log(result);
-
              var object = { id: "", sender: "", subject: "", sendAt: "", message: "" };
              object.id = findValue(result.payload.headers, "From");
              object.sender = findValue(result.payload.headers, "From");
@@ -1970,9 +1906,6 @@
                  dataType: 'json',
              }).done(function(data) {
                  var servicio = data.result.list;
-                 /*for(var i = servicio.length-5; i< servicio.length; i++){
-
-                 }*/
                  var ArregloPush = [];
                  for (var i = 0; i < 4; i++) {
                      arregloServiciosHotel.push(servicio[i]);
@@ -2008,7 +1941,6 @@
                 var enviar2 = JSON.stringify({ "userId": UsuarioID,"listHotelServices": ArregloPush ,"mirrorId": 1});
                  $.ajax({
                      type: "POST",
-                     //dataType: 'jsonp',
                      url: "http://edumoreno27-001-site2.etempurl.com/SaveHotelServices",
                      headers: { 'Content-Type': "application/json" },
                      data: enviar2,
@@ -2026,7 +1958,6 @@
              var obj = arregloServiciosHotel[index];
              var htmlDescripcion;
              $("#HotelService").hide(1000, function() {
-                //'<div> <label  style = "color: white; font-family: b-medium; font-size: 24px; display: inline-block;">' + valueHora + ": " + '<label style = "color: white; font-family: b-medium; font-size: 24px; margin-left: 25px; margin-left: 5px;">' + obj.summary + "</label></div>" + "<div><p>" + obj.location + "</p></div>" + "<div><p>" + sumary + "</p></div>";
                 htmlDescripcion = '<div> <label  style = "color: white; font-family: b-light-condensed; font-size: 24px; margin-left: 30px; display: inline-block;">' + obj.name + '</label> </div><div><label  style = "color: white; font-family: b-light-condensed; font-size: 20px; margin-left: 30px; display: inline-block; text-align : justify; white-space: normal;">' + obj.description + "</label></div>" ;
                 $('#HotelService2').html(htmlDescripcion);
              });
@@ -2059,14 +1990,10 @@
                         desc = div.textContent || div.innerText || "";
 
                          if (i == 0) {
-                             //full = full + '<div class="carousel-item active"> <img src="'+ foto +'" style="height: 250px; width:220px; float:left;" /> <label style ="color: white;display:table;font-size: 20px;margin-left: 234px;margin-top:-6px;font-family: &quot;b-medium&quot;height: 87px; word-wrap:break-word;"> ' + title +' </label> <label style = "display:block; word-wrap:break-word; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 234px;margin-top:-7px; height: 100px;">'+ desc+' </label> </div>';
                              full = full + '<div class="carousel-item active"><div style="position: relative;"><div style="display: inline-block;width: 189px;height: 178px;float: left;"><img src="' + foto + '" style="text-align:justify;height: 100%;width: 100%;"></div><div style="display: table;max-width: -114px; width: 56%;"><div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right;display: inline-block;/* margin-left: 203px; *//* margin-top: -153px; *//* white-space: normal; *//* text-align : justify; */line-height: 26px;height: 80px;overflow: hidden;padding-left:15px;">'+title+'</div><div id="'+noticiaid+'" style="padding-left:15px;text-align:justify;color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;/* margin-left: 203px; *//* margin-top: -55px; *//* height: 63px; */float: right;height: 95px;">' + desc + '</div></div></div></div>';
                          } else {
-                             //full = full + '<div class="carousel-item"> <img src="'+ foto +'" style="height: 250px; width:220px; float:left;" /> <label style ="color: white;display:table;font-size: 20px;margin-left: 234px;margin-top:-6px;font-family: &quot;b-medium&quot; height: 87px; word-wrap:break-word;"> ' + title +' </label> <label style = "display:block; color: white; font-family: &quot;b-light-condensed&quot;; margin-left: 234px;margin-top:-7px; height: 100px; word-wrap:break-word;">'+ desc+' </label> </div>';
                              full = full + '<div class="carousel-item"><div style="position: relative;"><div style="display: inline-block;width: 189px;height: 178px;float: left;"><img src="' + foto + '" style="text-align:justify;height: 100%;width: 100%;"></div><div style="display: table;max-width: -114px; width: 56%;"><div style="color: white;font-size: 20px;font-family: &quot;b-medium&quot;;float: right;display: inline-block;/* margin-left: 203px; *//* margin-top: -153px; *//* white-space: normal; *//* text-align : justify; */line-height: 26px;height: 80px;overflow: hidden;padding-left:15px;">'+title+'</div><div id="'+noticiaid+'" style="padding-left:15px;text-align:justify;color: white;font-size: 14px;font-family: &quot;b-light-condensed&quot;;/* margin-left: 203px; *//* margin-top: -55px; *//* height: 63px; */float: right;height: 95px;">' + desc + '</div></div></div></div>';
-
                          }
-
                      }
                      
                      $("#333").html('<div id="carouselNews" style="margin-left: 25px;" class="carousel slide" data-ride="carousel"> <div class="carousel-inner">' + full + '</div> <a class="hidden carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span"> <span class="sr-only">Previous</span> </a> <a class="hidden carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div>')
@@ -2130,7 +2057,7 @@
                      crossDomain: true,
                      dataType: 'jsonp',
                      success: function(data){
-                    infoWeather.set('asideBlock11Content2', "↑" + changeicon2(data.daily.data[0].icon, Math.round(data.daily.data[0].temperatureMax)));
+                     infoWeather.set('asideBlock11Content2', "↑" + changeicon2(data.daily.data[0].icon, Math.round(data.daily.data[0].temperatureMax)));
                      infoWeather.set('asideBlock11Content3', "↓" + changeicon2(data.daily.data[0].icon, Math.round(data.daily.data[0].temperatureMin)));
 
                      function changeiconTitle(icon, temp) {
@@ -2159,9 +2086,6 @@
                                  return infoWeather.set('asideBlock11Content1', "res/images/weather_wind.png");
                          }
                      }
-
-
-
 
                      function changeicon(icon, temp) {
                          return temp + "°";
@@ -2232,19 +2156,12 @@
                      }
 
                  });
-                 // .done(function(data) {
-
-                    
-
-                 // });
 
          }
-
 
          function getCurrency(from, to, textdesign, urls) {
              $.ajax({
                      method: "GET",
-                     //url: "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency="+from+"&to_currency="+to+"&apikey=2AS9DR6NX2GY2SW5",
                      url: urls,
 
                      crossDomain: true,
@@ -2288,13 +2205,6 @@
          }
 
 
-
-         // $('.carousel').bind('slid', function (e) {
-         //      console.log("cambio el slide");
-         // })
-
-         // alert("invoked");
-
         var playlist = ["/music/musica_lg/musica1.mp3", "/music/musica_lg/musica2.mp3", "/music/musica_lg/musica3.mp3", "/music/musica_lg/musica4.mp3","/music/musica_lg/musica5.mp3"];
         var imagen = ["/music/album/imagen1.jpg", "/music/album/imagen2.jpg", "/music/album/imagen3.jpg", "/music/album/imagen4.jpg","/music/album/imagen5.jpg"];
         var artist = ["System of a Down", "Audioslave", "Queen", "Guns N' Roses","Maroon 5"];
@@ -2308,7 +2218,6 @@
          
             var len = playlist.length;
             audio[0].volume = .80;
-            // audio[0].play();
             audio[0].addEventListener('ended', function (e) {
              var c = Number(localStorage.current);
             var link = playlist[0];
@@ -2331,15 +2240,12 @@
         });
 }
 function run(link, player,imagen, artist,album, songName) {
-    // console.log(artist, songName);
     player.src = link;
     var inform = new BindClass('templateSix');
     inform.set('NowPlayingImage',imagen );
     inform.set('asideBlock17Content2',artist );
     inform.set('asideBlock17Content3',album );
     inform.set('asideBlock18Content1',songName );
-    // document.getElementById("playerArtist").innerHTML = artist;
-    // document.getElementById("playerSong").innerHTML = songName;
     player.load();
     player.play();
 }
@@ -2369,20 +2275,10 @@ function run(link, player,imagen, artist,album, songName) {
              var yyy = date.getFullYear();
              var fecha_formateada = dias[date.getUTCDay()] + ', ' + dia + ' de ' + meses[mes];
 
-
-
-
-
              var dateDay = fecha_formateada;
 
 
              info.set('asideBlock1Content3', dateDay);
-
-             //  info.set('asideBlock1Content3', jsonData.asideBlock1Content3);
-
-
-
-                         
 
              $.ajax({
                      method: "GET",
@@ -2422,9 +2318,6 @@ function run(link, player,imagen, artist,album, songName) {
                                  return info.set('asideBlock11Content1', jsonData.weather_sleet);
                          }
                      }
-
-
-
 
                      function changeicon(icon, temp) {
                          return temp + "°";
